@@ -1,0 +1,49 @@
+#pragma once
+
+#ifndef _SYSTEMCLASS_H_
+#define _SYSTEMCLASS_H_
+
+//Pre Processor Directives
+#define WIN32_LEAN_AND_MEAN
+
+//Include Files
+#include <Windows.h>
+#include "inputClass.h"
+#include "graphicsClass.h"
+
+
+//System Class
+class CSystem
+{
+public:
+	CSystem();
+	CSystem(const CSystem&);
+	~CSystem();
+
+	bool Initialize();
+	void Shutdown();
+	void Run();
+
+	LRESULT CALLBACK MessageHandler(HWND, UINT, WPARAM, LPARAM);
+
+private:
+	bool Frame();
+	void InitializeWindows(int&, int&);
+	void ShutdownWindows();
+
+private:
+	LPCWSTR m_applicationName;
+	HINSTANCE m_hinstance;
+	HWND m_hwnd;
+
+	CInput* m_Input;
+	CGraphics* m_Graphics;
+};
+
+//Prototypes
+static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
+
+//Globals
+static CSystem ApplicationHandle = 0;
+
+#endif
