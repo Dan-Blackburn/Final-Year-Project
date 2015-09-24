@@ -8,8 +8,8 @@
 
 //Include Files
 #include <Windows.h>
-#include "inputClass.h"
-#include "graphicsClass.h"
+#include "CInput.h"
+#include "CGraphics.h"
 
 
 //System Class
@@ -20,7 +20,7 @@ public:
 	CSystem(const CSystem&);
 	~CSystem();
 
-	bool Initialize();
+	bool Initialise();
 	void Shutdown();
 	void Run();
 
@@ -28,12 +28,12 @@ public:
 
 private:
 	bool Frame();
-	void InitializeWindows(int&, int&);
+	void InitialiseWindows(int&, int&);
 	void ShutdownWindows();
 
 private:
 	LPCWSTR m_applicationName;
-	HINSTANCE m_hinstance;
+	HINSTANCE m_hInstance;
 	HWND m_hwnd;
 
 	CInput* m_Input;
@@ -44,6 +44,6 @@ private:
 static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 //Globals
-static CSystem ApplicationHandle = 0;
+static CSystem* ApplicationHandle = 0;
 
 #endif
