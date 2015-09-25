@@ -37,7 +37,7 @@ bool CSystem::Initialise() {
 	m_Input->Initialise();
 
 	//Define Graphics Object
-	m_Graphics->Initialise();
+	m_Graphics->Initialise(viewportWidth, viewportHeight, m_hwnd);
 	if (!m_Graphics) {
 		result = false;
 	}
@@ -81,6 +81,7 @@ void CSystem::Run() {
 	//Initialise Message Structure
 	ZeroMemory(&msg, sizeof(MSG));
 
+	playing = false;
 	//Loop Application Until User Quit
 	while (!playing) {
 
@@ -133,14 +134,14 @@ LRESULT CALLBACK CSystem::MessageHandler(HWND hwnd, UINT keyMsg, WPARAM wparam, 
 		//Key Press Case
 		case WM_KEYDOWN:
 			//Check if Key is Pressed, Sending it to Input Object to set Key
-			m_Input->KeyDown((unsigned int)wparam);
+			m_Input->KeyPressed((unsigned int)wparam);
 			return false;
 			break;
 
 		//Key Release Case
 		case WM_KEYUP:
 			//Check if Key is Release, Sending it to Input Object to unset Key
-			m_Input->KeyUp((unsigned int)wparam);
+			m_Input->KeyReleased((unsigned int)wparam);
 			return false;
 			break;
 
@@ -256,4 +257,23 @@ void CSystem::ShutdownWindows() {
 	return;
 }
 
-//
+//Function to Receive Windows Messages
+LRESULT CALLBACK WndProc(HWND hwnd, UINT umessage, WPARAM wparam, LPARAM lparam) {
+	
+	//Checks Windows Message
+	switch (umessage) {
+		//Checks if Window is being Destroyed
+		case WM_DESTROY:
+			PostQuitMessage(0);
+			return false;
+			break;
+		//Checks if Window is being closed
+		case WM_CLOSE:
+			PostQuitMessage(0);
+			return false;
+			break;
+		//Other Messages passed to Message Handler
+		default: 
+			return ApplicationHandle->MessageHandler(hwnd, umessage, wparam, lparam);
+	}
+}

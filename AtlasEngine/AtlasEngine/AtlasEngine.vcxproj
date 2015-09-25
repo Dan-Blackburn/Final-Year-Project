@@ -146,10 +146,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CInput.cpp" />
     <ClCompile Include="CSystem.cpp" />
+    <ClCompile Include="CGraphics.cpp" />
     <ClCompile Include="MainProgram.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CGraphics.h" />
+    <ClInclude Include="CInput.h" />
     <ClInclude Include="CSystem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
