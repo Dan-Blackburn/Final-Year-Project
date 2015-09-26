@@ -1,10 +1,10 @@
 #pragma once
 
-#ifndef _GRAPHICSCLASS_H_
-#define _GRAPHICSCLASS_H_
+#ifndef _CGRAPHICS_H_
+#define _CGRAPHICS_H_
 
 //Include
-#include <windows.h>
+#include "CDirect3D.h"
 
 //Global Variables
 const bool FULL_SCREEN = false;
@@ -25,6 +25,8 @@ public:
 
 private:
 	bool Render();
+	CDirect3D* m_Direct3D;
+
 };
 
 #endif

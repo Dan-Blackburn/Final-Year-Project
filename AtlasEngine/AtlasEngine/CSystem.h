@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef _SYSTEMCLASS_H_
-#define _SYSTEMCLASS_H_
+#ifndef _CSYSTEM_H_
+#define _CSYSTEM_H_
 
 //Pre Processor Directives
 #define WIN32_LEAN_AND_MEAN

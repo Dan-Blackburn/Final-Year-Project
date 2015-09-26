@@ -37,6 +37,7 @@ bool CSystem::Initialise() {
 	m_Input->Initialise();
 
 	//Define Graphics Object
+	m_Graphics = new CGraphics;
 	m_Graphics->Initialise(viewportWidth, viewportHeight, m_hwnd);
 	if (!m_Graphics) {
 		result = false;
