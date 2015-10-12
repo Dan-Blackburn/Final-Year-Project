@@ -34,6 +34,15 @@
     <Filter Include="Header Files\Shaders">
       <UniqueIdentifier>{1d3c300f-d2cb-45b8-bdcd-4da3f582cc28}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Camera">
+      <UniqueIdentifier>{bf89820d-7ef5-4f39-bfc9-42cf2285d0b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Device">
+      <UniqueIdentifier>{bd4ba9a9-64e0-44c7-9ac6-08df7824894a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Device">
+      <UniqueIdentifier>{c7b67310-e482-448d-b167-000a9fcc08a1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainProgram.cpp">
@@ -51,8 +60,14 @@
     <ClCompile Include="CGraphics.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="CShader.cpp">
+      <Filter>Source Files\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="CCamera.cpp">
+      <Filter>Source Files\Camera</Filter>
+    </ClCompile>
     <ClCompile Include="CDirect3D.cpp">
-      <Filter>Source Files\Graphics</Filter>
+      <Filter>Source Files\Device</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -65,14 +80,17 @@
     <ClInclude Include="CGraphics.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="CDirect3D.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="CModel.h">
       <Filter>Header Files\Models</Filter>
     </ClInclude>
     <ClInclude Include="CShader.h">
       <Filter>Header Files\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="CCamera.h">
+      <Filter>Header Files\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CDirect3D.h">
+      <Filter>Header Files\Device</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

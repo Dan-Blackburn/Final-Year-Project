@@ -24,7 +24,7 @@ bool CModel::Initialise(ID3D11Device* device) {
 
 	//Initialise the Verex and Index buffers holding Geometry for Triangle
 	result = InitialiseBuffers(device);
-	if (result) {
+	if (!result) {
 		return false;
 	}
 

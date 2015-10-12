@@ -5,6 +5,10 @@
 
 //Include
 #include "CDirect3D.h"
+#include "CModel.h"
+#include "CCamera.h"
+#include "CShader.h"
+
 
 //Global Variables
 const bool FULL_SCREEN = false;
@@ -26,7 +30,9 @@ public:
 private:
 	bool Render();
 	CDirect3D* m_Direct3D;
-
+	CCamera* m_Camera;
+	CModel* m_Model;
+	CShader* m_Shader;
 };
 
 #endif
