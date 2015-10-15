@@ -344,6 +344,9 @@ bool CDirect3D::Initialise(int viewportWidth, int viewportHeight, bool vsync, HW
 	// Create the projection matrix for 3D rendering
 	D3DXMatrixPerspectiveFovLH(&m_projectionMatrix, fieldOfView, screenAspect, screenNear, screenDepth);
 
+	// Initialize the world matrix to the identity matrix.
+	D3DXMatrixIdentity(&m_worldMatrix);
+
 	// Create an orthographic projection matrix for 2D rendering
 	D3DXMatrixOrthoLH(&m_orthoMatrix, (float)viewportWidth, (float)viewportHeight, screenNear, screenDepth);
 

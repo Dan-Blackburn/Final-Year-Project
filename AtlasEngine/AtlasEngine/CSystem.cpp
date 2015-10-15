@@ -38,7 +38,6 @@ bool CSystem::Initialise() {
 
 	//Define Graphics Object
 	m_Graphics = new CGraphics;
-	m_Graphics->Initialise(viewportWidth, viewportHeight, m_hwnd);
 	if (!m_Graphics) {
 		result = false;
 	}
@@ -188,7 +187,7 @@ void CSystem::InitialiseWindows(int& viewportWidth, int& viewportHeight) {
 
 	//Determine Resolution of Client's Screen
 	viewportWidth = GetSystemMetrics(SM_CXSCREEN);
-	viewportHeight = GetSystemMetrics(SM_CXSCREEN);
+	viewportHeight = GetSystemMetrics(SM_CYSCREEN);
 
 	//Screen Settings (Orientation)
 	if (FULL_SCREEN) {

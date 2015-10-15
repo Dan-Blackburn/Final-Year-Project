@@ -5,13 +5,13 @@
 
 //Include
 #include "CDirect3D.h"
-#include "CModel.h"
+#include "CEntityManager.h"
 #include "CCamera.h"
 #include "CShader.h"
 
 
 //Global Variables
-const bool FULL_SCREEN = false;
+const bool FULL_SCREEN = true;
 const bool VSYNC_ENABLED = true;
 const float SCREEN_DEPTH = 1000.0f;
 const float SCREEN_NEAR = 0.1f;
@@ -31,7 +31,7 @@ private:
 	bool Render();
 	CDirect3D* m_Direct3D;
 	CCamera* m_Camera;
-	CModel* m_Model;
+	CEntityManager* m_EntityManager;
 	CShader* m_Shader;
 };
 

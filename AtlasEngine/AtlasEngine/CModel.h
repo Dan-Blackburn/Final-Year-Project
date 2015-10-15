@@ -6,9 +6,10 @@
 //Include
 #include <d3d11.h>
 #include <d3dx10math.h>
+#include "CMesh.h"
 
 //Model Class
-class CModel {
+class CModel{
 public:
 	//Constructors & Destructors
 	CModel();
@@ -36,6 +37,9 @@ private:
 	//Variables
 	ID3D11Buffer *m_vertexBuffer, *m_indexBuffer;
 	int m_vertexCount, m_indexCount;
+	
+	//Class Pointers
+	CMesh* Mesh;
 };
 
 #endif

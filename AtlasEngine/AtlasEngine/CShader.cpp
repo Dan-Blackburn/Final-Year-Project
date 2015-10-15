@@ -76,7 +76,7 @@ bool CShader::InitialiseShader(ID3D11Device* device, HWND hwnd, WCHAR* vsFilenam
 	pixelShaderBuffer = 0;
 
 	//Complie Vertex Shader Code
-	result = D3DX11CompileFromFile(vsFilename, NULL, NULL, "ColorVertexShader", "vs_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0, NULL, &vertexShaderBuffer, &errorMessage, NULL);
+	result = D3DX11CompileFromFile(vsFilename, NULL, NULL, "ColourVertexShader", "vs_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0, NULL, &vertexShaderBuffer, &errorMessage, NULL);
 	if (FAILED(result))
 	{
 		//Submit Error on Compile Failure
@@ -94,7 +94,7 @@ bool CShader::InitialiseShader(ID3D11Device* device, HWND hwnd, WCHAR* vsFilenam
 	}
 
 	//Compile Pixel Shader Code
-	result = D3DX11CompileFromFile(psFilename, NULL, NULL, "ColorPixelShader", "ps_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0, NULL, &pixelShaderBuffer, &errorMessage, NULL);
+	result = D3DX11CompileFromFile(psFilename, NULL, NULL, "ColourPixelShader", "ps_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0, NULL, &pixelShaderBuffer, &errorMessage, NULL);
 	if (FAILED(result))
 	{
 		//Submit Error on Compile Failure

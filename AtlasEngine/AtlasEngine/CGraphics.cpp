@@ -5,7 +5,7 @@
 CGraphics::CGraphics() {
 	m_Direct3D = 0;
 	m_Camera = 0;
-	m_Model = 0;
+	m_EntityManager = 0;
 	m_Shader = 0;
 }
 
@@ -41,25 +41,22 @@ bool CGraphics::Initialise(int viewportWidth, int viewportHeight, HWND hwnd) {
 		return false;
 	}
 
-	//Create Camera Object
-	m_Camera = new CCamera;
-	if (!m_Camera) {
+	//Create Entity Object
+	m_EntityManager = new CEntityManager;
+
+	if (!m_EntityManager) {
 		return false;
 	}
 
-	//Set Position of Camera
-	m_Camera->SetPosition(0.0f, 0.0f, -10.0f);
+	//Initialise Model Objects
+	result = m_EntityManager->InitialiseEntities(m_Direct3D->GetDevice());
 
-	//Create Model Object
-	m_Model = new CModel;
-	if (!m_Model) {
-		return false;
-	}
+	//Get Pointer to Main Camera
+	m_Camera = m_EntityManager->GetCameraEntity();
 
-	//Initialise Model Object
-	result = m_Model->Initialise(m_Direct3D->GetDevice());
-	if (!result) {
-		MessageBox(hwnd, L"Could not Initialise the Model Object.", L"Error", MB_OK);
+	if (result != true) {
+		LPCWSTR errorMessage = (LPCWSTR)"Error Code: " + result;
+		MessageBox(hwnd, L"Could not Initialise the Model Object.", errorMessage, MB_OK);
 		return false;
 	}
 
@@ -77,39 +74,6 @@ bool CGraphics::Initialise(int viewportWidth, int viewportHeight, HWND hwnd) {
 	}
 
 	return true;
-}
-
-//Shutdown and Release Graphics Objects
-void CGraphics::Shutdown() {
-
-	//Release Direct3D Objects
-	if (m_Direct3D) {
-		m_Direct3D->Shutdown();
-		delete m_Direct3D;
-		m_Direct3D = 0;
-	}
-
-	//Release Model Objects
-	if (m_Model) {
-		m_Model->Shutdown();
-		delete m_Model;
-		m_Model = 0;
-	}
-
-	//Release Shader Objects
-	if (m_Shader) {
-		m_Shader->Shutdown();
-		delete m_Shader;
-		m_Shader = 0;
-	}
-
-	//Release Camera Objects
-	if (m_Camera) {
-		delete m_Camera;
-		m_Camera = 0;
-	}
-
-	return;
 }
 
 //Calculate Frame
@@ -135,7 +99,7 @@ bool CGraphics::Render() {
 	bool result;
 
 	//Clear Buffer to Reset the Viewport
-	m_Direct3D->ClearBuffer(0.5f, 0.5f, 0.5f, 1.0f);
+	m_Direct3D->ClearBuffer(0.0f, 0.0f, 0.0f, 1.0f);
 
 	// Generate the view matrix based on the camera's position.
 	m_Camera->Render();
@@ -146,10 +110,11 @@ bool CGraphics::Render() {
 	m_Direct3D->GetProjectionMatrix(projectionMatrix);
 
 	// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.
-	m_Model->Render(m_Direct3D->GetDeviceContext());
+	m_EntityManager->PrepareEntities(m_Direct3D->GetDeviceContext());
 
 	// Render the model using the color shader.
-	result = m_Shader->Render(m_Direct3D->GetDeviceContext(), m_Model->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix);
+	result = m_EntityManager->RenderEntities(m_Direct3D->GetDeviceContext(), m_Shader, worldMatrix, viewMatrix, projectionMatrix);
+
 	if (!result)
 	{
 		return false;
@@ -159,5 +124,39 @@ bool CGraphics::Render() {
 	m_Direct3D->FrameBuffer();
 
 	return true;
+}
+
+
+//Shutdown and Release Graphics Objects
+void CGraphics::Shutdown() {
+
+	//Release Direct3D Objects
+	if (m_Direct3D) {
+		m_Direct3D->Shutdown();
+		delete m_Direct3D;
+		m_Direct3D = 0;
+	}
+
+	//Release Model Objects
+	if (m_EntityManager) {
+		m_EntityManager->Shutdown();
+		delete m_EntityManager;
+		m_EntityManager = 0;
+	}
+
+	//Release Shader Objects
+	if (m_Shader) {
+		m_Shader->Shutdown();
+		delete m_Shader;
+		m_Shader = 0;
+	}
+
+	//Release Camera Objects
+	if (m_Camera) {
+		delete m_Camera;
+		m_Camera = 0;
+	}
+
+	return;
 }
 

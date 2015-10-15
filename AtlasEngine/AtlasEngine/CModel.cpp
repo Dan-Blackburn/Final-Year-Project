@@ -82,13 +82,13 @@ bool CModel::InitialiseBuffers(ID3D11Device* device) {
 
 	//Load Arrays with Data
 	vertices[0].position = D3DXVECTOR3(-1.0f, -1.0f, 0.0f);  //Bottom left
-	vertices[0].color = D3DXVECTOR4(0.0f, 1.0f, 0.0f, 1.0f);
+	vertices[0].color = D3DXVECTOR4(0.0f, 0.0f, 1.0f, 1.0f);
 
 	vertices[1].position = D3DXVECTOR3(0.0f, 1.0f, 0.0f);  //Top middle
 	vertices[1].color = D3DXVECTOR4(0.0f, 1.0f, 0.0f, 1.0f);
 
 	vertices[2].position = D3DXVECTOR3(1.0f, -1.0f, 0.0f);  //Bottom right
-	vertices[2].color = D3DXVECTOR4(0.0f, 1.0f, 0.0f, 1.0f);
+	vertices[2].color = D3DXVECTOR4(1.0f, 0.0f, 0.0f, 1.0f);
 
 	//Load the index array with data
 	indices[0] = 0;  //Bottom left
@@ -155,7 +155,7 @@ void CModel::RenderBuffers(ID3D11DeviceContext* deviceContext) {
 	offset = 0;
 
 	//Activate Vertex Buffer in Input Assembler
-	deviceContext->IAGetVertexBuffers(0, 1, &m_vertexBuffer, &stride, &offset);
+	deviceContext->IASetVertexBuffers(0, 1, &m_vertexBuffer, &stride, &offset);
 
 	//Activate Index Buffer in Input Assembler
 	deviceContext->IASetIndexBuffer(m_indexBuffer, DXGI_FORMAT_R32_UINT, 0);

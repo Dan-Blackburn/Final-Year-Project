@@ -43,6 +43,12 @@
     <Filter Include="Header Files\Device">
       <UniqueIdentifier>{c7b67310-e482-448d-b167-000a9fcc08a1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Managers">
+      <UniqueIdentifier>{730bc748-f630-4323-b456-70e55674be23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Managers">
+      <UniqueIdentifier>{b7e93599-210e-4faa-8fe7-1a4c69e4b62b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainProgram.cpp">
@@ -69,6 +75,12 @@
     <ClCompile Include="CDirect3D.cpp">
       <Filter>Source Files\Device</Filter>
     </ClCompile>
+    <ClCompile Include="CMesh.cpp">
+      <Filter>Source Files\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="CEntityManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CSystem.h">
@@ -92,12 +104,24 @@
     <ClInclude Include="CDirect3D.h">
       <Filter>Header Files\Device</Filter>
     </ClInclude>
+    <ClInclude Include="CMesh.h">
+      <Filter>Header Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="CEntityManager.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Colour.vs">
       <Filter>Source Files\Shaders</Filter>
     </None>
     <None Include="Colour.ps">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="Texture.vs">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="Texture.ps">
       <Filter>Source Files\Shaders</Filter>
     </None>
   </ItemGroup>

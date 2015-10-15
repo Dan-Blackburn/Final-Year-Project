@@ -148,7 +148,9 @@
   <ItemGroup>
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CDirect3D.cpp" />
+    <ClCompile Include="CEntityManager.cpp" />
     <ClCompile Include="CInput.cpp" />
+    <ClCompile Include="CMesh.cpp" />
     <ClCompile Include="CModel.cpp" />
     <ClCompile Include="CShader.cpp" />
     <ClCompile Include="CSystem.cpp" />
@@ -158,8 +160,10 @@
   <ItemGroup>
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="CDirect3D.h" />
+    <ClInclude Include="CEntityManager.h" />
     <ClInclude Include="CGraphics.h" />
     <ClInclude Include="CInput.h" />
+    <ClInclude Include="CMesh.h" />
     <ClInclude Include="CModel.h" />
     <ClInclude Include="CShader.h" />
     <ClInclude Include="CSystem.h" />
@@ -167,6 +171,8 @@
   <ItemGroup>
     <None Include="Colour.ps" />
     <None Include="Colour.vs" />
+    <None Include="Texture.ps" />
+    <None Include="Texture.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
