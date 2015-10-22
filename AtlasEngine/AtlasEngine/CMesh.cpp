@@ -1,5 +1,8 @@
 //Includes
 #include "CMesh.h"
+#include <Importer.hpp>
+#include <Scene.h>
+#include <PostProcess.h>
 
 //Constructor
 CMesh::CMesh() {
@@ -21,8 +24,13 @@ CMesh::~CMesh() {
 //Load Mesh from File
 bool CMesh::LoadMesh() {
 
-	//Model Loading Content Here
+	//Mesh Location Information
 
+
+	//Create Instance of Importer
+	Assimp::Importer importer;
+
+	//const aiScene* scene = importer.ReadFile();
 
 	return true;
 }
