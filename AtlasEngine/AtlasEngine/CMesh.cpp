@@ -30,8 +30,6 @@ bool CMesh::LoadMesh() {
 	//Create Instance of Importer
 	Assimp::Importer importer;
 
-	//const aiScene* scene = importer.ReadFile();
-
 	return true;
 }
 
