@@ -4,9 +4,6 @@
 //Constructor
 CModel::CModel() {
 
-	m_vertexBuffer = 0;
-	m_indexBuffer = 0;
-
 }
 
 //Copy Constructor
@@ -49,26 +46,37 @@ void CModel::Render(ID3D11DeviceContext* deviceContext) {
 	return;
 }
 
-//Getter Function
-int CModel::GetIndexCount() {
-	return m_indexCount;
-}
-
 //Initialise Buffers Function 
 bool CModel::InitialiseBuffers(ID3D11Device* device) {
 
+	Mesh = new CMesh;
+
+	//Temp Variables
+	std::string filename = "building";
+	std::string filetype = ".obj";
+	CMesh::eModelType modeltype = CMesh::Building;
+
+	//Load Model using Assimp
+	bool LoadStatus = Mesh->LoadMesh(filename, modeltype, filetype);
+
+
+
+	if (!LoadStatus) {
+		//Submit Error Report Code
+	}
+
 	//Define Variables
-	VertexType* vertices;
-	unsigned long* indices;
+	/*VertexType* vertices;
+	unsigned long* indices;*/
 	D3D11_BUFFER_DESC vertexBufferDesc, indexBufferDesc;
 	D3D11_SUBRESOURCE_DATA vertexData, indexData;
 	HRESULT result;
 
-	//Initialise Variables
+	/*Initialise Variables
 	m_vertexCount = 3;
-	m_indexCount = 3;
+	m_indexCount = 3;*/
 
-	//Vertex Array
+	/*Vertex Array
 	vertices = new VertexType[m_vertexCount];
 	if (!vertices) {
 		return false;
@@ -97,14 +105,14 @@ bool CModel::InitialiseBuffers(ID3D11Device* device) {
 
 	//Set descriptions of Static Vetex Buffer
 	vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	vertexBufferDesc.ByteWidth = sizeof(VertexType) * m_vertexCount;
+	vertexBufferDesc.ByteWidth = sizeof(CMesh::VertexType) * Mesh->GetVertexCount();
 	vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	vertexBufferDesc.CPUAccessFlags = 0;
 	vertexBufferDesc.MiscFlags = 0;
 	vertexBufferDesc.StructureByteStride = 0;
 
 	//Give Substructure a Pointer to Vertex Data
-	vertexData.pSysMem = vertices;
+	vertexData.pSysMem = Mesh->GetVertexData();
 	vertexData.SysMemPitch = 0;
 	vertexData.SysMemSlicePitch = 0;
 
@@ -141,7 +149,7 @@ bool CModel::InitialiseBuffers(ID3D11Device* device) {
 
 	delete[] indices;
 	indices = 0;
-
+	*/
 	return true;
 }
 
@@ -151,14 +159,14 @@ void CModel::RenderBuffers(ID3D11DeviceContext* deviceContext) {
 	unsigned int offset;
 
 	//Set Vertex Buffer
-	stride = sizeof(VertexType);
+	stride = sizeof(CMesh::VertexType);
 	offset = 0;
 
 	//Activate Vertex Buffer in Input Assembler
-	deviceContext->IASetVertexBuffers(0, 1, &m_vertexBuffer, &stride, &offset);
+	deviceContext->IASetVertexBuffers(0, 1, Mesh->GetVertexBuffer(), &stride, &offset);
 
 	//Activate Index Buffer in Input Assembler
-	deviceContext->IASetIndexBuffer(m_indexBuffer, DXGI_FORMAT_R32_UINT, 0);
+	deviceContext->IASetIndexBuffer(Mesh->GetIndexBuffer(), DXGI_FORMAT_R32_UINT, 0);
 
 	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 

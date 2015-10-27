@@ -20,24 +20,13 @@ public:
 	bool Initialise(ID3D11Device*);
 	void Shutdown();
 	void Render(ID3D11DeviceContext*);
-	int GetIndexCount();
 
 private:
-	//Vertex Structure
-	struct VertexType {
-		D3DXVECTOR3 position;
-		D3DXVECTOR4 color;
-	};
-
 	//Functions
 	bool InitialiseBuffers(ID3D11Device*);
 	void ShutdownBuffers();
 	void RenderBuffers(ID3D11DeviceContext*);
 
-	//Variables
-	ID3D11Buffer *m_vertexBuffer, *m_indexBuffer;
-	int m_vertexCount, m_indexCount;
-	
 	//Class Pointers
 	CMesh* Mesh;
 };
