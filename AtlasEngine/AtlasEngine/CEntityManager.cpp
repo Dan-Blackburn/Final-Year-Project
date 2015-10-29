@@ -108,7 +108,9 @@ bool CEntityManager::RenderEntities(ID3D11DeviceContext* deviceContext, CShader*
 	for (std::vector<CModel*>::iterator it = m_ModelList.begin(); it != m_ModelList.end(); it++) {
 		CModel* currentEntity = *it;
 
-		result = m_Shader->Render(deviceContext, currentEntity->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix);
+		CMesh* Mesh = currentEntity->GetMesh();
+
+		result = m_Shader->Render(deviceContext, Mesh->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix);
 
 		if (!result) {
 			return false;

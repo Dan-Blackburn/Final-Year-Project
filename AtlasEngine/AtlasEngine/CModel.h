@@ -20,6 +20,7 @@ public:
 	bool Initialise(ID3D11Device*);
 	void Shutdown();
 	void Render(ID3D11DeviceContext*);
+	CMesh* GetMesh();
 
 private:
 	//Functions

@@ -13,8 +13,8 @@ CMesh::CMesh() {
 CMesh::CMesh(const CMesh& other) {
 	m_indexBuffer = 0;
 	m_vertexBuffer = 0;
-	m_indexCount = 0;
-	m_vertexBuffer = 0;
+	totalVertexCount = 0;
+	totalIndexCount = 0;
 }
 
 //Destructor
@@ -50,13 +50,17 @@ bool CMesh::LoadMesh(std::string mFilename, eModelType modelType, std::string mF
 
 	//Store Sub-Meshes of Mesh
 	for (int i = 0; i < numSubMeshes; i++) {
-		SubMesh = new CMesh;
-		SubMesh->m_vertexCount = Scene->mMeshes[i]->mNumVertices;
-		SubMesh->m_indexCount = Scene->mMeshes[i]->mNumFaces;
+		SubMesh* subMesh = new SubMesh;
+
+		//Store Vertex & Index Count for Loops
+		subMesh->m_vertexCount = Scene->mMeshes[i]->mNumVertices;
+		subMesh->m_indexCount = Scene->mMeshes[i]->mNumFaces;
+		totalVertexCount += subMesh->m_vertexCount;
+		totalIndexCount += subMesh->m_indexCount;
 
 		//Store Vertices of Sub-Mesh
-		for (int j = 0; j < m_vertexCount; j++) {
-			Vertices = new VertexType;
+		for (int j = 0; j < subMesh->m_vertexCount; j++) {
+			VertexType* Vertices = new VertexType;
 
 			//Store Positions (XYZ)
 			Vertices->position.x = Scene->mMeshes[i]->mVertices[j].x;
@@ -64,22 +68,24 @@ bool CMesh::LoadMesh(std::string mFilename, eModelType modelType, std::string mF
 			Vertices->position.z = Scene->mMeshes[i]->mVertices[j].z;
 
 			//Store Colour (RGBA)
-			Vertices->color.x = Scene->mMeshes[i]->mColors[j]->r;
-			Vertices->color.y = Scene->mMeshes[i]->mColors[j]->g;
-			Vertices->color.z = Scene->mMeshes[i]->mColors[j]->b;
-			Vertices->color.w = Scene->mMeshes[i]->mColors[j]->a;
+			if (Scene->mMeshes[i]->HasVertexColors(j)) {
+				Vertices->color.x = Scene->mMeshes[i]->mColors[j]->r;
+				Vertices->color.y = Scene->mMeshes[i]->mColors[j]->g;
+				Vertices->color.z = Scene->mMeshes[i]->mColors[j]->b;
+				Vertices->color.w = Scene->mMeshes[i]->mColors[j]->a;
+			}
 
-			VerticesList.push_back(Vertices);
+			subMesh->VerticesList.push_back(Vertices);
 		}
 
 		//Store Mesh Indices
-		for (int k = 0; k < m_indexCount; k++) {
-			Indices = new unsigned int;
+		for (int k = 0; k < subMesh->m_indexCount; k++) {
+			unsigned int*Indices = new unsigned int;
 			Indices = Scene->mMeshes[i]->mFaces[k].mIndices;
-			IndicesList.push_back(Indices);
+			subMesh->IndicesList.push_back(Indices);
 		}
 
-		SubMeshList.push_back(SubMesh);
+		SubMeshList.push_back(subMesh);
 	}
 
 	return true;
@@ -135,26 +141,26 @@ std::string CMesh::MeshFinder(std::string mFilename, eModelType modelType, std::
 
 }
 
-int CMesh::GetVertexCount() {
-	return m_vertexCount;
-}
-
 ID3D11Buffer* CMesh::GetVertexBuffer() {
 	return m_vertexBuffer;
+}
+
+int CMesh::GetVertexCount() {
+	return totalVertexCount;
 }
 
 ID3D11Buffer* CMesh::GetIndexBuffer() {
 	return m_indexBuffer;
 }
 
-VertexType* CMesh::GetVertexData() {
+int CMesh::GetIndexCount() {
+	return totalIndexCount;
+}
 
-	if (numSubMeshes > 1) {
+std::vector<CMesh::SubMesh*> CMesh::GetSubMeshList() {
+	return SubMeshList;
+}
 
-	}
-
-	else {
-	}
-
-	return 0;
+int CMesh::GetSubMeshNum() {
+	return numSubMeshes;
 }

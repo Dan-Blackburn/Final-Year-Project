@@ -9,8 +9,6 @@
 #include <string>
 #include <vector>
 
-//Prototypes
-struct VertexType;
 
 //Mesh Class
 class CMesh{
@@ -20,6 +18,10 @@ public:
 	CMesh(const CMesh&);
 	~CMesh();
 
+	//Prototypes
+	struct VertexType;
+	struct SubMesh;
+
 	//Temp Variables?
 	static enum eModelType { Building, Terrain, Water, Vehicle, Object };
 
@@ -27,15 +29,28 @@ public:
 	bool LoadMesh(std::string, eModelType, std::string);
 	bool RenderModels(ID3D11DeviceContext*);
 	void Shutdown();
+
 	int GetVertexCount();
-	VertexType* GetVertexData();
+	int GetIndexCount();
+	int GetSubMeshNum();
+
 	ID3D11Buffer* GetVertexBuffer();
 	ID3D11Buffer* GetIndexBuffer();
+
+	std::vector<CMesh::SubMesh*> GetSubMeshList();
 
 	//Vertex Structure
 	struct VertexType {
 		D3DXVECTOR3 position;
 		D3DXVECTOR4 color;
+	};
+
+	//Sub-Mesh Structure
+	struct SubMesh {
+		std::vector<VertexType*> VerticesList;
+		std::vector<unsigned int*> IndicesList;
+		int m_vertexCount;
+		int m_indexCount;
 	};
 
 private:
@@ -44,17 +59,12 @@ private:
 
 	//Variables
 	ID3D11Buffer *m_vertexBuffer, *m_indexBuffer;
-	int m_vertexCount, m_indexCount, m_modelCount;
+	int m_modelCount;
 	int numSubMeshes;
+	int totalVertexCount;
+	int totalIndexCount;
 
-	std::vector<CMesh*> SubMeshList;
-	std::vector<VertexType*> VerticesList;
-	std::vector<unsigned int*> IndicesList;
-
-
-	CMesh* SubMesh;
-	VertexType* Vertices;
-	unsigned int* Indices;
+	std::vector<SubMesh*> SubMeshList;
 };
 
 #endif
