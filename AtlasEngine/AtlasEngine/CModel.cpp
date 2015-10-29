@@ -56,7 +56,7 @@ bool CModel::InitialiseBuffers(ID3D11Device* device) {
 	Mesh = new CMesh;
 
 	//Temp Variables
-	std::string filename = "building";
+	std::string filename = "streetlamp";
 	std::string filetype = ".obj";
 	CMesh::eModelType modeltype = CMesh::Building;
 
@@ -64,6 +64,7 @@ bool CModel::InitialiseBuffers(ID3D11Device* device) {
 	bool LoadStatus = Mesh->LoadMesh(filename, modeltype, filetype);
 
 	if (!LoadStatus) {
+		return false;
 		//Submit Error Report Code
 	}
 
@@ -100,12 +101,12 @@ bool CModel::InitialiseBuffers(ID3D11Device* device) {
 		CMesh::SubMesh* subMesh = SubMeshList[currentSubMesh];
 
 		//Get SubMesh's Vertices List
-		std::vector<CMesh::VertexType*> verticesList = subMesh[currentSubMesh].VerticesList;
+		std::vector<CMesh::VertexType*> verticesList = subMesh->VerticesList;
 
-		std::vector<unsigned int*> indicesList = subMesh[currentSubMesh].IndicesList;
+		std::vector<unsigned int*> indicesList = subMesh->IndicesList;
 
 		//Iterates through SubMesh's Vertex List
-		for (int currentVertex = 0; currentVertex < subMesh[currentSubMesh].m_vertexCount; currentVertex++) {
+		for (int currentVertex = 0; currentVertex < subMesh->m_vertexCount; currentVertex++) {
 			CMesh::VertexType* subMeshVertex = verticesList[currentVertex];
 
 			Vertices[currentVertex].position = subMeshVertex->position;
@@ -113,7 +114,7 @@ bool CModel::InitialiseBuffers(ID3D11Device* device) {
 		}
 
 		//Iterates through SubMesh's Index List
-		for (int currentIndex = 0; currentIndex < subMesh[currentSubMesh].m_indexCount; currentIndex++) {
+		for (int currentIndex = 0; currentIndex < subMesh->m_indexCount; currentIndex++) {
 			unsigned int* subMeshIndex = indicesList[currentIndex];
 			Indices[currentIndex] = *subMeshIndex;
 		}
@@ -135,6 +136,7 @@ bool CModel::InitialiseBuffers(ID3D11Device* device) {
 
 		//Create Vertex Buffer
 		result = device->CreateBuffer(&vertexBufferDesc, &vertexData, &VertexBuffer);
+
 		if (FAILED(result))
 		{
 			return false;

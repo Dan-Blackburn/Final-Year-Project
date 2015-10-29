@@ -51,6 +51,8 @@ public:
 		std::vector<unsigned int*> IndicesList;
 		int m_vertexCount;
 		int m_indexCount;
+		ID3D11Buffer* VertexBuffer;
+		ID3D11Buffer* IndexBuffer;
 	};
 
 private:
