@@ -6,15 +6,12 @@
 
 //Constructor
 CMesh::CMesh() {
-
+	totalVertexCount = 0;
+	totalIndexCount = 0;
 }
 
 //Copy Constructor
 CMesh::CMesh(const CMesh& other) {
-	m_indexBuffer = 0;
-	m_vertexBuffer = 0;
-	totalVertexCount = 0;
-	totalIndexCount = 0;
 }
 
 //Destructor
@@ -78,11 +75,11 @@ bool CMesh::LoadMesh(std::string mFilename, eModelType modelType, std::string mF
 			subMesh->VerticesList.push_back(Vertices);
 		}
 
+		subMesh->Indices = new unsigned int[subMesh->m_indexCount];
+
 		//Store Mesh Indices
 		for (int k = 0; k < subMesh->m_indexCount; k++) {
-			unsigned int*Indices = new unsigned int;
-			Indices = Scene->mMeshes[i]->mFaces[k].mIndices;
-			subMesh->IndicesList.push_back(Indices);
+			subMesh->Indices[k] = *Scene->mMeshes[i]->mFaces[k].mIndices;
 		}
 
 		SubMeshList.push_back(subMesh);
@@ -141,16 +138,16 @@ std::string CMesh::MeshFinder(std::string mFilename, eModelType modelType, std::
 
 }
 
-ID3D11Buffer* CMesh::GetVertexBuffer() {
-	return m_vertexBuffer;
+ID3D11Buffer* CMesh::GetVertexBuffer(SubMesh* subMesh) {
+	return subMesh->VertexBuffer;
 }
 
 int CMesh::GetVertexCount() {
 	return totalVertexCount;
 }
 
-ID3D11Buffer* CMesh::GetIndexBuffer() {
-	return m_indexBuffer;
+ID3D11Buffer* CMesh::GetIndexBuffer(SubMesh* subMesh) {
+	return subMesh->IndexBuffer;
 }
 
 int CMesh::GetIndexCount() {

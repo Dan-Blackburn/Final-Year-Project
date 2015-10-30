@@ -160,6 +160,7 @@
     <ClCompile Include="CInput.cpp" />
     <ClCompile Include="CMesh.cpp" />
     <ClCompile Include="CModel.cpp" />
+    <ClCompile Include="Console.cpp" />
     <ClCompile Include="CShader.cpp" />
     <ClCompile Include="CSystem.cpp" />
     <ClCompile Include="CGraphics.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="CInput.h" />
     <ClInclude Include="CMesh.h" />
     <ClInclude Include="CModel.h" />
+    <ClInclude Include="Console.h" />
     <ClInclude Include="CShader.h" />
     <ClInclude Include="CSystem.h" />
   </ItemGroup>

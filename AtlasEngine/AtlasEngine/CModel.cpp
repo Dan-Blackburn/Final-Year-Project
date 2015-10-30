@@ -53,10 +53,10 @@ void CModel::Render(ID3D11DeviceContext* deviceContext) {
 //Initialise Buffers Function 
 bool CModel::InitialiseBuffers(ID3D11Device* device) {
 
-	Mesh = new CMesh;
+	Mesh = new CMesh();
 
 	//Temp Variables
-	std::string filename = "streetlamp";
+	std::string filename = "stop_sign";
 	std::string filetype = ".obj";
 	CMesh::eModelType modeltype = CMesh::Building;
 
@@ -103,8 +103,6 @@ bool CModel::InitialiseBuffers(ID3D11Device* device) {
 		//Get SubMesh's Vertices List
 		std::vector<CMesh::VertexType*> verticesList = subMesh->VerticesList;
 
-		std::vector<unsigned int*> indicesList = subMesh->IndicesList;
-
 		//Iterates through SubMesh's Vertex List
 		for (int currentVertex = 0; currentVertex < subMesh->m_vertexCount; currentVertex++) {
 			CMesh::VertexType* subMeshVertex = verticesList[currentVertex];
@@ -115,13 +113,13 @@ bool CModel::InitialiseBuffers(ID3D11Device* device) {
 
 		//Iterates through SubMesh's Index List
 		for (int currentIndex = 0; currentIndex < subMesh->m_indexCount; currentIndex++) {
-			unsigned int* subMeshIndex = indicesList[currentIndex];
+			unsigned int* subMeshIndex = &subMesh->Indices[currentIndex];
 			Indices[currentIndex] = *subMeshIndex;
 		}
 
 		//Set descriptions of Static Vetex Buffer
 		vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-		vertexBufferDesc.ByteWidth = sizeof(CMesh::VertexType) * Mesh->GetVertexCount();
+		vertexBufferDesc.ByteWidth = sizeof(CMesh::VertexType) * subMesh->m_vertexCount;
 		vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 		vertexBufferDesc.CPUAccessFlags = 0;
 		vertexBufferDesc.MiscFlags = 0;
@@ -132,10 +130,8 @@ bool CModel::InitialiseBuffers(ID3D11Device* device) {
 		vertexData.SysMemPitch = 0;
 		vertexData.SysMemSlicePitch = 0;
 
-		ID3D11Buffer* VertexBuffer = Mesh->GetVertexBuffer();
-
 		//Create Vertex Buffer
-		result = device->CreateBuffer(&vertexBufferDesc, &vertexData, &VertexBuffer);
+		result = device->CreateBuffer(&vertexBufferDesc, &vertexData, &subMesh->VertexBuffer);
 
 		if (FAILED(result))
 		{
@@ -144,7 +140,7 @@ bool CModel::InitialiseBuffers(ID3D11Device* device) {
 
 		//Set descriptions for Static Index Buffer
 		indexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-		indexBufferDesc.ByteWidth = sizeof(unsigned long) * m_indexCount;
+		indexBufferDesc.ByteWidth = sizeof(unsigned int) * subMesh->m_indexCount;
 		indexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 		indexBufferDesc.CPUAccessFlags = 0;
 		indexBufferDesc.MiscFlags = 0;
@@ -155,10 +151,8 @@ bool CModel::InitialiseBuffers(ID3D11Device* device) {
 		indexData.SysMemPitch = 0;
 		indexData.SysMemSlicePitch = 0;
 
-		ID3D11Buffer* IndexBuffer = Mesh->GetIndexBuffer();
-
 		//Create Index Buffer
-		result = device->CreateBuffer(&indexBufferDesc, &indexData, &IndexBuffer);
+		result = device->CreateBuffer(&indexBufferDesc, &indexData, &subMesh->IndexBuffer);
 		if (FAILED(result))
 		{
 			return false;
@@ -181,19 +175,28 @@ void CModel::RenderBuffers(ID3D11DeviceContext* deviceContext) {
 	unsigned int stride;
 	unsigned int offset;
 
-	ID3D11Buffer* VertexBuffer = Mesh->GetVertexBuffer();
+	//Get List of SubMeshs
+	std::vector<CMesh::SubMesh*> subMeshList = Mesh->GetSubMeshList();
 
-	//Set Vertex Buffer
-	stride = sizeof(CMesh::VertexType);
-	offset = 0;
+	//Iterate through SubMeshes
+	for (int subMeshCount = 0; subMeshCount < Mesh->GetSubMeshNum(); subMeshCount++) {
+		CMesh::SubMesh* currentMesh = subMeshList[subMeshCount];
 
-	//Activate Vertex Buffer in Input Assembler
-	deviceContext->IASetVertexBuffers(0, 1, &VertexBuffer, &stride, &offset);
+		ID3D11Buffer* VertexBuffer = currentMesh->VertexBuffer;
+		ID3D11Buffer* IndexBuffer = currentMesh->IndexBuffer;
 
-	//Activate Index Buffer in Input Assembler
-	deviceContext->IASetIndexBuffer(Mesh->GetIndexBuffer(), DXGI_FORMAT_R32_UINT, 0);
+		//Set Vertex Buffer
+		stride = sizeof(CMesh::VertexType);
+		offset = 0;
 
-	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		//Activate Vertex Buffer in Input Assembler
+		deviceContext->IASetVertexBuffers(0, 1, &VertexBuffer, &stride, &offset);
+
+		//Activate Index Buffer in Input Assembler
+		deviceContext->IASetIndexBuffer(IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
+
+		deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	}
 
 	return;
 }
@@ -202,18 +205,27 @@ void CModel::RenderBuffers(ID3D11DeviceContext* deviceContext) {
 //Shutdown Buffers Function (Release Index and Vertex Buffer)
 void CModel::ShutdownBuffers() {
 
-	ID3D11Buffer* m_IndexBuffer = Mesh->GetIndexBuffer();
-	ID3D11Buffer* m_VertexBuffer = Mesh->GetVertexBuffer();
+	//Get List of SubMeshs
+	std::vector<CMesh::SubMesh*> subMeshList = Mesh->GetSubMeshList();
 
-	//Release Buffers
-	if (m_IndexBuffer) {
-		m_IndexBuffer->Release();
-		m_IndexBuffer = 0;
-	}
+	//Iterate through SubMeshes
+	for (int subMeshCount = 0; subMeshCount < Mesh->GetSubMeshNum(); subMeshCount++) {
+		CMesh::SubMesh* currentMesh = subMeshList[subMeshCount];
 
-	if (m_VertexBuffer) {
-		m_VertexBuffer->Release();
-		m_VertexBuffer = 0;
+		ID3D11Buffer* VertexBuffer = currentMesh->VertexBuffer;
+		ID3D11Buffer* IndexBuffer = currentMesh->IndexBuffer;
+
+		//Release Buffers
+		if (IndexBuffer) {
+			IndexBuffer->Release();
+			IndexBuffer = 0;
+		}
+
+		if (VertexBuffer) {
+			VertexBuffer->Release();
+			VertexBuffer = 0;
+		}
+
 	}
 
 	return;

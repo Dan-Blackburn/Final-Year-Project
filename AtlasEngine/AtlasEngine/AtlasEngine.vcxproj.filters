@@ -108,6 +108,9 @@
     <ClCompile Include="MainProgram.cpp">
       <Filter>Source Files\System</Filter>
     </ClCompile>
+    <ClCompile Include="Console.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGraphics.h">
@@ -135,6 +138,9 @@
       <Filter>Header Files\Input</Filter>
     </ClInclude>
     <ClInclude Include="CSystem.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Console.h">
       <Filter>Header Files\System</Filter>
     </ClInclude>
   </ItemGroup>

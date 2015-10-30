@@ -218,7 +218,7 @@ void CSystem::InitialiseWindows(int& viewportWidth, int& viewportHeight) {
 	}
 
 	//Create Window in Screen Settings
-	m_hwnd = CreateWindowEx(WS_EX_APPWINDOW, m_applicationName, m_applicationName, WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_POPUP,
+	m_hwnd = CreateWindowEx(WS_EX_APPWINDOW, m_applicationName, m_applicationName, WS_CLIPSIBLINGS | WS_CLIPCHILDREN | WS_POPUP | WS_OVERLAPPEDWINDOW,
 		posX, posY, viewportWidth, viewportHeight, NULL, NULL, m_hInstance, NULL);
 
 	//Set Window as Main Focus

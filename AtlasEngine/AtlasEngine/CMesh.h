@@ -12,15 +12,16 @@
 
 //Mesh Class
 class CMesh{
+
+	//Prototypes
+	struct VertexType;
+	struct SubMesh;
+
 public:
 	//Constructors & Destructors
 	CMesh();
 	CMesh(const CMesh&);
 	~CMesh();
-
-	//Prototypes
-	struct VertexType;
-	struct SubMesh;
 
 	//Temp Variables?
 	static enum eModelType { Building, Terrain, Water, Vehicle, Object };
@@ -34,8 +35,8 @@ public:
 	int GetIndexCount();
 	int GetSubMeshNum();
 
-	ID3D11Buffer* GetVertexBuffer();
-	ID3D11Buffer* GetIndexBuffer();
+	ID3D11Buffer* GetVertexBuffer(SubMesh*);
+	ID3D11Buffer* GetIndexBuffer(SubMesh*);
 
 	std::vector<CMesh::SubMesh*> GetSubMeshList();
 
@@ -48,7 +49,7 @@ public:
 	//Sub-Mesh Structure
 	struct SubMesh {
 		std::vector<VertexType*> VerticesList;
-		std::vector<unsigned int*> IndicesList;
+		unsigned int* Indices;
 		int m_vertexCount;
 		int m_indexCount;
 		ID3D11Buffer* VertexBuffer;
@@ -60,7 +61,6 @@ private:
 	std::string MeshFinder(std::string, eModelType, std::string);
 
 	//Variables
-	ID3D11Buffer *m_vertexBuffer, *m_indexBuffer;
 	int m_modelCount;
 	int numSubMeshes;
 	int totalVertexCount;
