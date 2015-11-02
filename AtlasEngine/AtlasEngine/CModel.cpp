@@ -56,7 +56,7 @@ bool CModel::InitialiseBuffers(ID3D11Device* device) {
 	Mesh = new CMesh();
 
 	//Temp Variables
-	std::string filename = "stop_sign";
+	std::string filename = "ball";
 	std::string filetype = ".obj";
 	CMesh::eModelType modeltype = CMesh::Building;
 
@@ -108,13 +108,13 @@ bool CModel::InitialiseBuffers(ID3D11Device* device) {
 			CMesh::VertexType* subMeshVertex = verticesList[currentVertex];
 
 			Vertices[currentVertex].position = subMeshVertex->position;
-			Vertices[currentVertex].color = D3DXVECTOR4(0.0f, 0.0f, 1.0f, 1.0f);
-		}
+			Vertices[currentVertex].color = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
 
-		//Iterates through SubMesh's Index List
-		for (int currentIndex = 0; currentIndex < subMesh->m_indexCount; currentIndex++) {
-			unsigned int* subMeshIndex = &subMesh->Indices[currentIndex];
-			Indices[currentIndex] = *subMeshIndex;
+			//Iterates through SubMesh's Index List
+			for (int currentIndex = 0; currentIndex < subMesh->m_indexCount; currentIndex++) {
+				unsigned int* subMeshIndex = &subMesh->Indices[currentIndex];
+				Indices[currentIndex] = *subMeshIndex;
+			}
 		}
 
 		//Set descriptions of Static Vetex Buffer
@@ -158,16 +158,16 @@ bool CModel::InitialiseBuffers(ID3D11Device* device) {
 			return false;
 		}
 
+		//Release Arrays now Buffers are Created
+		delete[] Vertices;
+		Vertices = 0;
+
+		delete[] Indices;
+		Indices = 0;
+
+		return true;
+
 	}
-
-	//Release Arrays now Buffers are Created
-	delete[] Vertices;
-	Vertices = 0;
-
-	delete[] Indices;
-	Indices = 0;
-
-	return true;
 }
 
 //Render Buffers Function
@@ -195,7 +195,7 @@ void CModel::RenderBuffers(ID3D11DeviceContext* deviceContext) {
 		//Activate Index Buffer in Input Assembler
 		deviceContext->IASetIndexBuffer(IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
-		deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 	}
 
 	return;

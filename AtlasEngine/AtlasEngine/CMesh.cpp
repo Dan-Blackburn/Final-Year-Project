@@ -44,6 +44,7 @@ bool CMesh::LoadMesh(std::string mFilename, eModelType modelType, std::string mF
 	/////////////////////////////////
 
 	numSubMeshes = Scene->mNumMeshes;
+	int masterIndex = 0;
 
 	//Store Sub-Meshes of Mesh
 	for (int i = 0; i < numSubMeshes; i++) {
@@ -51,7 +52,7 @@ bool CMesh::LoadMesh(std::string mFilename, eModelType modelType, std::string mF
 
 		//Store Vertex & Index Count for Loops
 		subMesh->m_vertexCount = Scene->mMeshes[i]->mNumVertices;
-		subMesh->m_indexCount = Scene->mMeshes[i]->mNumFaces;
+		subMesh->m_indexCount = Scene->mMeshes[i]->mNumFaces * 3;
 		totalVertexCount += subMesh->m_vertexCount;
 		totalIndexCount += subMesh->m_indexCount;
 
@@ -77,9 +78,8 @@ bool CMesh::LoadMesh(std::string mFilename, eModelType modelType, std::string mF
 
 		subMesh->Indices = new unsigned int[subMesh->m_indexCount];
 
-		//Store Mesh Indices
-		for (int k = 0; k < subMesh->m_indexCount; k++) {
-			subMesh->Indices[k] = *Scene->mMeshes[i]->mFaces[k].mIndices;
+		for (int j = 0; j < subMesh->m_indexCount; j++) {
+			subMesh->Indices[j] = j;
 		}
 
 		SubMeshList.push_back(subMesh);
