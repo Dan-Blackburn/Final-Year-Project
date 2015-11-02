@@ -11,6 +11,7 @@
 //Model Class
 class CModel{
 public:
+
 	//Constructors & Destructors
 	CModel();
 	CModel(const CModel&);
@@ -20,7 +21,16 @@ public:
 	bool Initialise(ID3D11Device*);
 	void Shutdown();
 	void Render(ID3D11DeviceContext*);
-	CMesh* GetMesh();
+
+	//Class Pointers
+	struct ModelProperties {
+		CMesh* Mesh;
+		D3DXVECTOR3 Position;
+		D3DXVECTOR3 Rotation;
+	};
+
+	//Getters
+	ModelProperties* GetModel();
 
 private:
 	//Functions
@@ -28,8 +38,9 @@ private:
 	void ShutdownBuffers();
 	void RenderBuffers(ID3D11DeviceContext*);
 
-	//Class Pointers
-	CMesh* Mesh;
+	//Pointers
+	ModelProperties* currentModel;
+
 };
 
 #endif

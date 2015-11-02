@@ -49,11 +49,13 @@ public:
 	//Sub-Mesh Structure
 	struct SubMesh {
 		std::vector<VertexType*> VerticesList;
-		unsigned int* Indices;
-		int m_vertexCount;
-		int m_indexCount;
 		ID3D11Buffer* VertexBuffer;
 		ID3D11Buffer* IndexBuffer;
+
+		int m_vertexCount;
+		int m_indexCount;
+		int m_facesCount;
+		unsigned int* Indices;
 	};
 
 private:
