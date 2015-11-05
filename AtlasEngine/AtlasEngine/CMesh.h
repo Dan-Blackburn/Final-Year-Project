@@ -43,7 +43,7 @@ public:
 	//Vertex Structure
 	struct VertexType {
 		D3DXVECTOR3 position;
-		D3DXVECTOR4 color;
+		D3DXVECTOR2 texture;
 	};
 
 	//Sub-Mesh Structure

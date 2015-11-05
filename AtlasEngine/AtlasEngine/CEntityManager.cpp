@@ -111,7 +111,6 @@ bool CEntityManager::RenderEntities(ID3D11DeviceContext* deviceContext, CShader*
 		CModel::ModelProperties* currentModel = currentEntity->GetModel();
 
 		CMesh* Mesh = currentModel->Mesh;
-
 		result = m_Shader->Render(deviceContext, Mesh->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix);
 
 		if (!result) {

@@ -3,7 +3,7 @@
 
 //Constructor
 CModel::CModel() {
-	currentModel = new ModelProperties;
+	m_Model = new ModelProperties;
 }
 
 //Copy Constructor
@@ -14,9 +14,9 @@ CModel::CModel(const CModel& other) {
 CModel::~CModel() {
 }
 
-//Getter
+//Getters
 CModel::ModelProperties* CModel::GetModel() {
-	return currentModel;
+	return m_Model;
 }
 
 //Initialise Function
@@ -54,15 +54,15 @@ void CModel::Render(ID3D11DeviceContext* deviceContext) {
 //Initialise Buffers Function 
 bool CModel::InitialiseBuffers(ID3D11Device* device) {
 
-	currentModel->Mesh = new CMesh();
+	m_Model->Mesh = new CMesh();
 
 	//Temp Variables
-	std::string filename = "ball";
+	std::string filename = "building";
 	std::string filetype = ".obj";
 	CMesh::eModelType modeltype = CMesh::Building;
 
 	//Load Model using Assimp
-	bool LoadStatus = currentModel->Mesh->LoadMesh(filename, modeltype, filetype);
+	bool LoadStatus = m_Model->Mesh->LoadMesh(filename, modeltype, filetype);
 
 	if (!LoadStatus) {
 		return false;
@@ -77,8 +77,8 @@ bool CModel::InitialiseBuffers(ID3D11Device* device) {
 	HRESULT result;
 
 	//Initialise Variables
-	int m_vertexCount = currentModel->Mesh->GetVertexCount();
-	int m_indexCount = currentModel->Mesh->GetIndexCount();
+	int m_vertexCount = m_Model->Mesh->GetVertexCount();
+	int m_indexCount = m_Model->Mesh->GetIndexCount();
 
 	//Vertex Array
 	Vertices = new CMesh::VertexType[m_vertexCount];
@@ -93,10 +93,11 @@ bool CModel::InitialiseBuffers(ID3D11Device* device) {
 	}
 
 	//Gets List of Sub-Meshes
-	std::vector<CMesh::SubMesh*> SubMeshList = currentModel->Mesh->GetSubMeshList();
+	std::vector<CMesh::SubMesh*> SubMeshList = m_Model->Mesh->GetSubMeshList();
 
 	//Counts through SubMeshes
-	for (int currentSubMesh = 0; currentSubMesh < currentModel->Mesh->GetSubMeshNum(); currentSubMesh++) {
+	for (int currentSubMesh = 0; currentSubMesh < m_Model->Mesh->GetSubMeshNum(); currentSubMesh++) 
+	{
 
 		//Get SubMesh from List
 		CMesh::SubMesh* subMesh = SubMeshList[currentSubMesh];
@@ -109,7 +110,7 @@ bool CModel::InitialiseBuffers(ID3D11Device* device) {
 			CMesh::VertexType* subMeshVertex = verticesList[currentVertex];
 
 			Vertices[currentVertex].position = subMeshVertex->position;
-			Vertices[currentVertex].color = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+			Vertices[currentVertex].texture = D3DXVECTOR2(1.0f, 1.0f);
 
 			//Iterates through SubMesh's Index List
 			for (int currentIndex = 0; currentIndex < subMesh->m_indexCount; currentIndex++) {
@@ -159,16 +160,15 @@ bool CModel::InitialiseBuffers(ID3D11Device* device) {
 			return false;
 		}
 
-		//Release Arrays now Buffers are Created
-		delete[] Vertices;
-		Vertices = 0;
-
-		delete[] Indices;
-		Indices = 0;
-
-		return true;
-
 	}
+	//Release Arrays now Buffers are Created
+	delete[] Vertices;
+	Vertices = 0;
+
+	delete[] Indices;
+	Indices = 0;
+
+	return true;
 }
 
 //Render Buffers Function
@@ -179,9 +179,10 @@ void CModel::RenderBuffers(ID3D11DeviceContext* deviceContext) {
 
 	//Get List of SubMeshs
 	std::vector<CMesh::SubMesh*> subMeshList = currentModel->Mesh->GetSubMeshList();
+	int subMeshNum = currentModel->Mesh->GetSubMeshNum();
 
 	//Iterate through SubMeshes
-	for (int subMeshCount = 0; subMeshCount < currentModel->Mesh->GetSubMeshNum(); subMeshCount++) {
+	for (int subMeshCount = 0; subMeshCount < subMeshNum; subMeshCount++) {
 		CMesh::SubMesh* currentMesh = subMeshList[subMeshCount];
 
 		ID3D11Buffer* VertexBuffer = currentMesh->VertexBuffer;
@@ -192,7 +193,7 @@ void CModel::RenderBuffers(ID3D11DeviceContext* deviceContext) {
 		offset = 0;
 
 		//Activate Vertex Buffer in Input Assembler
-		deviceContext->IASetVertexBuffers(0, 1, &VertexBuffer, &stride, &offset);
+		deviceContext->IASetVertexBuffers(0, subMeshNum, &VertexBuffer, &stride, &offset);
 
 		//Activate Index Buffer in Input Assembler
 		deviceContext->IASetIndexBuffer(IndexBuffer, DXGI_FORMAT_R32_UINT, 0);

@@ -45,6 +45,7 @@ bool CMesh::LoadMesh(std::string mFilename, eModelType modelType, std::string mF
 
 	numSubMeshes = Scene->mNumMeshes;
 
+
 	//Store Sub-Meshes of Mesh
 	for (int i = 0; i < numSubMeshes; i++) {
 		SubMesh* subMesh = new SubMesh;
@@ -65,12 +66,9 @@ bool CMesh::LoadMesh(std::string mFilename, eModelType modelType, std::string mF
 			Vertices->position.y = Scene->mMeshes[i]->mVertices[j].y;
 			Vertices->position.z = Scene->mMeshes[i]->mVertices[j].z;
 
-			//Store Colour (RGBA)
-			if (Scene->mMeshes[i]->HasVertexColors(j)) {
-				Vertices->color.x = Scene->mMeshes[i]->mColors[j]->r;
-				Vertices->color.y = Scene->mMeshes[i]->mColors[j]->g;
-				Vertices->color.z = Scene->mMeshes[i]->mColors[j]->b;
-				Vertices->color.w = Scene->mMeshes[i]->mColors[j]->a;
+			if (Scene->mMeshes[i]->HasTextureCoords(j)) {
+				Vertices->texture.x = Scene->mMeshes[i]->mTextureCoords[j]->x;
+				Vertices->texture.y = Scene->mMeshes[i]->mTextureCoords[j]->y;
 			}
 
 			subMesh->VerticesList.push_back(Vertices);

@@ -292,7 +292,7 @@ void CShader::RenderShader(ID3D11DeviceContext* deviceContext, int indexCount) {
 	deviceContext->VSSetShader(m_vertexShader, NULL, 0);
 	deviceContext->PSSetShader(m_pixelShader, NULL, 0);
 
-	//Render Triangle
+	//Render Mesh
 	deviceContext->DrawIndexed(indexCount, 0, 0);
 
 	return;
