@@ -44,9 +44,6 @@ void CModel::Shutdown() {
 
 //Render Function (Called from CGraphics)
 void CModel::Render(ID3D11DeviceContext* deviceContext) {
-	
-	//Add Buffers to Graphics Pipeline
-	RenderBuffers(deviceContext);
 
 	return;
 }
@@ -57,7 +54,7 @@ bool CModel::InitialiseBuffers(ID3D11Device* device) {
 	m_Model->Mesh = new CMesh();
 
 	//Temp Variables
-	std::string filename = "building";
+	std::string filename = "streetlamp";
 	std::string filetype = ".obj";
 	CMesh::eModelType modeltype = CMesh::Building;
 
@@ -170,40 +167,6 @@ bool CModel::InitialiseBuffers(ID3D11Device* device) {
 
 	return true;
 }
-
-//Render Buffers Function
-void CModel::RenderBuffers(ID3D11DeviceContext* deviceContext) {
-	unsigned int stride;
-	unsigned int offset;
-	ModelProperties* currentModel = GetModel();
-
-	//Get List of SubMeshs
-	std::vector<CMesh::SubMesh*> subMeshList = currentModel->Mesh->GetSubMeshList();
-	int subMeshNum = currentModel->Mesh->GetSubMeshNum();
-
-	//Iterate through SubMeshes
-	for (int subMeshCount = 0; subMeshCount < subMeshNum; subMeshCount++) {
-		CMesh::SubMesh* currentMesh = subMeshList[subMeshCount];
-
-		ID3D11Buffer* VertexBuffer = currentMesh->VertexBuffer;
-		ID3D11Buffer* IndexBuffer = currentMesh->IndexBuffer;
-
-		//Set Vertex Buffer
-		stride = sizeof(CMesh::VertexType);
-		offset = 0;
-
-		//Activate Vertex Buffer in Input Assembler
-		deviceContext->IASetVertexBuffers(0, subMeshNum, &VertexBuffer, &stride, &offset);
-
-		//Activate Index Buffer in Input Assembler
-		deviceContext->IASetIndexBuffer(IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
-
-		deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	}
-
-	return;
-}
-
 
 //Shutdown Buffers Function (Release Index and Vertex Buffer)
 void CModel::ShutdownBuffers() {

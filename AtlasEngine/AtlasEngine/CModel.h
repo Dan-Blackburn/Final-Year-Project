@@ -31,16 +31,11 @@ public:
 
 	//Getters
 	ModelProperties* GetModel();
-	ID3D11ShaderResourceView* GetTexture();
-	WCHAR* GetTextureFilename();
 
 private:
 	//Functions
 	bool InitialiseBuffers(ID3D11Device*);
 	void ShutdownBuffers();
-	void RenderBuffers(ID3D11DeviceContext*);
-	bool LoadTexture(ID3D11Device*, WCHAR*);
-	void ReleaseTexture();
 
 	//Class Pointers
 	ModelProperties* m_Model;

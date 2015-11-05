@@ -54,6 +54,8 @@ bool CGraphics::Initialise(int viewportWidth, int viewportHeight, HWND hwnd) {
 	//Get Pointer to Main Camera
 	m_Camera = m_EntityManager->GetCameraEntity();
 
+	m_Camera->SetPosition(0.0f, 5.0f, -15.0f);
+
 	if (result != true) {
 		LPCWSTR errorMessage = (LPCWSTR)"Error Code: " + result;
 		MessageBox(hwnd, L"Could not Initialise the Model Object.", errorMessage, MB_OK);

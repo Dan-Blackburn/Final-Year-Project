@@ -41,24 +41,27 @@ int CEntityManager::InitialiseEntities(ID3D11Device* device) {
 	int ModelInitialisationError = 150;
 	bool result;
 
-	//Create Model Entity
-	m_ModelEntity = new CModel();
+	for (int i = 0; i < 2; i++) {
 
-	//Check Pointer is Valid
-	if (!m_ModelEntity) {
-		return ModelPointerError;
-	}
+		//Create Model Entity
+		m_ModelEntity = new CModel();
 
-	//Push Model Pointer to List
-	m_ModelList.push_back(m_ModelEntity);
-	
-	//Intialise Model Entity
-	result = m_ModelEntity->Initialise(device);
+		//Check Pointer is Valid
+		if (!m_ModelEntity) {
+			return ModelPointerError;
+		}
 
-	//Checks if Entity Initialised Correctly
-	if (!result) {
-		//Debug Dump File
-		return ModelInitialisationError;
+		//Push Model Pointer to List
+		m_ModelList.push_back(m_ModelEntity);
+
+		//Intialise Model Entity
+		result = m_ModelEntity->Initialise(device);
+
+		//Checks if Entity Initialised Correctly
+		if (!result) {
+			//Debug Dump File
+			return ModelInitialisationError;
+		}
 	}
 
 	/////////////////////////////////////////////////////////////
@@ -111,7 +114,13 @@ bool CEntityManager::RenderEntities(ID3D11DeviceContext* deviceContext, CShader*
 		CModel::ModelProperties* currentModel = currentEntity->GetModel();
 
 		CMesh* Mesh = currentModel->Mesh;
-		result = m_Shader->Render(deviceContext, Mesh->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix);
+
+		for (int i = 0; i < Mesh->GetSubMeshNum(); i++) 
+		{
+			result = Mesh->RenderBuffers(deviceContext, i);
+
+			result = m_Shader->Render(deviceContext, Mesh->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix);
+		}
 
 		if (!result) {
 			return false;

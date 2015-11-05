@@ -146,6 +146,38 @@ std::string CMesh::MeshFinder(std::string mFilename, eModelType modelType, std::
 
 }
 
+
+//Render Buffers Function
+bool CMesh::RenderBuffers(ID3D11DeviceContext* deviceContext, int indexCount) {
+	unsigned int stride;
+	unsigned int offset;
+
+	//Get List of SubMeshs
+	std::vector<CMesh::SubMesh*> subMeshList = this->GetSubMeshList();
+
+	//Iterate through SubMeshes
+	CMesh::SubMesh* currentMesh = subMeshList.at(indexCount);
+
+	ID3D11Buffer* VertexBuffer = currentMesh->VertexBuffer;
+	ID3D11Buffer* IndexBuffer = currentMesh->IndexBuffer;
+
+	//Set Vertex Buffer
+	stride = sizeof(CMesh::VertexType);
+	offset = 0;
+
+	//Activate Vertex Buffer in Input Assembler
+	deviceContext->IASetVertexBuffers(0, 1, &VertexBuffer, &stride, &offset);
+
+	//Activate Index Buffer in Input Assembler
+	deviceContext->IASetIndexBuffer(IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
+
+	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	return true;
+
+
+}
+
 ID3D11Buffer* CMesh::GetVertexBuffer(SubMesh* subMesh) {
 	return subMesh->VertexBuffer;
 }

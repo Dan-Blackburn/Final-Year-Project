@@ -39,6 +39,7 @@ public:
 	ID3D11Buffer* GetIndexBuffer(SubMesh*);
 
 	std::vector<CMesh::SubMesh*> GetSubMeshList();
+	bool RenderBuffers(ID3D11DeviceContext*, int);
 
 	//Vertex Structure
 	struct VertexType {
