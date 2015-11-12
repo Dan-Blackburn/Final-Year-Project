@@ -20,9 +20,8 @@ public:
 
 	//Functions
 	int InitialiseEntities(ID3D11Device*);
-	void Shutdown();
-	void PrepareEntities(ID3D11DeviceContext*);
 	bool RenderEntities(ID3D11DeviceContext*, CShader*, D3DXMATRIX, D3DXMATRIX, D3DXMATRIX);
+	void Shutdown();
 
 private:
 	//Entity Variables

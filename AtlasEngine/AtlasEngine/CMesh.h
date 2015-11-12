@@ -5,6 +5,7 @@
 
 //Include
 #include <d3d11.h>
+#include <D3DX11tex.h>
 #include <d3dx10math.h>
 #include <string>
 #include <vector>
@@ -25,9 +26,10 @@ public:
 
 	//Temp Variables?
 	static enum eModelType { Building, Terrain, Water, Vehicle, Object };
+	static enum eTextureType {Diffuse, Specular, Normal, Bump};
 
 	//Functions
-	bool LoadMesh(std::string, eModelType, std::string);
+	bool LoadMesh(ID3D11Device*, std::string, eModelType, std::string);
 	bool RenderModels(ID3D11DeviceContext*);
 	void Shutdown();
 
@@ -37,9 +39,10 @@ public:
 
 	ID3D11Buffer* GetVertexBuffer(SubMesh*);
 	ID3D11Buffer* GetIndexBuffer(SubMesh*);
+	ID3D11ShaderResourceView* GetTexture(SubMesh*, int);
 
 	std::vector<CMesh::SubMesh*> GetSubMeshList();
-	bool RenderBuffers(ID3D11DeviceContext*, int);
+	bool PrepareBuffers(ID3D11DeviceContext*, int);
 
 	//Vertex Structure
 	struct VertexType {
@@ -52,6 +55,7 @@ public:
 		std::vector<VertexType*> VerticesList;
 		ID3D11Buffer* VertexBuffer;
 		ID3D11Buffer* IndexBuffer;
+		ID3D11ShaderResourceView* Texture[4];
 
 		int m_vertexCount;
 		int m_indexCount;
@@ -61,7 +65,7 @@ public:
 
 private:
 	//Functions
-	std::string MeshFinder(std::string, eModelType, std::string);
+	std::string MeshFinder(eModelType);
 
 	//Variables
 	int m_modelCount;

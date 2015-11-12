@@ -1,6 +1,7 @@
 #include "CSystem.h"
-#include "Console.h"
 #include <iostream>
+#include <windows.h>
+
 
 using namespace std;
 
@@ -8,10 +9,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pScmdline,
 {
 	CSystem* System;
 	bool result;
-
-	RedirectIOToConsole();
-
-	cout << "Console Window: " << endl;
  
 	// Create the System object.
 	System = new CSystem;
@@ -22,6 +19,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR pScmdline,
 
 	// Initialize and run the System object.
 	result = System->Initialise();
+
 	if (result)
 	{
 		System->Run();

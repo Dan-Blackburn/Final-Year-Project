@@ -4,6 +4,13 @@
 //Constructor
 CModel::CModel() {
 	m_Model = new ModelProperties;
+	m_Model->Position.x = 0.0f;
+	m_Model->Position.y = 0.0f;
+	m_Model->Position.z = 0.0f;
+
+	m_Model->Rotation.x = 0.0f;
+	m_Model->Rotation.y = 0.0f;
+	m_Model->Rotation.z = 0.0f;
 }
 
 //Copy Constructor
@@ -14,18 +21,37 @@ CModel::CModel(const CModel& other) {
 CModel::~CModel() {
 }
 
+//Setter
+void CModel::SetPosition(float x, float y, float z) 
+{
+	m_Model->Position.x = x;
+	m_Model->Position.y = y;
+	m_Model->Position.z = z;
+
+	return;
+}
+
+void CModel::SetRotation(float x, float y, float z) 
+{
+	m_Model->Rotation.x = x;
+	m_Model->Rotation.y = y;
+	m_Model->Rotation.z = z;
+
+	return;
+}
+
 //Getters
 CModel::ModelProperties* CModel::GetModel() {
 	return m_Model;
 }
 
 //Initialise Function
-bool CModel::Initialise(ID3D11Device* device) {
+bool CModel::Initialise(ID3D11Device* device, int currentModel) {
 
 	bool result;
 
-	//Initialise the Verex and Index buffers holding Geometry for Triangle
-	result = InitialiseBuffers(device);
+	//Initialise the Verex and Index buffers holding Geometry for Entities
+	result = InitialiseBuffers(device, currentModel);
 	if (!result) {
 		return false;
 	}
@@ -42,28 +68,34 @@ void CModel::Shutdown() {
 	return;
 }
 
-//Render Function (Called from CGraphics)
-void CModel::Render(ID3D11DeviceContext* deviceContext) {
-
-	return;
-}
-
 //Initialise Buffers Function 
-bool CModel::InitialiseBuffers(ID3D11Device* device) {
+bool CModel::InitialiseBuffers(ID3D11Device* device, int currentModel) {
 
 	m_Model->Mesh = new CMesh();
+	std::string filename;
+	std::string filetype;
+	CMesh::eModelType modeltype;
 
-	//Temp Variables
-	std::string filename = "streetlamp";
-	std::string filetype = ".obj";
-	CMesh::eModelType modeltype = CMesh::Building;
+
+	if (currentModel == 0) {
+		//Temp Variables
+		filename = "Flat Plane";
+		filetype = ".fbx";
+		modeltype = CMesh::Terrain;
+	}
+	else {
+		//Temp Variables
+		filename = "derelictBrickHouse";
+		filetype = ".fbx";
+		modeltype = CMesh::Building;
+	}
 
 	//Load Model using Assimp
-	bool LoadStatus = m_Model->Mesh->LoadMesh(filename, modeltype, filetype);
+	bool LoadStatus = m_Model->Mesh->LoadMesh(device, filename, modeltype, filetype);
 
 	if (!LoadStatus) {
+		OutputDebugString("Unable to Load Mesh");
 		return false;
-		//Submit Error Report Code
 	}
 
 	//Define Variables
@@ -107,7 +139,7 @@ bool CModel::InitialiseBuffers(ID3D11Device* device) {
 			CMesh::VertexType* subMeshVertex = verticesList[currentVertex];
 
 			Vertices[currentVertex].position = subMeshVertex->position;
-			Vertices[currentVertex].texture = D3DXVECTOR2(1.0f, 1.0f);
+			Vertices[currentVertex].texture = subMeshVertex->texture;
 
 			//Iterates through SubMesh's Index List
 			for (int currentIndex = 0; currentIndex < subMesh->m_indexCount; currentIndex++) {

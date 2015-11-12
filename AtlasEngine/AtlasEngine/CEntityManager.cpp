@@ -53,14 +53,19 @@ int CEntityManager::InitialiseEntities(ID3D11Device* device) {
 
 		//Push Model Pointer to List
 		m_ModelList.push_back(m_ModelEntity);
+		IncreaseEntityCount(1);
 
 		//Intialise Model Entity
-		result = m_ModelEntity->Initialise(device);
+		result = m_ModelEntity->Initialise(device, i);
 
 		//Checks if Entity Initialised Correctly
 		if (!result) {
-			//Debug Dump File
+			//Return Error Code
 			return ModelInitialisationError;
+		}
+
+		else {
+			OutputDebugString("Model Entity Added\n");
 		}
 	}
 
@@ -78,48 +83,43 @@ int CEntityManager::InitialiseEntities(ID3D11Device* device) {
 
 	//Check Pointer is Valid
 	if (!m_CameraEntity) {
+		//Return Error Code
 		return CameraPointerError;
+	}
+
+	else {
+		OutputDebugString("Camera Entity Added\n");
 	}
 
 	//Push Camera Pointer to List
 	m_CameraList.push_back(m_CameraEntity);
-
-	//Set Position of Camera
-	m_CameraEntity->SetPosition(0.0f, 0.0f, -10.0f);
 
 	/////////////////////////////////////////////////////////////
 
 	return true;
 }
 
-void CEntityManager::PrepareEntities(ID3D11DeviceContext* deviceContext) {
-
-	//Iterate through Entity List
-	for (std::vector<CModel*>::iterator it = m_ModelList.begin(); it != m_ModelList.end(); it++) {
-
-		CModel* currentEntity = *it;
-
-		//Render Current Entity in Iteration
-		currentEntity->Render(deviceContext);
-	}
-
-}
-
+//Render Entities
 bool CEntityManager::RenderEntities(ID3D11DeviceContext* deviceContext, CShader* m_Shader, D3DXMATRIX worldMatrix, D3DXMATRIX viewMatrix, D3DXMATRIX projectionMatrix) {
 	bool result;
 
-	for (std::vector<CModel*>::iterator it = m_ModelList.begin(); it != m_ModelList.end(); it++) {
+	for (std::vector<CModel*>::iterator it = m_ModelList.begin(); it != m_ModelList.end(); it++) 
+	{
 		CModel* currentEntity = *it;
-		
-		CModel::ModelProperties* currentModel = currentEntity->GetModel();
 
-		CMesh* Mesh = currentModel->Mesh;
+		CMesh* Mesh = currentEntity->GetModel()->Mesh;
+		vector<CMesh::SubMesh*> subMeshList = Mesh->GetSubMeshList();
+
+		//Frame Function?
+		D3DXVECTOR3 coords = currentEntity->GetModel()->Rotation;
+		currentEntity->SetRotation(coords.x, coords.y + 0.01f, coords.z);
 
 		for (int i = 0; i < Mesh->GetSubMeshNum(); i++) 
 		{
-			result = Mesh->RenderBuffers(deviceContext, i);
+			result = Mesh->PrepareBuffers(deviceContext, i);
 
-			result = m_Shader->Render(deviceContext, Mesh->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix);
+			//Render Diffuse Only
+			result = m_Shader->Render(deviceContext, Mesh->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix, Mesh->GetTexture(subMeshList[i], CMesh::Diffuse));
 		}
 
 		if (!result) {
@@ -130,6 +130,7 @@ bool CEntityManager::RenderEntities(ID3D11DeviceContext* deviceContext, CShader*
 	return true;
 }
 
+//Return Camera Entity
 CCamera* CEntityManager::GetCameraEntity() {
 	return m_CameraEntity;
 }

@@ -34,7 +34,7 @@ bool CSystem::Initialise() {
 	}
 
 	//Initialise Input Object
-	m_Input->Initialise();
+	m_Input->Initialise(m_hInstance, m_hwnd, viewportWidth, viewportHeight);
 
 	//Define Graphics Object
 	m_Graphics = new CGraphics;
@@ -112,7 +112,7 @@ bool CSystem::Frame() {
 	bool result;
 
 	//Check for Escape Key Press
-	if (m_Input->IsKeyDown(VK_ESCAPE)) {
+	if (m_Input->IsEscapePressed()) {
 		return false;
 	}
 
@@ -134,15 +134,11 @@ LRESULT CALLBACK CSystem::MessageHandler(HWND hwnd, UINT keyMsg, WPARAM wparam, 
 		//Key Press Case
 		case WM_KEYDOWN:
 			//Check if Key is Pressed, Sending it to Input Object to set Key
-			m_Input->KeyPressed((unsigned int)wparam);
-			return false;
 			break;
 
 		//Key Release Case
 		case WM_KEYUP:
 			//Check if Key is Release, Sending it to Input Object to unset Key
-			m_Input->KeyReleased((unsigned int)wparam);
-			return false;
 			break;
 
 		//Default Message for Useless Messages
@@ -166,7 +162,7 @@ void CSystem::InitialiseWindows(int& viewportWidth, int& viewportHeight) {
 	m_hInstance = GetModuleHandle(NULL);
 
 	//Application Name
-	m_applicationName = L"AtlasEngine";
+	m_applicationName = "AtlasEngine";
 
 	//Setup Windows Class (Default Settings)
 	wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;

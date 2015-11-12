@@ -19,22 +19,25 @@ CMesh::~CMesh() {
 }
 
 //Load Mesh from File
-bool CMesh::LoadMesh(std::string mFilename, eModelType modelType, std::string mFileType) {
+bool CMesh::LoadMesh(ID3D11Device* device, std::string mFileName, eModelType modelType, std::string mFileType) 
+{
 
 	/////////////////////////////////
 	//Load Mesh through Assimp
 	/////////////////////////////////
 
 	//Mesh Location Handler
-	std::string mFilePath = MeshFinder(mFilename, modelType, mFileType);
+	std::string mFilePath = MeshFinder(modelType);
+	std::string fileName = mFileName + mFileType;
 
 	//Create Instance of Importer
 	Assimp::Importer importer;
 
-	const aiScene* Scene = importer.ReadFile(mFilePath, aiProcess_CalcTangentSpace | aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_SortByPType);
+	const aiScene* Scene = importer.ReadFile(mFilePath + fileName, aiProcess_CalcTangentSpace | aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_SortByPType);
 
 	//Error Handler if Failed
-	if (!Scene) {
+	if (!Scene) 
+	{
 		//Error Message?
 		return false;
 	}
@@ -47,7 +50,8 @@ bool CMesh::LoadMesh(std::string mFilename, eModelType modelType, std::string mF
 
 
 	//Store Sub-Meshes of Mesh
-	for (int i = 0; i < numSubMeshes; i++) {
+	for (int i = 0; i < numSubMeshes; i++) 
+	{
 		SubMesh* subMesh = new SubMesh;
 
 		//Store Vertex & Index Count for Loops
@@ -58,7 +62,8 @@ bool CMesh::LoadMesh(std::string mFilename, eModelType modelType, std::string mF
 		totalIndexCount += subMesh->m_indexCount;
 
 		//Store Vertices of Sub-Mesh
-		for (int j = 0; j < subMesh->m_vertexCount; j++) {
+		for (int j = 0; j < subMesh->m_vertexCount; j++) 
+		{
 			VertexType* Vertices = new VertexType;
 
 			//Store Positions (XYZ)
@@ -66,21 +71,22 @@ bool CMesh::LoadMesh(std::string mFilename, eModelType modelType, std::string mF
 			Vertices->position.y = Scene->mMeshes[i]->mVertices[j].y;
 			Vertices->position.z = Scene->mMeshes[i]->mVertices[j].z;
 
-			if (Scene->mMeshes[i]->HasTextureCoords(j)) {
-				Vertices->texture.x = Scene->mMeshes[i]->mTextureCoords[j]->x;
-				Vertices->texture.y = Scene->mMeshes[i]->mTextureCoords[j]->y;
-			}
+			Vertices->texture.x = Scene->mMeshes[i]->mTextureCoords[Diffuse][j].x;
+			Vertices->texture.y = Scene->mMeshes[i]->mTextureCoords[Diffuse][j].y;
 
 			subMesh->VerticesList.push_back(Vertices);
 		}
 
+		//Create Index
 		subMesh->Indices = new unsigned int[subMesh->m_indexCount];
 		int indexCount = 0;
 		
+		//Store 3 Point Indices
+		for (unsigned int j = 0; j < subMesh->m_facesCount; j++) 
+		{
 
-		for (unsigned int j = 0; j < subMesh->m_facesCount; j++) {
-
-			if (Scene->mMeshes[i]->mFaces[j].mNumIndices == 3) {
+			if (Scene->mMeshes[i]->mFaces[j].mNumIndices == 3) 
+			{
 				subMesh->Indices[indexCount] = Scene->mMeshes[i]->mFaces[j].mIndices[0];
 				indexCount++;
 				subMesh->Indices[indexCount] = Scene->mMeshes[i]->mFaces[j].mIndices[1];
@@ -90,28 +96,45 @@ bool CMesh::LoadMesh(std::string mFilename, eModelType modelType, std::string mF
 			}
 		}
 
+		//Store Materials as Shader Resources
+		for (int i = 0; i < Scene->mNumMaterials; i++) 
+		{
+			//Texture Path Variables
+			aiString textureName;
+
+			//Get the Name of the Texture
+			Scene->mMaterials[i]->GetTexture(aiTextureType_DIFFUSE, 0, &textureName);
+			
+			//Append the Name of the Texture to the defined Filepath
+			mFilePath = mFilePath + textureName.data;
+
+			//Create Shader Resource from File
+			if (FAILED(D3DX11CreateShaderResourceViewFromFile(device, mFilePath.c_str(), NULL, NULL, &subMesh->Texture[i], NULL))) {
+				//Output Error Message 
+				OutputDebugString("Unable to Load Texture: ");
+				OutputDebugString(textureName.C_Str());
+				return false;
+			}
+		}
+
+		//Add Submesh to the List of Submeshes 
 		SubMeshList.push_back(subMesh);
 	}
 
 	return true;
 }
 
-//Render Models
-bool CMesh::RenderModels(ID3D11DeviceContext* deviceContext) {
-
-	//Call Model List Render Function?
-
-	return true;
-}
-
 //Shutdown Mesh and Release Models
-void CMesh::Shutdown() {
+void CMesh::Shutdown() 
+{
 
 	//Checks for Models
-	if (m_modelCount) {
+	if (m_modelCount) 
+	{
 
 		//Release Models if Existing
-		for (int i = 0; i < m_modelCount; i++) {
+		for (int i = 0; i < m_modelCount; i++) 
+		{
 
 		}
 
@@ -119,12 +142,14 @@ void CMesh::Shutdown() {
 }
 
 //Processes the Filename, Model Type and File Type, Generating a Path to the Mesh
-std::string CMesh::MeshFinder(std::string mFilename, eModelType modelType, std::string mFileType) {
+std::string CMesh::MeshFinder(eModelType modelType) 
+{
 
 	std::string directory = "Resources/Models/";
 
 	//Process Filename and Type
-	switch (modelType) {
+	switch (modelType)
+	{
 	case Object:
 		directory = directory + "Objects/";
 		break;
@@ -135,20 +160,21 @@ std::string CMesh::MeshFinder(std::string mFilename, eModelType modelType, std::
 		directory = directory + "Buildings/";
 		break;
 	case Terrain:
-		directory = directory + "Terrain/";
+		directory = directory + "Terrains/";
 		break;
 	case Vehicle:
 		directory = directory + "Vehicles/";
 		break;
 	}
 
-	return directory + mFilename + mFileType;
+	return directory;
 
 }
 
 
 //Render Buffers Function
-bool CMesh::RenderBuffers(ID3D11DeviceContext* deviceContext, int indexCount) {
+bool CMesh::PrepareBuffers(ID3D11DeviceContext* deviceContext, int indexCount) 
+{
 	unsigned int stride;
 	unsigned int offset;
 
@@ -175,29 +201,38 @@ bool CMesh::RenderBuffers(ID3D11DeviceContext* deviceContext, int indexCount) {
 
 	return true;
 
-
 }
 
-ID3D11Buffer* CMesh::GetVertexBuffer(SubMesh* subMesh) {
+ID3D11Buffer* CMesh::GetVertexBuffer(SubMesh* subMesh) 
+{
 	return subMesh->VertexBuffer;
 }
 
-int CMesh::GetVertexCount() {
+int CMesh::GetVertexCount() 
+{
 	return totalVertexCount;
 }
 
-ID3D11Buffer* CMesh::GetIndexBuffer(SubMesh* subMesh) {
+ID3D11Buffer* CMesh::GetIndexBuffer(SubMesh* subMesh) 
+{
 	return subMesh->IndexBuffer;
 }
 
-int CMesh::GetIndexCount() {
+int CMesh::GetIndexCount() 
+{
 	return totalIndexCount;
 }
 
-std::vector<CMesh::SubMesh*> CMesh::GetSubMeshList() {
+std::vector<CMesh::SubMesh*> CMesh::GetSubMeshList() 
+{
 	return SubMeshList;
 }
 
-int CMesh::GetSubMeshNum() {
+int CMesh::GetSubMeshNum() 
+{
 	return numSubMeshes;
+}
+
+ID3D11ShaderResourceView* CMesh::GetTexture(SubMesh* subMesh, int textureType) {
+	return subMesh->Texture[textureType];
 }

@@ -12,29 +12,35 @@
 class CModel{
 public:
 
+	struct ModelProperties;
+
 	//Constructors & Destructors
 	CModel();
 	CModel(const CModel&);
 	~CModel();
 
 	//Functions
-	bool Initialise(ID3D11Device*);
+	bool Initialise(ID3D11Device*, int);
 	void Shutdown();
-	void Render(ID3D11DeviceContext*);
-
-	//Class Pointers
-	struct ModelProperties {
-		CMesh* Mesh;
-		D3DXVECTOR3 Position;
-		D3DXVECTOR3 Rotation;
-	};
+	
+	//Setter
+	void SetPosition(float, float, float);
+	void SetRotation(float, float, float);
+	void SetSkin(ID3D11ShaderResourceView*);
 
 	//Getters
 	ModelProperties* GetModel();
 
 private:
+	struct ModelProperties {
+		CMesh* Mesh;
+		D3DXVECTOR3 Position;
+		D3DXVECTOR3 Rotation;
+		ID3D11ShaderResourceView* Texture;
+	};
+
 	//Functions
-	bool InitialiseBuffers(ID3D11Device*);
+	bool InitialiseBuffers(ID3D11Device*, int);
 	void ShutdownBuffers();
 
 	//Class Pointers

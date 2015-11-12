@@ -1,5 +1,6 @@
 //Includes
 #include "CGraphics.h"
+#include <iostream>
 
 //Constructor
 CGraphics::CGraphics() {
@@ -23,6 +24,7 @@ CGraphics::~CGraphics() {
 bool CGraphics::Initialise(int viewportWidth, int viewportHeight, HWND hwnd) {
 
 	bool result;
+	int errorCode;
 
 	//Create Direct3D Object
 	m_Direct3D = new CDirect3D();
@@ -37,7 +39,7 @@ bool CGraphics::Initialise(int viewportWidth, int viewportHeight, HWND hwnd) {
 
 	//Checks Direct3D Object was Initialised
 	if (!result) {
-		MessageBox(hwnd, L"Could not initialise Direct3D", L"Error", MB_OK);
+		MessageBox(hwnd, "Could not initialise Direct3D", "Error", MB_OK);
 		return false;
 	}
 
@@ -49,16 +51,20 @@ bool CGraphics::Initialise(int viewportWidth, int viewportHeight, HWND hwnd) {
 	}
 
 	//Initialise Model Objects
-	result = m_EntityManager->InitialiseEntities(m_Direct3D->GetDevice());
+	errorCode = m_EntityManager->InitialiseEntities(m_Direct3D->GetDevice());
+
+	if (errorCode != 1) {
+		LPCSTR errorMessage = (LPCSTR)"Error Code: " + errorCode;
+		MessageBox(hwnd, "Could not Initialise the Model Entity.", errorMessage, MB_OK);
+		return false;
+	}
 
 	//Get Pointer to Main Camera
 	m_Camera = m_EntityManager->GetCameraEntity();
 
-	m_Camera->SetPosition(0.0f, 5.0f, -15.0f);
-
-	if (result != true) {
-		LPCWSTR errorMessage = (LPCWSTR)"Error Code: " + result;
-		MessageBox(hwnd, L"Could not Initialise the Model Object.", errorMessage, MB_OK);
+	if (errorCode != 1) {
+		LPCSTR errorMessage = (LPCSTR)"Error Code: " + errorCode;
+		MessageBox(hwnd, "Could not Initialise the Camera Entity.", errorMessage, MB_OK);
 		return false;
 	}
 
@@ -71,7 +77,7 @@ bool CGraphics::Initialise(int viewportWidth, int viewportHeight, HWND hwnd) {
 	//Intialise Shader Object
 	result = m_Shader->Initialise(m_Direct3D->GetDevice(), hwnd);
 	if (!result) {
-		MessageBox(hwnd, L"Could not Initialise the Shader Object.", L"Error", MB_OK);
+		MessageBox(hwnd, "Could not Initialise the Shader Object.", "Error", MB_OK);
 		return false;
 	}
 
@@ -81,10 +87,12 @@ bool CGraphics::Initialise(int viewportWidth, int viewportHeight, HWND hwnd) {
 //Calculate Frame
 bool CGraphics::Frame() {
 
-	bool result;
+	//Set Camera Position and Rotation
+	m_Camera->SetPosition(0.0f, 50.0f, -20.0f);
+	m_Camera->SetRotation(10.0f, 0.0f, 0.0f);
 
 	//Render the Graphics Scene
-	result = Render();
+	bool result = Render();
 
 	//Check if Scene was Rendered;
 	if (!result) {
@@ -103,16 +111,13 @@ bool CGraphics::Render() {
 	//Clear Buffer to Reset the Viewport
 	m_Direct3D->ClearBuffer(0.0f, 0.0f, 0.0f, 1.0f);
 
-	// Generate the view matrix based on the camera's position.
+	//Generate View Matrix
 	m_Camera->Render();
 
-	// Get the world, view, and projection matrices from the camera and d3d objects.
+	//Get Matrices from Camera and Direct3D Objects
 	m_Camera->UpdateViewMatrix(viewMatrix);
 	m_Direct3D->GetWorldMatrix(worldMatrix);
 	m_Direct3D->GetProjectionMatrix(projectionMatrix);
-
-	// Put the model vertex and index buffers on the graphics pipeline to prepare them for drawing.
-	m_EntityManager->PrepareEntities(m_Direct3D->GetDeviceContext());
 
 	// Render the model using the color shader.
 	result = m_EntityManager->RenderEntities(m_Direct3D->GetDeviceContext(), m_Shader, worldMatrix, viewMatrix, projectionMatrix);

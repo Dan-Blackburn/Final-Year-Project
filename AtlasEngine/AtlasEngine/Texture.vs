@@ -1,25 +1,29 @@
 //Globals
-CBuffer MatrixBuffer{
+cbuffer MatrixBuffer
+{
 	matrix worldMatrix;
 	matrix viewMatrix;
 	matrix projectionMatrix;
-}
+};
 
 //Typedefs
-struct VertexInputType{
+struct VertexInputType
+{
 	float4 position : POSITION;
 	float2 tex : TEXCOORD0;
-}
+};
 
-struct PixelInputType{
+struct PixelInputType
+{
 	float4 position : SV_POSITION;
 	float2 tex : TEXCOORD0;
-}
+};
 
 ///////////////////////////////////////
 //Vertex Shader
 ///////////////////////////////////////
-PixelInputType TextureVertexShader(VertexInputType input){
+PixelInputType TextureVertexShader(VertexInputType input)
+{
 	PixelInputType output;
 
 	//Change Position Vector (to be 4 units) for Matrix Calculations
