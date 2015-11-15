@@ -110,21 +110,29 @@ bool CEntityManager::RenderEntities(ID3D11DeviceContext* deviceContext, CShader*
 		CMesh* Mesh = currentEntity->GetModel()->Mesh;
 		vector<CMesh::SubMesh*> subMeshList = Mesh->GetSubMeshList();
 
-		//Frame Function?
-		D3DXVECTOR3 coords = currentEntity->GetModel()->Rotation;
-		currentEntity->SetRotation(coords.x, coords.y + 0.01f, coords.z);
-
 		for (int i = 0; i < Mesh->GetSubMeshNum(); i++) 
 		{
 			result = Mesh->PrepareBuffers(deviceContext, i);
 
 			//Render Diffuse Only
 			result = m_Shader->Render(deviceContext, Mesh->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix, Mesh->GetTexture(subMeshList[i], CMesh::Diffuse));
+
 		}
 
 		if (!result) {
 			return false;
 		}
+	}
+
+	return true;
+}
+
+bool CEntityManager::Frame() {
+	
+	for (std::vector<CModel*>::iterator it = m_ModelList.begin(); it != m_ModelList.end(); it++) 
+	{
+		m_ModelEntity = *it;
+
 	}
 
 	return true;

@@ -79,12 +79,12 @@ bool CMesh::LoadMesh(ID3D11Device* device, std::string mFileName, eModelType mod
 
 		//Create Index
 		subMesh->Indices = new unsigned int[subMesh->m_indexCount];
+
 		int indexCount = 0;
 		
 		//Store 3 Point Indices
 		for (unsigned int j = 0; j < subMesh->m_facesCount; j++) 
 		{
-
 			if (Scene->mMeshes[i]->mFaces[j].mNumIndices == 3) 
 			{
 				subMesh->Indices[indexCount] = Scene->mMeshes[i]->mFaces[j].mIndices[0];
@@ -101,18 +101,20 @@ bool CMesh::LoadMesh(ID3D11Device* device, std::string mFileName, eModelType mod
 		{
 			//Texture Path Variables
 			aiString textureName;
+			std::string textureFilePath = mFilePath;
 
 			//Get the Name of the Texture
 			Scene->mMaterials[i]->GetTexture(aiTextureType_DIFFUSE, 0, &textureName);
 			
 			//Append the Name of the Texture to the defined Filepath
-			mFilePath = mFilePath + textureName.data;
+			textureFilePath = textureFilePath + textureName.data;
 
 			//Create Shader Resource from File
-			if (FAILED(D3DX11CreateShaderResourceViewFromFile(device, mFilePath.c_str(), NULL, NULL, &subMesh->Texture[i], NULL))) {
+			if (FAILED(D3DX11CreateShaderResourceViewFromFile(device, textureFilePath.c_str(), NULL, NULL, &subMesh->Texture[Diffuse], NULL))) {
 				//Output Error Message 
 				OutputDebugString("Unable to Load Texture: ");
 				OutputDebugString(textureName.C_Str());
+				OutputDebugString("\n");
 				return false;
 			}
 		}

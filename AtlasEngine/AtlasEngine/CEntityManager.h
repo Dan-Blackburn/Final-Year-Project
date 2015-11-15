@@ -20,6 +20,7 @@ public:
 
 	//Functions
 	int InitialiseEntities(ID3D11Device*);
+	bool Frame();
 	bool RenderEntities(ID3D11DeviceContext*, CShader*, D3DXMATRIX, D3DXMATRIX, D3DXMATRIX);
 	void Shutdown();
 

@@ -30,7 +30,6 @@ public:
 
 	//Functions
 	bool LoadMesh(ID3D11Device*, std::string, eModelType, std::string);
-	bool RenderModels(ID3D11DeviceContext*);
 	void Shutdown();
 
 	int GetVertexCount();

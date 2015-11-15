@@ -45,6 +45,14 @@ CModel::ModelProperties* CModel::GetModel() {
 	return m_Model;
 }
 
+D3DXVECTOR3 CModel::GetPosition() {
+	return m_Model->Position;
+}
+
+D3DXVECTOR3 CModel::GetRotation() {
+	return m_Model->Rotation;
+}
+
 //Initialise Function
 bool CModel::Initialise(ID3D11Device* device, int currentModel) {
 
@@ -85,7 +93,7 @@ bool CModel::InitialiseBuffers(ID3D11Device* device, int currentModel) {
 	}
 	else {
 		//Temp Variables
-		filename = "derelictBrickHouse";
+		filename = "house";
 		filetype = ".fbx";
 		modeltype = CMesh::Building;
 	}

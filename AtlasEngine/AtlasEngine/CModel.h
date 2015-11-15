@@ -30,9 +30,12 @@ public:
 
 	//Getters
 	ModelProperties* GetModel();
+	D3DXVECTOR3 GetPosition();
+	D3DXVECTOR3 GetRotation();
 
 private:
 	struct ModelProperties {
+		std::string ModelName;
 		CMesh* Mesh;
 		D3DXVECTOR3 Position;
 		D3DXVECTOR3 Rotation;
