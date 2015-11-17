@@ -205,8 +205,8 @@ void CSystem::InitialiseWindows(int& viewportWidth, int& viewportHeight) {
 	else {
 
 		//Set Screen to Resolution Below
-		viewportWidth = 800;
-		viewportHeight = 600;
+		viewportWidth = 1280;
+		viewportHeight = 720;
 
 		//Place Window in Middle of Screen
 		posX = (GetSystemMetrics(SM_CXSCREEN) - viewportWidth) / 2;

@@ -133,6 +133,8 @@ bool CEntityManager::Frame() {
 	{
 		m_ModelEntity = *it;
 
+		m_ModelEntity->SetPosition(0.0f, m_ModelEntity->GetPosition().y + 0.01f, 0.0f);
+
 	}
 
 	return true;

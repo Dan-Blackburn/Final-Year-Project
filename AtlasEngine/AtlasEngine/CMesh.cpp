@@ -33,7 +33,7 @@ bool CMesh::LoadMesh(ID3D11Device* device, std::string mFileName, eModelType mod
 	//Create Instance of Importer
 	Assimp::Importer importer;
 
-	const aiScene* Scene = importer.ReadFile(mFilePath + fileName, aiProcess_CalcTangentSpace | aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_SortByPType);
+	const aiScene* Scene = importer.ReadFile(mFilePath + fileName, aiProcess_CalcTangentSpace | aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_SortByPType | aiProcess_ConvertToLeftHanded);
 
 	//Error Handler if Failed
 	if (!Scene) 
@@ -47,6 +47,7 @@ bool CMesh::LoadMesh(ID3D11Device* device, std::string mFileName, eModelType mod
 	/////////////////////////////////
 
 	numSubMeshes = Scene->mNumMeshes;
+	int subMeshTextures = 0;
 
 
 	//Store Sub-Meshes of Mesh
@@ -96,16 +97,16 @@ bool CMesh::LoadMesh(ID3D11Device* device, std::string mFileName, eModelType mod
 			}
 		}
 
-		//Store Materials as Shader Resources
-		for (int i = 0; i < Scene->mNumMaterials; i++) 
+		if (Scene->mMeshes[i]->HasTextureCoords(Diffuse)) 
 		{
+
 			//Texture Path Variables
 			aiString textureName;
 			std::string textureFilePath = mFilePath;
 
 			//Get the Name of the Texture
 			Scene->mMaterials[i]->GetTexture(aiTextureType_DIFFUSE, 0, &textureName);
-			
+
 			//Append the Name of the Texture to the defined Filepath
 			textureFilePath = textureFilePath + textureName.data;
 

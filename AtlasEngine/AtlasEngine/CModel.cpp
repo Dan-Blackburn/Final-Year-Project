@@ -93,7 +93,7 @@ bool CModel::InitialiseBuffers(ID3D11Device* device, int currentModel) {
 	}
 	else {
 		//Temp Variables
-		filename = "house";
+		filename = "Farmhouse";
 		filetype = ".fbx";
 		modeltype = CMesh::Building;
 	}

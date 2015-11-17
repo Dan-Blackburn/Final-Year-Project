@@ -88,11 +88,11 @@ bool CGraphics::Initialise(int viewportWidth, int viewportHeight, HWND hwnd) {
 bool CGraphics::Frame() {
 
 	//Set Camera Position and Rotation
-	m_Camera->SetPosition(0.0f, 15.0f, -40.0f);
+	m_Camera->SetPosition(0.0f, 500.0f, -900.0f);
 	m_Camera->SetRotation(30.0f, 0.0f, 0.0f);
 
 	//Entity Frame Function, Setting Position of the Entitys within the World
-	//m_EntityManager->Frame();
+	m_EntityManager->Frame();
 
 	//Render the Graphics Scene
 	bool result = Render();
