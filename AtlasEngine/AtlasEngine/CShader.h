@@ -23,7 +23,7 @@ public:
 	//Functions
 	bool Initialise(ID3D11Device*, HWND);
 	void Shutdown();
-	bool Render(ID3D11DeviceContext*, int, D3DXMATRIX, D3DXMATRIX, D3DXMATRIX, ID3D11ShaderResourceView*);
+	bool Render(ID3D11DeviceContext*, int, D3DXMATRIX, D3DXMATRIX, D3DXMATRIX, ID3D11ShaderResourceView*[4]);
 
 private:
 	//Structures
@@ -38,7 +38,7 @@ private:
 	void ShutdownShader();
 	void OutputShaderErrorMessage(ID3D10Blob*, HWND, LPCSTR);
 
-	bool SetShaderParameters(ID3D11DeviceContext*, D3DXMATRIX, D3DXMATRIX, D3DXMATRIX, ID3D11ShaderResourceView*);
+	bool SetShaderParameters(ID3D11DeviceContext*, D3DXMATRIX, D3DXMATRIX, D3DXMATRIX, ID3D11ShaderResourceView*[4]);
 	void RenderShader(ID3D11DeviceContext*, int);
 
 	//Variables

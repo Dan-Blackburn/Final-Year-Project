@@ -59,8 +59,8 @@ int CMesh::GetSubMeshNum()
 }
 
 //Returns the Texture of SubMesh
-ID3D11ShaderResourceView* CMesh::GetTextures(SubMesh* subMesh) {
-	return subMesh->Texture[4];
+ID3D11ShaderResourceView** CMesh::GetTextures(SubMesh* subMesh) {
+	return subMesh->Texture;
 }
 
 /////////////////////////////////////////////////////////////
@@ -265,9 +265,10 @@ bool CMesh::LoadMesh(ID3D11Device* device, std::string mFileName, eModelType mod
 				subMesh->hasAlpha = true;
 			}
 
-			if (!subMesh->hasSpecular) { subMesh->Texture[Specular] = subMesh->Texture[Diffuse]; }
-			if (!subMesh->hasNormal) { subMesh->Texture[Normal] = subMesh->Texture[Diffuse]; }
-			if (!subMesh->hasAlpha) { subMesh->Texture[Alpha] = subMesh->Texture[Diffuse]; }
+			if (!subMesh->hasDiffuse) { subMesh->Texture[Diffuse] = 0; }
+			if (!subMesh->hasSpecular) { subMesh->Texture[Specular] = 0; }
+			if (!subMesh->hasNormal) { subMesh->Texture[Normal] = 0; }
+			if (!subMesh->hasAlpha) { subMesh->Texture[Alpha] = 0; }
 			
 		}
 

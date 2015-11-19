@@ -39,7 +39,7 @@ public:
 
 	ID3D11Buffer* GetVertexBuffer(SubMesh*);
 	ID3D11Buffer* GetIndexBuffer(SubMesh*);
-	ID3D11ShaderResourceView* GetTextures(SubMesh*);
+	ID3D11ShaderResourceView** GetTextures(SubMesh*);
 
 	std::vector<CMesh::SubMesh*> GetSubMeshList();
 	bool PrepareBuffers(ID3D11DeviceContext*, int);
