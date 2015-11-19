@@ -26,6 +26,10 @@ bool CGraphics::Initialise(int viewportWidth, int viewportHeight, HWND hwnd) {
 	bool result;
 	int errorCode;
 
+	/////////////////////////////////////////////////////////////
+	//Direct3D Partition
+	/////////////////////////////////////////////////////////////
+
 	//Create Direct3D Object
 	m_Direct3D = new CDirect3D();
 
@@ -43,9 +47,14 @@ bool CGraphics::Initialise(int viewportWidth, int viewportHeight, HWND hwnd) {
 		return false;
 	}
 
+	/////////////////////////////////////////////////////////////
+
+	/////////////////////////////////////////////////////////////
+	//Entity Manager Partition
+	/////////////////////////////////////////////////////////////
+
 	//Create Entity Object
 	m_EntityManager = new CEntityManager;
-
 	if (!m_EntityManager) {
 		return false;
 	}
@@ -68,6 +77,12 @@ bool CGraphics::Initialise(int viewportWidth, int viewportHeight, HWND hwnd) {
 		return false;
 	}
 
+	/////////////////////////////////////////////////////////////
+
+	/////////////////////////////////////////////////////////////
+	//Shader Partition
+	/////////////////////////////////////////////////////////////
+
 	//Create Shader Object
 	m_Shader = new CShader;
 	if (!m_Shader) {
@@ -80,6 +95,8 @@ bool CGraphics::Initialise(int viewportWidth, int viewportHeight, HWND hwnd) {
 		MessageBox(hwnd, "Could not Initialise the Shader Object.", "Error", MB_OK);
 		return false;
 	}
+
+	/////////////////////////////////////////////////////////////
 
 	return true;
 }
@@ -119,8 +136,8 @@ bool CGraphics::Render() {
 
 	//Get Matrices from Camera and Direct3D Objects
 	m_Camera->UpdateViewMatrix(viewMatrix);
-	m_Direct3D->GetWorldMatrix(worldMatrix);
-	m_Direct3D->GetProjectionMatrix(projectionMatrix);
+	m_Direct3D->UpdateWorldMatrix(worldMatrix);
+	m_Direct3D->UpdateProjectionMatrix(projectionMatrix);
 
 	// Render the model using the color shader.
 	result = m_EntityManager->RenderEntities(m_Direct3D->GetDeviceContext(), m_Shader, worldMatrix, viewMatrix, projectionMatrix);

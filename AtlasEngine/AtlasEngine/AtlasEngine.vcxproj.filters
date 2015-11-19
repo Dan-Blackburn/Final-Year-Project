@@ -64,17 +64,8 @@
     <Filter Include="Header Files\System">
       <UniqueIdentifier>{b8c596cc-c939-433c-a18f-bc39252274a4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files\Models">
-      <UniqueIdentifier>{339666e3-011c-4207-a2ba-cf312cada17c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\Models\Stop Sign">
-      <UniqueIdentifier>{91f27cc9-7dda-46f7-ad1c-26595e2790fa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\Models\Roads">
-      <UniqueIdentifier>{0af444d1-c953-4972-9ae8-3e9c2f8940d0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files\Models\Fruit Stand">
-      <UniqueIdentifier>{58dea863-8417-49c5-a384-9a7875de2a3a}</UniqueIdentifier>
+    <Filter Include="Libraries\Assimp">
+      <UniqueIdentifier>{ca2dbcb1-fab9-413b-bff3-160156aa5d46}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -139,17 +130,28 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Colour.vs">
-      <Filter>Source Files\Shaders</Filter>
-    </None>
-    <None Include="Colour.ps">
-      <Filter>Source Files\Shaders</Filter>
-    </None>
     <None Include="Texture.vs">
       <Filter>Source Files\Shaders</Filter>
     </None>
     <None Include="Texture.ps">
       <Filter>Source Files\Shaders</Filter>
     </None>
+    <None Include="assimpd.dll">
+      <Filter>Libraries\Assimp</Filter>
+    </None>
+    <None Include="assimpd.exp">
+      <Filter>Libraries\Assimp</Filter>
+    </None>
+    <None Include="assimpd.ilk">
+      <Filter>Libraries\Assimp</Filter>
+    </None>
+    <None Include="assimpd.pdb">
+      <Filter>Libraries\Assimp</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="assimpd.lib">
+      <Filter>Libraries\Assimp</Filter>
+    </Library>
   </ItemGroup>
 </Project>

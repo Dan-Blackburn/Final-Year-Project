@@ -21,7 +21,11 @@ CModel::CModel(const CModel& other) {
 CModel::~CModel() {
 }
 
-//Setter
+/////////////////////////////////////////////////////////////
+//Setters
+/////////////////////////////////////////////////////////////
+
+//Set new Position for Model
 void CModel::SetPosition(float x, float y, float z) 
 {
 	m_Model->Position.x = x;
@@ -31,6 +35,7 @@ void CModel::SetPosition(float x, float y, float z)
 	return;
 }
 
+//Set new Rotation for Model
 void CModel::SetRotation(float x, float y, float z) 
 {
 	m_Model->Rotation.x = x;
@@ -40,18 +45,34 @@ void CModel::SetRotation(float x, float y, float z)
 	return;
 }
 
+//Sets new Model Name for Model
+void CModel::SetModelName(std::string newName)
+{
+	m_Model->ModelName = newName;
+}
+
+/////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////
 //Getters
+/////////////////////////////////////////////////////////////
+
+//Returns Model
 CModel::ModelProperties* CModel::GetModel() {
 	return m_Model;
 }
 
+//Returns Position of Model
 D3DXVECTOR3 CModel::GetPosition() {
 	return m_Model->Position;
 }
 
+//Returns Rotation of Model
 D3DXVECTOR3 CModel::GetRotation() {
 	return m_Model->Rotation;
 }
+
+/////////////////////////////////////////////////////////////
 
 //Initialise Function
 bool CModel::Initialise(ID3D11Device* device, int currentModel) {
@@ -90,12 +111,14 @@ bool CModel::InitialiseBuffers(ID3D11Device* device, int currentModel) {
 		filename = "Flat Plane";
 		filetype = ".fbx";
 		modeltype = CMesh::Terrain;
+		m_Model->ModelName = filename;
 	}
 	else {
 		//Temp Variables
-		filename = "Farmhouse";
-		filetype = ".fbx";
-		modeltype = CMesh::Building;
+		filename = "Tree";
+		filetype = ".3ds";
+		modeltype = CMesh::Terrain;
+		m_Model->ModelName = filename;
 	}
 
 	//Load Model using Assimp

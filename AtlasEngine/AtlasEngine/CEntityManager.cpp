@@ -103,6 +103,10 @@ int CEntityManager::InitialiseEntities(ID3D11Device* device) {
 bool CEntityManager::RenderEntities(ID3D11DeviceContext* deviceContext, CShader* m_Shader, D3DXMATRIX worldMatrix, D3DXMATRIX viewMatrix, D3DXMATRIX projectionMatrix) {
 	bool result;
 
+	/////////////////////////////////////////////////////////////
+	//Render ALL Entities within Model List
+	/////////////////////////////////////////////////////////////
+
 	for (std::vector<CModel*>::iterator it = m_ModelList.begin(); it != m_ModelList.end(); it++) 
 	{
 		CModel* currentEntity = *it;
@@ -112,28 +116,46 @@ bool CEntityManager::RenderEntities(ID3D11DeviceContext* deviceContext, CShader*
 
 		for (int i = 0; i < Mesh->GetSubMeshNum(); i++) 
 		{
+			//Prepare Buffers for Rendering
 			result = Mesh->PrepareBuffers(deviceContext, i);
 
-			//Render Diffuse Only
-			result = m_Shader->Render(deviceContext, Mesh->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix, Mesh->GetTexture(subMeshList[i], CMesh::Diffuse));
+			//Check if Buffer Preparation Fails
+			if (!result) 
+			{
+				OutputDebugString("Unable to Prepare Buffers\n");
+				return false;
+			}
 
-		}
+			//Render Diffuse Textures
+			result = m_Shader->Render(deviceContext, Mesh->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix, Mesh->GetTextures(subMeshList[i]));
 
-		if (!result) {
-			return false;
+			//Check if Entity fails to Render
+			if (!result) 
+			{
+				OutputDebugString("Unable to Render Entity\n");
+				return false;
+			}
+
 		}
 	}
+
+	/////////////////////////////////////////////////////////////
 
 	return true;
 }
 
 bool CEntityManager::Frame() {
 	
+	/////////////////////////////////////////////////////////////
+	//Frame Function - Entity Manipulation
+	/////////////////////////////////////////////////////////////
+
+	//Iterate through "UNORDERED" Model List - (Testing Only)
 	for (std::vector<CModel*>::iterator it = m_ModelList.begin(); it != m_ModelList.end(); it++) 
 	{
 		m_ModelEntity = *it;
 
-		m_ModelEntity->SetPosition(0.0f, m_ModelEntity->GetPosition().y + 0.01f, 0.0f);
+		m_ModelEntity->SetPosition(0.0f, 0.0f, 200.0f);
 
 	}
 

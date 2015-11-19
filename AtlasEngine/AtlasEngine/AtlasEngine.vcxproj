@@ -177,10 +177,15 @@
     <ClInclude Include="CSystem.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Colour.ps" />
-    <None Include="Colour.vs" />
+    <None Include="assimpd.dll" />
+    <None Include="assimpd.exp" />
+    <None Include="assimpd.ilk" />
+    <None Include="assimpd.pdb" />
     <None Include="Texture.ps" />
     <None Include="Texture.vs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="assimpd.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

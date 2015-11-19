@@ -477,21 +477,21 @@ ID3D11DeviceContext* CDirect3D::GetDeviceContext() {
 //Setters
 
 //Set Project Matrix Copy
-void CDirect3D::GetProjectionMatrix(D3DXMATRIX& projectionMatrix) {
+void CDirect3D::UpdateProjectionMatrix(D3DXMATRIX& projectionMatrix) {
 
 	projectionMatrix = m_projectionMatrix;
 	return;
 }
 
 //Set World Matrix Copy
-void CDirect3D::GetWorldMatrix(D3DXMATRIX& worldMatrix) {
+void CDirect3D::UpdateWorldMatrix(D3DXMATRIX& worldMatrix) {
 
 	worldMatrix = m_worldMatrix;
 	return;
 }
 
 //Set Ortho Matrix Copy
-void CDirect3D::GetOrthoMatrix(D3DXMATRIX& orthoMatrix) {
+void CDirect3D::UpdateOrthoMatrix(D3DXMATRIX& orthoMatrix) {
 
 	orthoMatrix = m_orthoMatrix;
 	return;

@@ -24,6 +24,7 @@ public:
 	void Shutdown();
 	
 	//Setter
+	void SetModelName(std::string);
 	void SetPosition(float, float, float);
 	void SetRotation(float, float, float);
 	void SetSkin(ID3D11ShaderResourceView*);
@@ -48,9 +49,6 @@ private:
 
 	//Class Pointers
 	ModelProperties* m_Model;
-
-	//Variables Pointers
-	WCHAR* m_textureFilename;
 
 };
 

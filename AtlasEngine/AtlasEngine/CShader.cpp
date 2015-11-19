@@ -274,7 +274,7 @@ void CShader::OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND hwnd, LPCS
 }
 
 //Set Shader Parameters Function
-bool CShader::SetShaderParameters(ID3D11DeviceContext* deviceContext, D3DXMATRIX worldMatrix, D3DXMATRIX viewMatrix, D3DXMATRIX projectionMatrix, ID3D11ShaderResourceView* texture) {
+bool CShader::SetShaderParameters(ID3D11DeviceContext* deviceContext, D3DXMATRIX worldMatrix, D3DXMATRIX viewMatrix, D3DXMATRIX projectionMatrix, ID3D11ShaderResourceView* textures) {
 
 	//Define Variables
 	HRESULT result;
@@ -312,7 +312,7 @@ bool CShader::SetShaderParameters(ID3D11DeviceContext* deviceContext, D3DXMATRIX
 	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &m_matrixBuffer);
 
 	// Set shader texture resource in the pixel shader.
-	deviceContext->PSSetShaderResources(0, 1, &texture);
+	deviceContext->PSSetShaderResources(0, 3, &textures);
 
 	return true;
 }

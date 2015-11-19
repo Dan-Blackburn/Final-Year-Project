@@ -26,19 +26,20 @@ public:
 
 	//Temp Variables?
 	static enum eModelType { Building, Terrain, Water, Vehicle, Object };
-	static enum eTextureType {Diffuse, Specular, Normal, Bump};
+	static enum eTextureType {Diffuse, Specular, Normal, Alpha};
 
 	//Functions
 	bool LoadMesh(ID3D11Device*, std::string, eModelType, std::string);
 	void Shutdown();
 
+	//Getters
 	int GetVertexCount();
 	int GetIndexCount();
 	int GetSubMeshNum();
 
 	ID3D11Buffer* GetVertexBuffer(SubMesh*);
 	ID3D11Buffer* GetIndexBuffer(SubMesh*);
-	ID3D11ShaderResourceView* GetTexture(SubMesh*, int);
+	ID3D11ShaderResourceView* GetTextures(SubMesh*);
 
 	std::vector<CMesh::SubMesh*> GetSubMeshList();
 	bool PrepareBuffers(ID3D11DeviceContext*, int);
@@ -60,6 +61,11 @@ public:
 		int m_indexCount;
 		int m_facesCount;
 		unsigned int* Indices;
+
+		bool hasDiffuse = false;
+		bool hasSpecular = false;
+		bool hasNormal = false;
+		bool hasAlpha = false;
 	};
 
 private:
