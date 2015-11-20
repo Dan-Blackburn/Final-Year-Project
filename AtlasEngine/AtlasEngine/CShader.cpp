@@ -24,7 +24,7 @@ bool CShader::Initialise(ID3D11Device* device, HWND hwnd) {
 	bool result;
 
 	//Initialise Vertex and Pixel Shaders
-	result = InitialiseShader(device, hwnd, "../AtlasEngine/Texture.vs", "../AtlasEngine/Texture.ps");
+	result = InitialiseShader(device, hwnd, "../AtlasEngine/BasicTextureVS.hlsl", "../AtlasEngine/BasicTexturePS.hlsl");
 	if (!result) {
 		return false;
 	}

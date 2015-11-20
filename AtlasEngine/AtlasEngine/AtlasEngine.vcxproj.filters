@@ -130,12 +130,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Texture.vs">
-      <Filter>Source Files\Shaders</Filter>
-    </None>
-    <None Include="Texture.ps">
-      <Filter>Source Files\Shaders</Filter>
-    </None>
     <None Include="assimpd.dll">
       <Filter>Libraries\Assimp</Filter>
     </None>
@@ -147,6 +141,12 @@
     </None>
     <None Include="assimpd.pdb">
       <Filter>Libraries\Assimp</Filter>
+    </None>
+    <None Include="BasicTexturePS.hlsl">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="BasicTextureVS.hlsl">
+      <Filter>Source Files\Shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

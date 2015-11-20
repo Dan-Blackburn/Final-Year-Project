@@ -11,6 +11,12 @@ CModel::CModel() {
 	m_Model->Rotation.x = 0.0f;
 	m_Model->Rotation.y = 0.0f;
 	m_Model->Rotation.z = 0.0f;
+
+	m_Model->Scale.x = 1.0f;
+	m_Model->Scale.y = 1.0f;
+	m_Model->Scale.z = 1.0f;
+
+	UpdateWorldMatrix();
 }
 
 //Copy Constructor
@@ -73,6 +79,26 @@ D3DXVECTOR3 CModel::GetRotation() {
 }
 
 /////////////////////////////////////////////////////////////
+
+void CModel::UpdateWorldMatrix() {
+	
+	float Pitch = m_Model->Rotation.x * toRadians;
+	float Yaw = m_Model->Rotation.y * toRadians;
+	float Roll = m_Model->Rotation.z * toRadians;
+
+	//Temp Matrices
+	D3DXMATRIX translation, rotationX, rotationY, rotationZ, scale;
+
+	D3DXMatrixTranslation(&translation, m_Model->Position.x, m_Model->Position.y, m_Model->Position.z);
+	D3DXMatrixRotationX(&rotationX, Pitch);
+	D3DXMatrixRotationY(&rotationY, Yaw);
+	D3DXMatrixRotationZ(&rotationZ, Roll);
+	D3DXMatrixScaling(&scale, m_Model->Scale.x, m_Model->Scale.y, m_Model->Scale.z);
+
+	m_Model->WorldMatrix = scale * rotationZ * rotationX * rotationY * translation;
+
+}
+
 
 //Initialise Function
 bool CModel::Initialise(ID3D11Device* device, int currentModel) {

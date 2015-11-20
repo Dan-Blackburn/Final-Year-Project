@@ -21,6 +21,7 @@ public:
 
 	//Functions
 	bool Initialise(ID3D11Device*, int);
+	inline void Update() { UpdateWorldMatrix(); };
 	void Shutdown();
 	
 	//Setter
@@ -34,16 +35,23 @@ public:
 	D3DXVECTOR3 GetPosition();
 	D3DXVECTOR3 GetRotation();
 
+	//Constant Variables
+	const float toRadians = 0.0174532925f;
+
 private:
 	struct ModelProperties {
 		std::string ModelName;
 		CMesh* Mesh;
 		D3DXVECTOR3 Position;
 		D3DXVECTOR3 Rotation;
+		D3DXVECTOR3 Scale;
 		ID3D11ShaderResourceView* Texture;
+
+		D3DXMATRIX WorldMatrix;
 	};
 
 	//Functions
+	void UpdateWorldMatrix();
 	bool InitialiseBuffers(ID3D11Device*, int);
 	void ShutdownBuffers();
 

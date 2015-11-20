@@ -57,7 +57,12 @@ int CEntityManager::InitialiseEntities(ID3D11Device* device) {
 
 		//Intialise Model Entity
 		result = m_ModelEntity->Initialise(device, i);
+		/*mMatrices = new D3DXMATRIX[mMesh->getNumNodes()];
+		D3DXMatrixScaling(scaleMatrix, mScale.x)
+		D3DXMatrixRotationX(rotation)
 
+		mMatrices0 = scale * rotz * royx * roty * translation;
+		mMatrices1 = mMatrices[0] * mMesh->GetNode[1]->Transformation;*/
 		//Checks if Entity Initialised Correctly
 		if (!result) {
 			//Return Error Code
@@ -120,14 +125,15 @@ bool CEntityManager::RenderEntities(ID3D11DeviceContext* deviceContext, CShader*
 			result = Mesh->PrepareBuffers(deviceContext, i);
 
 			//Check if Buffer Preparation Fails
-			if (!result) 
+			if (!result)
 			{
 				OutputDebugString("Unable to Prepare Buffers\n");
 				return false;
 			}
 
+			currentEntity->Update();
 			//Render Diffuse Textures
-			result = m_Shader->Render(deviceContext, Mesh->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix, Mesh->GetTextures(subMeshList[i]));
+			result = m_Shader->Render(deviceContext, Mesh->GetIndexCount(), currentEntity->GetModel()->WorldMatrix, viewMatrix, projectionMatrix, Mesh->GetTextures(subMeshList[i]));
 
 			//Check if Entity fails to Render
 			if (!result) 
@@ -156,7 +162,7 @@ bool CEntityManager::Frame() {
 		m_ModelEntity = *it;
 
 		m_ModelEntity->SetPosition(0.0f, 0.0f, 200.0f);
-
+		m_ModelEntity->SetRotation(0.0f, m_ModelEntity->GetRotation().y + 0.1f, 0.0f);
 	}
 
 	return true;

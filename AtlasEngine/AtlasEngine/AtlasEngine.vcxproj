@@ -181,8 +181,8 @@
     <None Include="assimpd.exp" />
     <None Include="assimpd.ilk" />
     <None Include="assimpd.pdb" />
-    <None Include="Texture.ps" />
-    <None Include="Texture.vs" />
+    <None Include="BasicTexturePS.hlsl" />
+    <None Include="BasicTextureVS.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="assimpd.lib" />
