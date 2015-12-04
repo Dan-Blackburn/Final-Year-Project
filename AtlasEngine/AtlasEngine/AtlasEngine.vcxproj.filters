@@ -16,9 +16,6 @@
     <Filter Include="Header Files\Graphics">
       <UniqueIdentifier>{05c551ee-fc33-4ffa-8cbc-28c0c997d120}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Shaders">
-      <UniqueIdentifier>{20f11d3d-11bf-4339-9476-6fbfa630a5f8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Camera">
       <UniqueIdentifier>{ab50769e-cb42-46c9-9554-d2312c41815b}</UniqueIdentifier>
     </Filter>
@@ -66,6 +63,9 @@
     </Filter>
     <Filter Include="Libraries\Assimp">
       <UniqueIdentifier>{ca2dbcb1-fab9-413b-bff3-160156aa5d46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Shaders">
+      <UniqueIdentifier>{20f11d3d-11bf-4339-9476-6fbfa630a5f8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

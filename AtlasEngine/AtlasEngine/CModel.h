@@ -28,6 +28,7 @@ public:
 	void SetModelName(std::string);
 	void SetPosition(float, float, float);
 	void SetRotation(float, float, float);
+	void SetScale(float, float, float);
 	void SetSkin(ID3D11ShaderResourceView*);
 
 	//Getters

@@ -13,6 +13,9 @@
 //Includes
 #include <dinput.h>
 
+//Prototypes
+enum Keyboard;
+
 //Input Class
 class CInput
 {
@@ -25,8 +28,12 @@ public:
 	void Shutdown();
 	bool Frame();
 
+	bool KeyPressed(int Key_Pressed);
+	bool KeyHeld();
 	bool IsEscapePressed();
 	void GetMouseLocation(int&, int&);
+
+	enum Keyboard {Key_W, Key_A, Key_S, Key_D, Key_Up, Key_Down, Key_Left, Key_Right};
 
 private:
 	bool ReadKeyboard();

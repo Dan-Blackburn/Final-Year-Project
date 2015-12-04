@@ -25,7 +25,7 @@ public:
 
 	bool Initialise(int, int, HWND);
 	void Shutdown();
-	bool Frame();
+	bool Frame(CInput* m_Input);
 
 private:
 	bool Render();

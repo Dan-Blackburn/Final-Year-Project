@@ -102,11 +102,10 @@ bool CGraphics::Initialise(int viewportWidth, int viewportHeight, HWND hwnd) {
 }
 
 //Calculate Frame
-bool CGraphics::Frame() {
+bool CGraphics::Frame(CInput* m_Input) {
 
-	//Set Camera Position and Rotation
-	m_Camera->SetPosition(0.0f, 500.0f, -900.0f);
-	m_Camera->SetRotation(30.0f, 0.0f, 0.0f);
+	//Camera Frame Function
+	m_Camera->Frame(m_Input);
 
 	//Entity Frame Function, Setting Position of the Entitys within the World
 	m_EntityManager->Frame();
@@ -130,9 +129,6 @@ bool CGraphics::Render() {
 
 	//Clear Buffer to Reset the Viewport
 	m_Direct3D->ClearBuffer(0.0f, 0.0f, 0.0f, 1.0f);
-
-	//Generate View Matrix
-	m_Camera->Render();
 
 	//Get Matrices from Camera and Direct3D Objects
 	m_Camera->UpdateViewMatrix(viewMatrix);

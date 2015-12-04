@@ -34,7 +34,14 @@ bool CSystem::Initialise() {
 	}
 
 	//Initialise Input Object
-	m_Input->Initialise(m_hInstance, m_hwnd, viewportWidth, viewportHeight);
+	result = m_Input->Initialise(m_hInstance, m_hwnd, viewportWidth, viewportHeight);
+
+	//Input Error Check
+	if (!result)
+	{
+		MessageBox(m_hwnd, "Could not initialize the Input Object.", "Error", MB_OK);
+		return false;
+	}
 
 	//Define Graphics Object
 	m_Graphics = new CGraphics;
@@ -44,7 +51,11 @@ bool CSystem::Initialise() {
 
 	//Initialise Graphics Object
 	result = m_Graphics->Initialise(viewportWidth, viewportHeight, m_hwnd);
-	if (!result) {
+
+	//Graphics Error Check
+	if (!result)
+	{
+		MessageBox(m_hwnd, "Could not initialize the Graphics Object.", "Error", MB_OK);
 		return false;
 	}
 
@@ -63,6 +74,7 @@ void CSystem::Shutdown() {
 
 	//Release Input Objects
 	if (!m_Input) {
+		m_Input->Shutdown();
 		delete m_Input;
 		m_Input = 0;
 	}
@@ -81,9 +93,9 @@ void CSystem::Run() {
 	//Initialise Message Structure
 	ZeroMemory(&msg, sizeof(MSG));
 
-	playing = false;
+	playing = true;
 	//Loop Application Until User Quit
-	while (!playing) {
+	while (playing) {
 
 		//Windows Message Handler
 		if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
@@ -93,15 +105,22 @@ void CSystem::Run() {
 
 		//Check for Windows Signal to Exit
 		if (msg.message == WM_QUIT) {
-			playing = true;
+			playing = false;
 		}
 		else {
 			//Continue Processing Frames
 			result = Frame();
 			if (!result) {
-				playing = true;
+				playing = false;
 			}
 		}
+
+		//Check if the Escape Key has been Pressed
+		if (m_Input->IsEscapePressed() == true)
+		{
+			playing = false;
+		}
+
 	}
 	
 	return;
@@ -110,14 +129,19 @@ void CSystem::Run() {
 //Engine Processing Function
 bool CSystem::Frame() {
 	bool result;
+	int mouseX, mouseY;
 
-	//Check for Escape Key Press
-	if (m_Input->IsEscapePressed()) {
+	//Input Frame processing
+	result = m_Input->Frame();
+
+	//Input Frame Error Check
+	if (!result)
+	{
 		return false;
 	}
 
 	//Process Frame for Graphics Object
-	result = m_Graphics->Frame();
+	result = m_Graphics->Frame(m_Input);
 	if (!result) {
 		return false;
 	}
@@ -126,26 +150,9 @@ bool CSystem::Frame() {
 }
 
 //Message Handling Function (System Messages)
-LRESULT CALLBACK CSystem::MessageHandler(HWND hwnd, UINT keyMsg, WPARAM wparam, LPARAM lparam) {
-	
-	//Key Press Switch Statement
-	switch (keyMsg) {
-
-		//Key Press Case
-		case WM_KEYDOWN:
-			//Check if Key is Pressed, Sending it to Input Object to set Key
-			break;
-
-		//Key Release Case
-		case WM_KEYUP:
-			//Check if Key is Release, Sending it to Input Object to unset Key
-			break;
-
-		//Default Message for Useless Messages
-		default:
-			return DefWindowProc(hwnd, keyMsg, wparam, lparam);
-			break;
-	}
+LRESULT CALLBACK CSystem::MessageHandler(HWND hwnd, UINT keyMsg, WPARAM wparam, LPARAM lparam)
+{
+	return DefWindowProc(hwnd, keyMsg, wparam, lparam);
 }
 
 //Initialises Viewport Window for Rendering

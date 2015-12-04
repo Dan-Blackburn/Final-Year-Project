@@ -51,6 +51,16 @@ void CModel::SetRotation(float x, float y, float z)
 	return;
 }
 
+//Set new Scale for Model
+void CModel::SetScale(float x, float y, float z)
+{
+	m_Model->Scale.x = x;
+	m_Model->Scale.y = y;
+	m_Model->Scale.z = z;
+
+	return;
+}
+
 //Sets new Model Name for Model
 void CModel::SetModelName(std::string newName)
 {

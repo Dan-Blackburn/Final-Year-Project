@@ -158,6 +158,7 @@ bool CInput::ReadKeyboard()
 
 	//Ready Keyboard Device
 	result = m_Keyboard->GetDeviceState(sizeof(m_keyboardState), (LPVOID)&m_keyboardState);
+
 	if (FAILED(result))
 	{
 		//Reaquire Keyboard if Focus was Lost
@@ -204,13 +205,52 @@ void CInput::ProcessInput()
 	m_MouseY += m_mouseState.lY;
 
 	//Boundary Code
-	if (m_MouseX < 0) { m_MouseX = 0; }
+	/*if (m_MouseX < 0) { m_MouseX = 0; }
 	if (m_MouseY < 0) { m_MouseY = 0; }
 
 	if (m_MouseX > m_viewportWidth) { m_MouseX = m_viewportWidth; }
-	if (m_MouseY > m_viewportHeight) { m_MouseY = m_viewportHeight; }
+	if (m_MouseY > m_viewportHeight) { m_MouseY = m_viewportHeight; }*/
 
 	return;
+}
+
+bool CInput::KeyHeld()
+{
+	return true;
+}
+
+bool CInput::KeyPressed(int KeyPress)
+{
+
+	switch (KeyPress) 
+	{
+	case Key_W:
+		if (m_keyboardState[DIK_W] & 0x80) { return true; }
+		break;
+	case Key_A:
+		if (m_keyboardState[DIK_A] & 0x80) { return true; }
+		break;
+	case Key_S:
+		if (m_keyboardState[DIK_S] & 0x80) { return true; }
+		break;
+	case Key_D:
+		if (m_keyboardState[DIK_D] & 0x80) { return true; }
+		break;
+	case Key_Up:
+		if (m_keyboardState[DIK_UP] & 0x80) { return true; }
+		break;
+	case Key_Down:
+		if (m_keyboardState[DIK_DOWN] & 0x80) { return true; }
+		break;
+	case Key_Left:
+		if (m_keyboardState[DIK_LEFT] & 0x80) { return true; }
+		break;
+	case Key_Right:
+		if (m_keyboardState[DIK_RIGHT] & 0x80) { return true; }
+		break;
+	}
+
+	return false;
 }
 
 bool CInput::IsEscapePressed()
@@ -219,7 +259,6 @@ bool CInput::IsEscapePressed()
 	{
 		return true;
 	}
-
 	return false;
 }
 
