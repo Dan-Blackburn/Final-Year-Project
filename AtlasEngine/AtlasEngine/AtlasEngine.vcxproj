@@ -161,9 +161,11 @@
     <ClCompile Include="CMesh.cpp" />
     <ClCompile Include="CModel.cpp" />
     <ClCompile Include="CShader.cpp" />
+    <ClCompile Include="CShaderManager.cpp" />
     <ClCompile Include="CSystem.cpp" />
     <ClCompile Include="CGraphics.cpp" />
     <ClCompile Include="MainProgram.cpp" />
+    <ClCompile Include="tinyxml2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CCamera.h" />
@@ -171,10 +173,13 @@
     <ClInclude Include="CEntityManager.h" />
     <ClInclude Include="CGraphics.h" />
     <ClInclude Include="CInput.h" />
+    <ClInclude Include="CLight.h" />
     <ClInclude Include="CMesh.h" />
     <ClInclude Include="CModel.h" />
     <ClInclude Include="CShader.h" />
+    <ClInclude Include="CShaderManager.h" />
     <ClInclude Include="CSystem.h" />
+    <ClInclude Include="tinyxml2.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="assimpd.dll" />
@@ -183,9 +188,201 @@
     <None Include="assimpd.pdb" />
     <None Include="BasicTexturePS.hlsl" />
     <None Include="BasicTextureVS.hlsl" />
+    <None Include="Resources\Models\Buildings\3 Story Flat\3 Story Flat.fbx" />
+    <None Include="Resources\Models\Buildings\Carpet Barn\Carpet Barn.fbx" />
+    <None Include="Resources\Models\Buildings\Derelict Brick House\derelictBrickHouse.fbx" />
+    <None Include="Resources\Models\Buildings\Office Buildings\Building A.fbx" />
+    <None Include="Resources\Models\Buildings\Office Buildings\Building B.fbx" />
+    <None Include="Resources\Models\Buildings\Office Buildings\Building C.fbx" />
+    <None Include="Resources\Models\Buildings\Office Buildings\Building E.fbx" />
+    <None Include="Resources\Models\Buildings\Office Buildings\Building F.fbx" />
+    <None Include="Resources\Models\Objects\Fences\Wire Fence.fbx" />
+    <None Include="Resources\Models\Objects\Trash\Dumpster.fbx" />
+    <None Include="Resources\Models\Terrains\Flooring\Pub Floor.fbx" />
+    <None Include="Resources\Models\Terrains\Roads\Junction Grid.fbx" />
+    <None Include="Resources\Models\Terrains\Roads\Junction.fbx" />
+    <None Include="Resources\Models\Terrains\Roads\Right Turn.fbx" />
+    <None Include="Resources\Models\Terrains\Roads\Straight Grid.fbx" />
+    <None Include="Resources\Models\Terrains\Roads\T Junction.fbx" />
+    <None Include="Resources\Models\Terrains\Soil Pile\Soil Pile.fbx" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="assimpd.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Resources\XML\Default.xml">
+      <SubType>Designer</SubType>
+    </Xml>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BasicAlphaTexturePS.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\Models\Buildings\3 Story Flat\3 Story Flat.fbm\EHS01_BricksLight.jpg" />
+    <Image Include="Resources\Models\Buildings\3 Story Flat\3 Story Flat.fbm\EHS01_DoorFront.jpg" />
+    <Image Include="Resources\Models\Buildings\3 Story Flat\3 Story Flat.fbm\EHS01_GreyPlaster.jpg" />
+    <Image Include="Resources\Models\Buildings\3 Story Flat\3 Story Flat.fbm\EHS01_RoofTar.jpg" />
+    <Image Include="Resources\Models\Buildings\3 Story Flat\3 Story Flat.fbm\EHS01_WallBase.jpg" />
+    <Image Include="Resources\Models\Buildings\3 Story Flat\3 Story Flat.fbm\EHS01_WallSide.jpg" />
+    <Image Include="Resources\Models\Buildings\3 Story Flat\3 Story Flat.fbm\EHS01_Windows.jpg" />
+    <Image Include="Resources\Models\Buildings\Carpet Barn\Carpet Barn.fbm\Diffuse Material.jpg" />
+    <Image Include="Resources\Models\Buildings\Carpet Barn\Carpet Barn.fbm\Normal Material.png" />
+    <Image Include="Resources\Models\Buildings\Carpet Barn\Carpet Barn.fbm\Reflective Material.jpg" />
+    <Image Include="Resources\Models\Buildings\Carpet Barn\Carpet Barn.fbm\Specular  Material.png" />
+    <Image Include="Resources\Models\Buildings\Derelict Brick House\derelictBrickHouse.fbm\derelictBrickHouse.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_01.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_02.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_05.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_07.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_08.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_09.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_10.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_11.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_12.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_08.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_15.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_16.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_17.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_18.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_21.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_22.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_08.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_27.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_28.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_29.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_30.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_31.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_32.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_33.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_08.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_10.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_25.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_26.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_28.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_29.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_32.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_33.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_34.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building F.fbm\K_BuildingsA_01.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building F.fbm\K_BuildingsA_02.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building F.fbm\K_BuildingsA_05.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building F.fbm\K_BuildingsA_07.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building F.fbm\K_BuildingsA_11.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building F.fbm\K_BuildingsA_13.jpg" />
+    <Image Include="Resources\Models\Objects\Fences\Wire Fence.fbm\fence_alpha.png" />
+    <Image Include="Resources\Models\Objects\Fences\Wire Fence.fbm\fence_composite01.png" />
+    <Image Include="Resources\Models\Objects\Fences\Wire Fence.fbm\fence_sheet02_n.png" />
+    <Image Include="Resources\Models\Objects\Trash\Dumpster.fbm\Metal_Texture_COLOR.png" />
+    <Image Include="Resources\Models\Objects\Trash\Dumpster.fbm\Metal_Texture_NRM.png" />
+    <Image Include="Resources\Models\Objects\Trash\Dumpster.fbm\Metal_Texture_SPEC.png" />
+    <Image Include="Resources\Models\Objects\Trash\Dumpster.fbm\Plastic_Texture_COLOR.png" />
+    <Image Include="Resources\Models\Objects\Trash\Dumpster.fbm\Plastic_Texture_NRM.png" />
+    <Image Include="Resources\Models\Objects\Trash\Dumpster.fbm\Plastic_Texture_SPEC.png" />
+    <Image Include="Resources\Models\Objects\Trash\Dumpster.fbm\Polished-Metal_COLOR.png" />
+    <Image Include="Resources\Models\Objects\Trash\Dumpster.fbm\Polished-Metal_NRM.png" />
+    <Image Include="Resources\Models\Objects\Trash\Dumpster.fbm\Polished-Metal_SPEC.png" />
+    <Image Include="Resources\Models\Terrains\Flooring\Pub Floor.fbm\Concrete.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\Junction Grid.fbm\BocaTormenta.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\Junction Grid.fbm\BocaTormenta_NORMAL.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Junction Grid.fbm\BocaTormenta_SPECULAR.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Junction Grid.fbm\CordonMedium.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\Junction Grid.fbm\CordonTop.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\Junction Grid.fbm\CordonTop_NORMAL.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Junction Grid.fbm\CordonTop_SPECULAR.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Junction Grid.fbm\Roadstraight.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\Junction Grid.fbm\Roadstraight_NORMAL.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Junction Grid.fbm\Roadstraight_SPECULAR.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Junction Grid.fbm\RoadTexture2.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\Junction Grid.fbm\RoadTexture2_NORMAL.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Junction Grid.fbm\RoadTexture2_SPECULAR.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Junction Grid.fbm\RoadTexture3.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\Junction Grid.fbm\RoadTexture3_NORMAL.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Junction Grid.fbm\RoadTexture3_SPECULAR.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Junction Grid.fbm\Vereda.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\Junction Grid.fbm\Vereda_NORMAL.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Junction Grid.fbm\Vereda_SPECULAR.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Junction.fbm\CordonMedium.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\Junction.fbm\CordonTop.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\Junction.fbm\CordonTop_NORMAL.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Junction.fbm\CordonTop_SPECULAR.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Junction.fbm\Roadstraight.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\Junction.fbm\Roadstraight_NORMAL.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Junction.fbm\Roadstraight_SPECULAR.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Junction.fbm\RoadTexture2.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\Junction.fbm\RoadTexture2_NORMAL.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Junction.fbm\RoadTexture2_SPECULAR.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Junction.fbm\Vereda.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\Junction.fbm\Vereda_NORMAL.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Junction.fbm\Vereda_SPECULAR.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Right Turn.fbm\CordonMedium.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\Right Turn.fbm\CordonTop.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\Right Turn.fbm\CordonTop_NORMAL.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Right Turn.fbm\CordonTop_SPECULAR.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Right Turn.fbm\Roadstraight.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\Right Turn.fbm\Roadstraight_NORMAL.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Right Turn.fbm\Roadstraight_SPECULAR.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Right Turn.fbm\Vereda.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\Right Turn.fbm\Vereda_NORMAL.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Right Turn.fbm\Vereda_SPECULAR.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Straight Grid.fbm\BocaTormenta.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\Straight Grid.fbm\BocaTormenta_NORMAL.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Straight Grid.fbm\BocaTormenta_SPECULAR.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Straight Grid.fbm\CordonMedium.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\Straight Grid.fbm\CordonTop.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\Straight Grid.fbm\CordonTop_NORMAL.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Straight Grid.fbm\CordonTop_SPECULAR.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Straight Grid.fbm\Roadstraight.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\Straight Grid.fbm\Roadstraight_NORMAL.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Straight Grid.fbm\Roadstraight_SPECULAR.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Straight Grid.fbm\RoadTexture2.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\Straight Grid.fbm\RoadTexture2_NORMAL.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Straight Grid.fbm\RoadTexture2_SPECULAR.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Straight Grid.fbm\Vereda.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\Straight Grid.fbm\Vereda_NORMAL.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Straight Grid.fbm\Vereda_SPECULAR.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Straight.fbm\BocaTormenta.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\Straight.fbm\BocaTormenta_NORMAL.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Straight.fbm\BocaTormenta_SPECULAR.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Straight.fbm\CordonMedium.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\Straight.fbm\CordonTop.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\Straight.fbm\CordonTop_NORMAL.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Straight.fbm\CordonTop_SPECULAR.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Straight.fbm\Roadstraight.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\Straight.fbm\Roadstraight_NORMAL.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Straight.fbm\Roadstraight_SPECULAR.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Straight.fbm\RoadTexture2.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\Straight.fbm\RoadTexture2_NORMAL.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Straight.fbm\RoadTexture2_SPECULAR.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Straight.fbm\Vereda.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\Straight.fbm\Vereda_NORMAL.png" />
+    <Image Include="Resources\Models\Terrains\Roads\Straight.fbm\Vereda_SPECULAR.png" />
+    <Image Include="Resources\Models\Terrains\Roads\T Junction.fbm\BocaTormenta.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\T Junction.fbm\BocaTormenta_NORMAL.png" />
+    <Image Include="Resources\Models\Terrains\Roads\T Junction.fbm\BocaTormenta_SPECULAR.png" />
+    <Image Include="Resources\Models\Terrains\Roads\T Junction.fbm\CordonMedium.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\T Junction.fbm\CordonTop.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\T Junction.fbm\CordonTop_NORMAL.png" />
+    <Image Include="Resources\Models\Terrains\Roads\T Junction.fbm\CordonTop_SPECULAR.png" />
+    <Image Include="Resources\Models\Terrains\Roads\T Junction.fbm\Roadstraight.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\T Junction.fbm\Roadstraight_NORMAL.png" />
+    <Image Include="Resources\Models\Terrains\Roads\T Junction.fbm\Roadstraight_SPECULAR.png" />
+    <Image Include="Resources\Models\Terrains\Roads\T Junction.fbm\RoadTexture2.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\T Junction.fbm\RoadTexture2_NORMAL.png" />
+    <Image Include="Resources\Models\Terrains\Roads\T Junction.fbm\RoadTexture2_SPECULAR.png" />
+    <Image Include="Resources\Models\Terrains\Roads\T Junction.fbm\RoadTexture3.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\T Junction.fbm\RoadTexture3_NORMAL.png" />
+    <Image Include="Resources\Models\Terrains\Roads\T Junction.fbm\RoadTexture3_SPECULAR.png" />
+    <Image Include="Resources\Models\Terrains\Roads\T Junction.fbm\Vereda.jpg" />
+    <Image Include="Resources\Models\Terrains\Roads\T Junction.fbm\Vereda_NORMAL.png" />
+    <Image Include="Resources\Models\Terrains\Roads\T Junction.fbm\Vereda_SPECULAR.png" />
+    <Image Include="Resources\Models\Terrains\Soil Pile\Soil Pile.fbm\53717b662d802b441f12a8d75f1a31f9.png" />
+    <Image Include="Resources\Models\Terrains\Soil Pile\Soil Pile.fbm\Soil_Displacement.png" />
+    <Image Include="Resources\Models\Terrains\Soil Pile\Soil Pile.fbm\Soil_Normal.png" />
+    <Image Include="Resources\Models\Terrains\Soil Pile\Soil Pile.fbm\Soil_Specular.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -22,9 +22,11 @@ CShader::~CShader() {
 bool CShader::Initialise(ID3D11Device* device, HWND hwnd) {
 
 	bool result;
+	string VSFilepath = "../AtlasEngine/" + m_VSFilename;
+	string PSFilepath = "../AtlasEngine/" + m_PSFilename;
 
 	//Initialise Vertex and Pixel Shaders
-	result = InitialiseShader(device, hwnd, "../AtlasEngine/BasicTextureVS.hlsl", "../AtlasEngine/BasicTexturePS.hlsl");
+	result = InitialiseShader(device, hwnd, VSFilepath.c_str(), PSFilepath.c_str());
 	if (!result) {
 		return false;
 	}

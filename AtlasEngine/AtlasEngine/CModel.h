@@ -20,12 +20,14 @@ public:
 	~CModel();
 
 	//Functions
-	bool Initialise(ID3D11Device*, int);
+	bool Initialise(ID3D11Device*, std::string, std::string);
 	inline void Update() { UpdateWorldMatrix(); };
 	void Shutdown();
 	
 	//Setter
-	void SetModelName(std::string);
+	inline void SetModelName(std::string modelName) { m_Model->ModelName = modelName; }
+	inline void SetShaderName(std::string shaderName) { m_Model->ShaderName = shaderName; }
+	void SetModelType(std::string);
 	void SetPosition(float, float, float);
 	void SetRotation(float, float, float);
 	void SetScale(float, float, float);
@@ -36,12 +38,16 @@ public:
 	D3DXVECTOR3 GetPosition();
 	D3DXVECTOR3 GetRotation();
 
+	inline std::string GetShaderName() { return m_Model->ShaderName; }
+
 	//Constant Variables
 	const float toRadians = 0.0174532925f;
 
 private:
 	struct ModelProperties {
 		std::string ModelName;
+		std::string ShaderName;
+		CMesh::eModelType ModelType;
 		CMesh* Mesh;
 		D3DXVECTOR3 Position;
 		D3DXVECTOR3 Rotation;
@@ -53,7 +59,7 @@ private:
 
 	//Functions
 	void UpdateWorldMatrix();
-	bool InitialiseBuffers(ID3D11Device*, int);
+	bool InitialiseBuffers(ID3D11Device*, std::string, std::string);
 	void ShutdownBuffers();
 
 	//Class Pointers

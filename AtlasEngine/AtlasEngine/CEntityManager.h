@@ -2,7 +2,8 @@
 
 #include "CModel.h"
 #include "CCamera.h"
-#include "CShader.h"
+#include "CShaderManager.h"
+#include "CLight.h"
 #include <vector>
 
 class CEntityManager {
@@ -14,25 +15,27 @@ public:
 
 	//Getters & Setters
 	CCamera* GetCameraEntity();
-	int GetEntityCount();
-	void IncreaseEntityCount(int);
-	void DecreaseEntityCount(int);
+	int GetModelEntityCount();
+	int GetLightEntityCount();
 
 	//Functions
 	int InitialiseEntities(ID3D11Device*);
 	bool Frame();
-	bool RenderEntities(ID3D11DeviceContext*, CShader*, D3DXMATRIX, D3DXMATRIX, D3DXMATRIX);
+	bool RenderEntities(ID3D11DeviceContext*, CShaderManager*, D3DXMATRIX, D3DXMATRIX, D3DXMATRIX);
 	void Shutdown();
 
 private:
 	//Entity Variables
-	int m_EntityCount;
+	int m_ModelEntityCount;
+	int m_LightEntityCount;
 
 	//Entity Pointers
 	CModel* m_ModelEntity;
+	CLight* m_LightEntity;
 	CCamera* m_CameraEntity;
 
 	std::vector<CModel*> m_ModelList;
+	std::vector<CLight*> m_LightList;
 	std::vector<CCamera*> m_CameraList;
 
 };

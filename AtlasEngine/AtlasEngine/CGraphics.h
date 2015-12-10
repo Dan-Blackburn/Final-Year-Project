@@ -7,7 +7,7 @@
 #include "CDirect3D.h"
 #include "CEntityManager.h"
 #include "CCamera.h"
-#include "CShader.h"
+#include "CShaderManager.h"
 
 
 //Global Variables
@@ -32,7 +32,7 @@ private:
 	CDirect3D* m_Direct3D;
 	CCamera* m_Camera;
 	CEntityManager* m_EntityManager;
-	CShader* m_Shader;
+	CShaderManager* m_ShaderManager;
 };
 
 #endif

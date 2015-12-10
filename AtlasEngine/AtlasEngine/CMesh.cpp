@@ -72,7 +72,7 @@ ID3D11ShaderResourceView** CMesh::GetTextures(SubMesh* subMesh) {
 /////////////////////////////////////////////////////////////
 
 //Load Mesh from File
-bool CMesh::LoadMesh(ID3D11Device* device, std::string mFileName, eModelType modelType, std::string mFileType) 
+bool CMesh::LoadMesh(ID3D11Device* device, std::string mFileName, eModelType modelType, std::string mFileType, std::string modelLocation) 
 {
 
 	/////////////////////////////////
@@ -80,7 +80,7 @@ bool CMesh::LoadMesh(ID3D11Device* device, std::string mFileName, eModelType mod
 	/////////////////////////////////
 
 	//Mesh Location Handler
-	std::string mFilePath = MeshFinder(modelType);
+	std::string mFilePath = MeshFinder(modelType, modelLocation);
 	std::string fileName = mFileName + mFileType;
 
 	//Create Instance of Importer
@@ -297,7 +297,7 @@ void CMesh::Shutdown()
 }
 
 //Processes the Filename, Model Type and File Type, Generating a Path to the Mesh
-std::string CMesh::MeshFinder(eModelType modelType) 
+std::string CMesh::MeshFinder(eModelType modelType, std::string modelLocation) 
 {
 
 	std::string directory = "Resources/Models/";
@@ -322,7 +322,7 @@ std::string CMesh::MeshFinder(eModelType modelType)
 		break;
 	}
 
-	return directory;
+	return directory + modelLocation;
 
 }
 

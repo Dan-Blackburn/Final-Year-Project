@@ -1,5 +1,8 @@
 //Includes
 #include "CModel.h"
+#include <string>
+
+using namespace std;
 
 //Constructor
 CModel::CModel() {
@@ -61,12 +64,20 @@ void CModel::SetScale(float x, float y, float z)
 	return;
 }
 
-//Sets new Model Name for Model
-void CModel::SetModelName(std::string newName)
+//Set new Model Type for Model
+void CModel::SetModelType(string newType)
 {
-	m_Model->ModelName = newName;
+	if (newType == "Terrain") { m_Model->ModelType = CMesh::Terrain; return; }
+	if (newType == "Water") { m_Model->ModelType = CMesh::Water; return; }
+	if (newType == "Building") { m_Model->ModelType = CMesh::Building; return; }
+	if (newType == "Object") { m_Model->ModelType = CMesh::Object; return; }
+	if (newType == "Vehicle") { m_Model->ModelType = CMesh::Vehicle; return; }
+	
+	//Report when no type has been applied
+	OutputDebugString("Unable to apply Model Type to: ");
+	OutputDebugString(this->m_Model->ModelName.c_str());
+	OutputDebugString("\n");
 }
-
 /////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////
@@ -111,12 +122,12 @@ void CModel::UpdateWorldMatrix() {
 
 
 //Initialise Function
-bool CModel::Initialise(ID3D11Device* device, int currentModel) {
+bool CModel::Initialise(ID3D11Device* device, string ModelLocation, string ModelFiletype) {
 
 	bool result;
 
 	//Initialise the Verex and Index buffers holding Geometry for Entities
-	result = InitialiseBuffers(device, currentModel);
+	result = InitialiseBuffers(device, ModelLocation, ModelFiletype);
 	if (!result) {
 		return false;
 	}
@@ -134,31 +145,12 @@ void CModel::Shutdown() {
 }
 
 //Initialise Buffers Function 
-bool CModel::InitialiseBuffers(ID3D11Device* device, int currentModel) {
+bool CModel::InitialiseBuffers(ID3D11Device* device, string ModelLocation, string ModelFiletype) {
 
 	m_Model->Mesh = new CMesh();
-	std::string filename;
-	std::string filetype;
-	CMesh::eModelType modeltype;
-
-
-	if (currentModel == 0) {
-		//Temp Variables
-		filename = "Flat Plane";
-		filetype = ".fbx";
-		modeltype = CMesh::Terrain;
-		m_Model->ModelName = filename;
-	}
-	else {
-		//Temp Variables
-		filename = "derelictBrickHouse";
-		filetype = ".fbx";
-		modeltype = CMesh::Building;
-		m_Model->ModelName = filename;
-	}
 
 	//Load Model using Assimp
-	bool LoadStatus = m_Model->Mesh->LoadMesh(device, filename, modeltype, filetype);
+	bool LoadStatus = m_Model->Mesh->LoadMesh(device, this->m_Model->ModelName, this->m_Model->ModelType, ModelFiletype, ModelLocation);
 
 	if (!LoadStatus) {
 		OutputDebugString("Unable to Load Mesh");
@@ -189,7 +181,7 @@ bool CModel::InitialiseBuffers(ID3D11Device* device, int currentModel) {
 	}
 
 	//Gets List of Sub-Meshes
-	std::vector<CMesh::SubMesh*> SubMeshList = m_Model->Mesh->GetSubMeshList();
+	vector<CMesh::SubMesh*> SubMeshList = m_Model->Mesh->GetSubMeshList();
 
 	//Counts through SubMeshes
 	for (int currentSubMesh = 0; currentSubMesh < m_Model->Mesh->GetSubMeshNum(); currentSubMesh++) 
@@ -199,7 +191,7 @@ bool CModel::InitialiseBuffers(ID3D11Device* device, int currentModel) {
 		CMesh::SubMesh* subMesh = SubMeshList[currentSubMesh];
 
 		//Get SubMesh's Vertices List
-		std::vector<CMesh::VertexType*> verticesList = subMesh->VerticesList;
+		vector<CMesh::VertexType*> verticesList = subMesh->VerticesList;
 
 		//Iterates through SubMesh's Vertex List
 		for (int currentVertex = 0; currentVertex < subMesh->m_vertexCount; currentVertex++) {
@@ -273,7 +265,7 @@ void CModel::ShutdownBuffers() {
 	ModelProperties* currentModel = GetModel();
 
 	//Get List of SubMeshs
-	std::vector<CMesh::SubMesh*> subMeshList = currentModel->Mesh->GetSubMeshList();
+	vector<CMesh::SubMesh*> subMeshList = currentModel->Mesh->GetSubMeshList();
 
 	//Iterate through SubMeshes
 	for (int subMeshCount = 0; subMeshCount < currentModel->Mesh->GetSubMeshNum(); subMeshCount++) {

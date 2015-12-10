@@ -1,0 +1,234 @@
+<?xml version="1.0"?>
+<Level>
+    <ModelEntities Number="17">
+      <!-- Terrain Entities -->
+      <Entity>
+        <Name>T Junction</Name>
+        <Type>Terrain</Type>
+        <Position X="-23.657f" Y="0.0f" Z="-1202.697f"></Position>
+        <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
+        <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+        <Shader>Basic Texture</Shader>
+      
+        <Location>Roads/</Location>
+        <Filetype>.fbx</Filetype>
+      </Entity>
+      
+      <Entity>
+        <Name>Straight Grid</Name>
+        <Type>Terrain</Type>
+        <Position X="-26.084f" Y="0.0f" Z="1040.877f"></Position>
+        <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
+        <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+        <Shader>Basic Texture</Shader>
+
+        <Location>Roads/</Location>
+        <Filetype>.fbx</Filetype>
+      </Entity>
+      
+      <Entity>
+        <Name>Straight Grid</Name>
+        <Type>Terrain</Type>
+        <Position X="1492.818" Y="0.0f" Z="-1863.191f"></Position>
+        <Rotation X="0.0f" Y="-90.0f" Z="0.0f"></Rotation>
+        <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+        <Shader>Basic Texture</Shader>
+
+        <Location>Roads/</Location>
+        <Filetype>.fbx</Filetype>
+      </Entity>
+      
+      <Entity>
+        <Name>Straight Grid</Name>
+        <Type>Terrain</Type>
+        <Position X="-1451.912f" Y="0.0f" Z="-1863.191f"></Position>
+        <Rotation X="0.0f" Y="-90.0f" Z="0.0f"></Rotation>
+        <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+        <Shader>Basic Texture</Shader>
+
+        <Location>Roads/</Location>
+        <Filetype>.fbx</Filetype>
+      </Entity>
+      
+      <Entity>
+        <Name>Junction</Name>
+        <Type>Terrain</Type>
+        <Position X="-24.804f" Y="0.0f" Z="2556.129f"></Position>
+        <Rotation X="0.0f" Y="0.0" Z="0.0f"></Rotation>
+        <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+        <Shader>Basic Texture</Shader>
+
+        <Location>Roads/</Location>
+        <Filetype>.fbx</Filetype>
+      </Entity>
+      
+      <Entity>
+        <Name>Straight Grid</Name>
+        <Type>Terrain</Type>
+        <Position X="1492.982f" Y="0.0f" Z="2554.082f"></Position>
+        <Rotation X="0.0f" Y="-90.0f" Z="0.0f"></Rotation>
+        <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+        <Shader>Basic Texture</Shader>
+
+        <Location>Roads/</Location>
+        <Filetype>.fbx</Filetype>
+      </Entity>
+      
+      <Entity>
+        <Name>Straight Grid</Name>
+        <Type>Terrain</Type>
+        <Position X="-1451.912f" Y="0.0f" Z="2554.978f"></Position>
+        <Rotation X="0.0f" Y="-90.0f" Z="0.0f"></Rotation>
+        <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+        <Shader>Basic Texture</Shader>
+
+        <Location>Roads/</Location>
+        <Filetype>.fbx</Filetype>
+      </Entity>
+
+      <Entity>
+        <Name>Soil Pile</Name>
+        <Type>Terrain</Type>
+        <Position X="1087.099f" Y="37.1f" Z="1561.175f"></Position>
+        <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
+        <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+        <Shader>Basic Texture</Shader>
+
+        <Location>Soil Pile/</Location>
+        <Filetype>.fbx</Filetype>
+      </Entity>
+
+      <Entity>
+        <Name>Pub Floor</Name>
+        <Type>Terrain</Type>
+        <Position X="-1491.596f" Y="21.621f" Z="-735.439f"></Position>
+        <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
+        <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+        <Shader>Basic Texture</Shader>
+
+        <Location>Flooring/</Location>
+        <Filetype>.fbx</Filetype>
+      </Entity>
+      <!-- Terrain Entities -->
+      <!-- Building Entities -->
+      <Entity>
+        <Name>Carpet Barn</Name>
+        <Type>Building</Type>
+        <Position X="-1056.179f" Y="20.034f" Z="-920.65f"></Position>
+        <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
+        <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+        <Shader>Basic Texture</Shader>
+
+        <Location>Carpet Barn/</Location>
+        <Filetype>.fbx</Filetype>
+      </Entity>
+      <Entity>
+        <Name>Building A</Name>
+        <Type>Building</Type>
+        <Position X="-25.345f" Y="21.645f" Z="3997.233"></Position>
+        <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
+        <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+        <Shader>Basic Texture</Shader>
+
+        <Location>Office Buildings/</Location>
+        <Filetype>.fbx</Filetype>
+      </Entity>
+      <Entity>
+        <Name>Building C</Name>
+        <Type>Building</Type>
+        <Position X="1053.991f" Y="12.761f" Z="41.412f"></Position>
+        <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
+        <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+        <Shader>Basic Texture</Shader>
+
+        <Location>Office Buildings/</Location>
+        <Filetype>.fbx</Filetype>
+      </Entity>
+      
+      <Entity>
+        <Name>Building E</Name>
+        <Type>Building</Type>
+        <Position X="-1493.539f" Y="21.066 f" Z="1090.574f"></Position>
+        <Rotation X="0.0f" Y="-90.0f" Z="0.0f"></Rotation>
+        <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+        <Shader>Basic Texture</Shader>
+
+        <Location>Office Buildings/</Location>
+        <Filetype>.fbx</Filetype>
+      </Entity>
+      
+      <Entity>
+        <Name>Building F</Name>
+        <Type>Building</Type>
+        <Position X="-1531.632f" Y="20.375f" Z="-16.963f"></Position>
+        <Rotation X="0.0f" Y="-90.0f" Z="0.0f"></Rotation>
+        <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+        <Shader>Basic Texture</Shader>
+
+        <Location>Office Buildings/</Location>
+        <Filetype>.fbx</Filetype>
+      </Entity>
+      <!-- Building Entities -->
+      <!-- Object Entities -->
+      <Entity>
+        <Name>Wire Fence</Name>
+        <Type>Object</Type>
+        <Position X="689.769f" Y="18.788f" Z="1573.763f"></Position>
+        <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
+        <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+        <Shader>Basic Alpha Texture</Shader>
+
+        <Location>Fences/</Location>
+        <Filetype>.fbx</Filetype>
+      </Entity>
+
+      <Entity>
+        <Name>Wire Fence</Name>
+        <Type>Object</Type>
+        <Position X="936.891f" Y="18.788f" Z="1835.481f"></Position>
+        <Rotation X="0.0f" Y="-90.0f" Z="0.0f"></Rotation>
+        <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+        <Shader>Basic Alpha Texture</Shader>
+
+        <Location>Fences/</Location>
+        <Filetype>.fbx</Filetype>
+      </Entity>
+
+      <Entity>
+        <Name>Wire Fence</Name>
+        <Type>Object</Type>
+        <Position X="1455.41f" Y="18.788f" Z="1835.481f"></Position>
+        <Rotation X="0.0f" Y="-90.0f" Z="0.0f"></Rotation>
+        <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+        <Shader>Basic Alpha Texture</Shader>
+
+        <Location>Fences/</Location>
+        <Filetype>.fbx</Filetype>
+      </Entity>
+      <!-- Object Entities -->
+    </ModelEntities>
+  
+    <LightEntities Number="1">
+      <!-- Ambient Light Entities-->
+      <Entity>
+        <Light>Ambient</Light>
+        <Colour R="0.8f" G="0.8f" B="1.0f"></Colour>
+        <Position X="0.0f" Y="0.0f" Z="0.0f"></Position>
+        <Power Value="20"></Power>
+      </Entity>
+      <!-- Ambient Light Entities-->
+    </LightEntities>
+
+    <Shaders Number="2">
+      <Shader>
+        <Name>Basic Texture</Name>
+        <VertexShader>BasicTextureVS.hlsl</VertexShader>
+        <PixelShader>BasicTexturePS.hlsl</PixelShader>
+      </Shader>
+      <Shader>
+        <Name>Basic Alpha Texture</Name>
+        <VertexShader>BasicTextureVS.hlsl</VertexShader>
+        <PixelShader>BasicAlphaTexturePS.hlsl</PixelShader>
+      </Shader>
+    </Shaders>
+</Level>

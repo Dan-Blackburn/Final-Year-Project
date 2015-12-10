@@ -7,7 +7,7 @@ CGraphics::CGraphics() {
 	m_Direct3D = 0;
 	m_Camera = 0;
 	m_EntityManager = 0;
-	m_Shader = 0;
+	m_ShaderManager = 0;
 }
 
 //Copy Constructor
@@ -84,13 +84,14 @@ bool CGraphics::Initialise(int viewportWidth, int viewportHeight, HWND hwnd) {
 	/////////////////////////////////////////////////////////////
 
 	//Create Shader Object
-	m_Shader = new CShader;
-	if (!m_Shader) {
+	m_ShaderManager = new CShaderManager;
+	if (!m_ShaderManager) 
+	{
 		return false;
 	}
 
 	//Intialise Shader Object
-	result = m_Shader->Initialise(m_Direct3D->GetDevice(), hwnd);
+	result = m_ShaderManager->InitialiseShaders(m_Direct3D->GetDevice(), hwnd);
 	if (!result) {
 		MessageBox(hwnd, "Could not Initialise the Shader Object.", "Error", MB_OK);
 		return false;
@@ -136,7 +137,7 @@ bool CGraphics::Render() {
 	m_Direct3D->UpdateProjectionMatrix(projectionMatrix);
 
 	// Render the model using the color shader.
-	result = m_EntityManager->RenderEntities(m_Direct3D->GetDeviceContext(), m_Shader, worldMatrix, viewMatrix, projectionMatrix);
+	result = m_EntityManager->RenderEntities(m_Direct3D->GetDeviceContext(), m_ShaderManager, worldMatrix, viewMatrix, projectionMatrix);
 
 	if (!result)
 	{
@@ -168,10 +169,10 @@ void CGraphics::Shutdown() {
 	}
 
 	//Release Shader Objects
-	if (m_Shader) {
-		m_Shader->Shutdown();
-		delete m_Shader;
-		m_Shader = 0;
+	if (m_ShaderManager) {
+		//m_ShaderManager->Shutdown();
+		delete m_ShaderManager;
+		m_ShaderManager = 0;
 	}
 
 	//Release Camera Objects

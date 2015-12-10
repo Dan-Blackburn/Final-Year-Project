@@ -29,7 +29,7 @@ public:
 	static enum eTextureType {Diffuse, Specular, Normal, Alpha};
 
 	//Functions
-	bool LoadMesh(ID3D11Device*, std::string, eModelType, std::string);
+	bool LoadMesh(ID3D11Device*, std::string, eModelType, std::string, std::string);
 	void Shutdown();
 
 	//Getters
@@ -70,7 +70,7 @@ public:
 
 private:
 	//Functions
-	std::string MeshFinder(eModelType);
+	std::string MeshFinder(eModelType, std::string);
 
 	//Variables
 	int m_modelCount;
