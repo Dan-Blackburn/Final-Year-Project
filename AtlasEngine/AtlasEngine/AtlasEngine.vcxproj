@@ -154,13 +154,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CBasicShader.cpp" />
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CDirect3D.cpp" />
     <ClCompile Include="CEntityManager.cpp" />
     <ClCompile Include="CInput.cpp" />
     <ClCompile Include="CMesh.cpp" />
     <ClCompile Include="CModel.cpp" />
-    <ClCompile Include="CShader.cpp" />
+    <ClCompile Include="CLightShader.cpp" />
     <ClCompile Include="CShaderManager.cpp" />
     <ClCompile Include="CSystem.cpp" />
     <ClCompile Include="CGraphics.cpp" />
@@ -383,6 +384,14 @@
     <Image Include="Resources\Models\Terrains\Soil Pile\Soil Pile.fbm\Soil_Displacement.png" />
     <Image Include="Resources\Models\Terrains\Soil Pile\Soil Pile.fbm\Soil_Normal.png" />
     <Image Include="Resources\Models\Terrains\Soil Pile\Soil Pile.fbm\Soil_Specular.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BasicDiffuseLightPS.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="BasicDiffuseLightVS.hlsl">
+      <FileType>Document</FileType>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

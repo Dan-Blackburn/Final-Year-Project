@@ -43,11 +43,26 @@ CShader* CShaderManager::GetShader(std::string shaderName)
 	return 0;
 }
 
+bool CShaderManager::SetShaderType(string ShaderType)
+{
+	//Sets Shader Type based on Input
+	if (ShaderType == "Basic") { m_Shader = new CBasicShader; return true; }
+	else if (ShaderType == "Light") { m_Shader = new CLightShader; return true; }
+	else
+	{ 
+		OutputDebugString("Error: Shader Type not recognised: ");
+		OutputDebugString(ShaderType.c_str());
+		OutputDebugString("\n");
+		return false;
+	}
+}
+
 //Intitialise Shaders
 int CShaderManager::InitialiseShaders(ID3D11Device* device, HWND hwnd)
 {
 	const int ShaderPointerError = 100;
 	const int ShaderInitialisationError = 101;
+	bool result;
 
 	//XML Variables
 	tinyxml2::XMLDocument xmlDoc;
@@ -59,10 +74,15 @@ int CShaderManager::InitialiseShaders(ID3D11Device* device, HWND hwnd)
 	//Get Shader Attributes
 	XMLElement* ShaderAttributes = xmlDoc.FirstChildElement("Level")->FirstChildElement("Shaders")->FirstChildElement("Shader");
 
+	OutputDebugString("Loading Shaders...\n");
 	//Create Shader Objects
 	for (int i = 0; i < ShaderCount; i++)
 	{
-		m_Shader = new CShader();
+		XMLElement* Attributes = ShaderAttributes->FirstChildElement("Type");
+		string shaderType = Attributes->GetText();
+		Attributes = Attributes->NextSiblingElement();
+
+		result = SetShaderType(shaderType);
 
 		if (!m_Shader)
 		{
@@ -71,7 +91,6 @@ int CShaderManager::InitialiseShaders(ID3D11Device* device, HWND hwnd)
 		}
 
 		//---------- XML Entity Attribute ----------//
-		XMLElement* Attributes = ShaderAttributes->FirstChildElement("Name");
 		//Set Name
 		m_Shader->SetShaderName(Attributes->GetText());
 		Attributes = Attributes->NextSiblingElement();
@@ -87,7 +106,8 @@ int CShaderManager::InitialiseShaders(ID3D11Device* device, HWND hwnd)
 		m_ShaderList.push_back(m_Shader);
 
 		//Intialise Shader
-		bool result = m_Shader->Initialise(device, hwnd);
+		result = m_Shader->Initialise(device, hwnd);
+		m_Shader = 0;
 
 		if (!result)
 		{
@@ -95,10 +115,6 @@ int CShaderManager::InitialiseShaders(ID3D11Device* device, HWND hwnd)
 			return ShaderInitialisationError;
 		}
 
-		else
-		{
-			OutputDebugString("Shader Added\n");
-		}
 		ShaderAttributes = ShaderAttributes->NextSiblingElement();
 	}
 
@@ -107,6 +123,12 @@ int CShaderManager::InitialiseShaders(ID3D11Device* device, HWND hwnd)
 		m_Shader = *it;
 		m_Shader->Initialise(device, hwnd);
 	}
+
+	if (result)
+	{
+		OutputDebugString("Success!\n");
+	}
+
 	return 1;
 }
 

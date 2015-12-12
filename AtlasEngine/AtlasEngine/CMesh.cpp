@@ -129,6 +129,16 @@ bool CMesh::LoadMesh(ID3D11Device* device, std::string mFileName, eModelType mod
 			Vertices->texture.x = Scene->mMeshes[i]->mTextureCoords[Diffuse][j].x;
 			Vertices->texture.y = Scene->mMeshes[i]->mTextureCoords[Diffuse][j].y;
 
+			//Check if Mesh has Normals
+			if (Scene->mMeshes[i]->HasNormals())
+			{
+				Vertices->normal.x = Scene->mMeshes[i]->mNormals[j].x;
+				Vertices->normal.y = Scene->mMeshes[i]->mNormals[j].y;
+				Vertices->normal.z = Scene->mMeshes[i]->mNormals[j].z;
+			}
+
+			//Store Normal Coordinates
+			
 			subMesh->VerticesList.push_back(Vertices);
 		}
 

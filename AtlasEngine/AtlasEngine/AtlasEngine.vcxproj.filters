@@ -183,9 +183,6 @@
     <ClCompile Include="CGraphics.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="CShader.cpp">
-      <Filter>Source Files\Shaders</Filter>
-    </ClCompile>
     <ClCompile Include="CCamera.cpp">
       <Filter>Source Files\Camera</Filter>
     </ClCompile>
@@ -212,6 +209,12 @@
     </ClCompile>
     <ClCompile Include="CShaderManager.cpp">
       <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="CLightShader.cpp">
+      <Filter>Source Files\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="CBasicShader.cpp">
+      <Filter>Source Files\Shaders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -324,6 +327,12 @@
     </None>
     <None Include="Resources\Models\Terrains\Roads\T Junction.fbx">
       <Filter>Resource Files\Models\Terrains\Roads</Filter>
+    </None>
+    <None Include="BasicDiffuseLightVS.hlsl">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="BasicDiffuseLightPS.hlsl">
+      <Filter>Source Files\Shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

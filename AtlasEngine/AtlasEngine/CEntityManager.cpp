@@ -60,6 +60,7 @@ int CEntityManager::InitialiseEntities(ID3D11Device* device) {
 	//Get Model Entity Attributes
 	XMLElement* EntityAttributes = xmlDoc.FirstChildElement("Level")->FirstChildElement("ModelEntities")->FirstChildElement("Entity");
 
+	OutputDebugString("Adding Model Entities...\n");
 	//Assign Model Attributes
 	for (int i = 0; i < m_ModelEntityCount; i++) 
 	{
@@ -117,18 +118,19 @@ int CEntityManager::InitialiseEntities(ID3D11Device* device) {
 			OutputDebugString("Error: Unexpected error when initialising Model Object");
 			return ModelInitialisationError;
 		}
-
-		else 
-		{
-			OutputDebugString("Model Entity Added\n");
-		}
 		EntityAttributes = EntityAttributes->NextSiblingElement();
 	}
+	if (result)
+	{
+		OutputDebugString("Success!\n");
+	}
+
 
 	//Get Light Entity Attributes
 	EntityAttributes = xmlDoc.FirstChildElement("Level")->FirstChildElement("LightEntities")->FirstChildElement("Entity");
 
 	//Assign Light Attributes
+	OutputDebugString("Adding Light Entities...\n");
 	for (int i = 0; i < m_LightEntityCount; i++)
 	{
 		//Create Light Entity
@@ -165,7 +167,10 @@ int CEntityManager::InitialiseEntities(ID3D11Device* device) {
 		//------------------------------------------//
 
 		m_LightList.push_back(m_LightEntity);
-
+	}
+	if (result)
+	{
+		OutputDebugString("Success!\n");
 	}
 
 	/////////////////////////////////////////////////////////////
@@ -183,13 +188,8 @@ int CEntityManager::InitialiseEntities(ID3D11Device* device) {
 	//Check Pointer is Valid
 	if (!m_CameraEntity) 
 	{
-		//Return Error Code
+		OutputDebugString("Error: Unexpected error when defining Camera Object");
 		return CameraPointerError;
-	}
-
-	else 
-	{
-		OutputDebugString("Camera Entity Added\n");
 	}
 
 	//Push Camera Pointer to List
@@ -216,9 +216,9 @@ bool CEntityManager::RenderEntities(ID3D11DeviceContext* deviceContext, CShaderM
 
 	for (std::vector<CModel*>::iterator it = m_ModelList.begin(); it != m_ModelList.end(); it++) 
 	{
-		CModel* currentEntity = *it;
+		m_ModelEntity = *it;
 
-		CMesh* Mesh = currentEntity->GetModel()->Mesh;
+		CMesh* Mesh = m_ModelEntity->GetModel()->Mesh;
 		vector<CMesh::SubMesh*> subMeshList = Mesh->GetSubMeshList();
 
 		for (int i = 0; i < Mesh->GetSubMeshNum(); i++) 
@@ -227,23 +227,20 @@ bool CEntityManager::RenderEntities(ID3D11DeviceContext* deviceContext, CShaderM
 			result = Mesh->PrepareBuffers(deviceContext, i);
 
 			//Check if Buffer Preparation Fails
-			if (!result)
-			{
-				OutputDebugString("Unable to Prepare Buffers\n");
-				return false;
-			}
+			if (!result){ OutputDebugString("Unable to Prepare Buffers\n"); return false; }
 
-			currentEntity->Update();
+			//Update Model's World Matrix
+			m_ModelEntity->Update();
+
+			//Get Light Information
+			vector<CLight*>::iterator it = m_LightList.begin();
+			m_LightEntity = *it;
 
 			//Render Diffuse Textures
-			result = ShaderManager->GetShader(currentEntity->GetShaderName())->Render(deviceContext, Mesh->GetIndexCount(), currentEntity->GetModel()->WorldMatrix, viewMatrix, projectionMatrix, Mesh->GetTextures(subMeshList[i]));
+			result = ShaderManager->GetShader(m_ModelEntity->GetShaderName())->Render(deviceContext, Mesh->GetIndexCount(), m_ModelEntity->GetModel()->WorldMatrix, viewMatrix, projectionMatrix, Mesh->GetTextures(subMeshList[i]), m_LightEntity->GetDirection(), m_LightEntity->GetColour());
 
 			//Check if Entity fails to Render
-			if (!result) 
-			{
-				OutputDebugString("Unable to Render Entity\n");
-				return false;
-			}
+			if (!result) { OutputDebugString("Unable to Render Entity\n"); return false; }
 
 		}
 	}

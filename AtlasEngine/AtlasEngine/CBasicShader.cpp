@@ -2,7 +2,7 @@
 #include "CShader.h"
 
 //Constructor
-CShader::CShader() {
+CBasicShader::CBasicShader() {
 	m_vertexShader = 0;
 	m_pixelShader = 0;
 	m_layout = 0;
@@ -10,16 +10,12 @@ CShader::CShader() {
 	m_sampleState = 0;
 }
 
-//Copy Constructor
-CShader::CShader(const CShader&) {
-}
-
 //Destructor
-CShader::~CShader() {
+CBasicShader::~CBasicShader() {
 }
 
 //Initialise Shader Function
-bool CShader::Initialise(ID3D11Device* device, HWND hwnd) {
+bool CBasicShader::Initialise(ID3D11Device* device, HWND hwnd) {
 
 	bool result;
 	string VSFilepath = "../AtlasEngine/" + m_VSFilename;
@@ -35,8 +31,8 @@ bool CShader::Initialise(ID3D11Device* device, HWND hwnd) {
 }
 
 //Shutdown Shader Function
-void CShader::Shutdown() {
-	
+void CBasicShader::Shutdown() {
+
 	//Shutdown Shaders
 	ShutdownShader();
 
@@ -44,12 +40,13 @@ void CShader::Shutdown() {
 }
 
 //Render Function
-bool CShader::Render(ID3D11DeviceContext* deviceContext, int indexCount, D3DXMATRIX worldMatrix, D3DXMATRIX viewMatrix, D3DXMATRIX projectionMatrix, ID3D11ShaderResourceView* texture[4]) {
-	
+bool CBasicShader::Render(ID3D11DeviceContext* deviceContext, int indexCount, D3DXMATRIX worldMatrix, D3DXMATRIX viewMatrix, D3DXMATRIX projectionMatrix,
+															 ID3D11ShaderResourceView* texture[4], D3DXVECTOR3 lightDirection, D3DXVECTOR4 diffuseColour) {
+
 	bool result;
 
 	//Set Shader parameters
-	result = SetShaderParameters(deviceContext, worldMatrix, viewMatrix, projectionMatrix, texture);
+	result = SetShaderParameters(deviceContext, worldMatrix, viewMatrix, projectionMatrix, texture, lightDirection, diffuseColour);
 	if (!result) {
 		return false;
 	}
@@ -61,8 +58,8 @@ bool CShader::Render(ID3D11DeviceContext* deviceContext, int indexCount, D3DXMAT
 }
 
 //Initialise Shader Function
-bool CShader::InitialiseShader(ID3D11Device* device, HWND hwnd, LPCSTR vsFilename, LPCSTR psFilename) {
-	
+bool CBasicShader::InitialiseShader(ID3D11Device* device, HWND hwnd, LPCSTR vsFilename, LPCSTR psFilename) {
+
 	//Define Variables
 	HRESULT result;
 	ID3D10Blob* errorMessage;
@@ -150,7 +147,7 @@ bool CShader::InitialiseShader(ID3D11Device* device, HWND hwnd, LPCSTR vsFilenam
 
 	//Create Vertex Layout
 	result = device->CreateInputLayout(polygonLayout, numElements, vertexShaderBuffer->GetBufferPointer(), vertexShaderBuffer->GetBufferSize(), &m_layout);
-	
+
 	if (FAILED(result))
 	{
 		return false;
@@ -205,7 +202,7 @@ bool CShader::InitialiseShader(ID3D11Device* device, HWND hwnd, LPCSTR vsFilenam
 }
 
 //Shutdown Shader Function
-void CShader::ShutdownShader() {
+void CBasicShader::ShutdownShader() {
 
 	//Release Sampler State
 	if (m_sampleState)
@@ -231,7 +228,7 @@ void CShader::ShutdownShader() {
 		m_pixelShader->Release();
 		m_pixelShader = 0;
 	}
-	
+
 	//Release Vertex Shader
 	if (m_vertexShader) {
 		m_vertexShader->Release();
@@ -241,8 +238,8 @@ void CShader::ShutdownShader() {
 	return;
 }
 
-void CShader::OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND hwnd, LPCSTR shaderFilename) {
-	
+void CBasicShader::OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND hwnd, LPCSTR shaderFilename) {
+
 	//Define Variables
 	char* compileErrors;
 	unsigned long bufferSize, i;
@@ -276,7 +273,8 @@ void CShader::OutputShaderErrorMessage(ID3D10Blob* errorMessage, HWND hwnd, LPCS
 }
 
 //Set Shader Parameters Function
-bool CShader::SetShaderParameters(ID3D11DeviceContext* deviceContext, D3DXMATRIX worldMatrix, D3DXMATRIX viewMatrix, D3DXMATRIX projectionMatrix, ID3D11ShaderResourceView* textures[4]) {
+bool CBasicShader::SetShaderParameters(ID3D11DeviceContext* deviceContext, D3DXMATRIX worldMatrix, D3DXMATRIX viewMatrix, D3DXMATRIX projectionMatrix,
+														 ID3D11ShaderResourceView* textures[4], D3DXVECTOR3 lightDirection, D3DXVECTOR4 diffuseColour) {
 
 	//Define Variables
 	HRESULT result;
@@ -320,7 +318,7 @@ bool CShader::SetShaderParameters(ID3D11DeviceContext* deviceContext, D3DXMATRIX
 }
 
 //Render Shader Function
-void CShader::RenderShader(ID3D11DeviceContext* deviceContext, int indexCount) {
+void CBasicShader::RenderShader(ID3D11DeviceContext* deviceContext, int indexCount) {
 
 	//Set Vertex Input Layout
 	deviceContext->IASetInputLayout(m_layout);

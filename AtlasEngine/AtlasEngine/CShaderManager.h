@@ -16,6 +16,7 @@ public:
 	int GetShaderCount() { return ShaderCount; }
 	CShader* GetShader(string);
 
+	bool SetShaderType(string);
 	inline void SetShaderCount(int newShaderNum) { ShaderCount = newShaderNum; }
 
 	//Functions
