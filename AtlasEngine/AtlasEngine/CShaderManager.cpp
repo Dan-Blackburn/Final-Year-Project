@@ -46,8 +46,7 @@ CShader* CShaderManager::GetShader(std::string shaderName)
 bool CShaderManager::SetShaderType(string ShaderType)
 {
 	//Sets Shader Type based on Input
-	if (ShaderType == "Basic") { m_Shader = new CBasicShader; return true; }
-	else if (ShaderType == "Light") { m_Shader = new CLightShader; return true; }
+	if (ShaderType == "Light") { m_Shader = new CLightShader; return true; }
 	else
 	{ 
 		OutputDebugString("Error: Shader Type not recognised: ");
@@ -86,13 +85,19 @@ int CShaderManager::InitialiseShaders(ID3D11Device* device, HWND hwnd)
 
 		if (!m_Shader)
 		{
-			OutputDebugString("Error: Unexpected error when defining Shader Object");
+			OutputDebugString("Error: Unexpected error when defining Shader Object.\n");
 			return ShaderPointerError;
 		}
 
 		//---------- XML Entity Attribute ----------//
 		//Set Name
 		m_Shader->SetShaderName(Attributes->GetText());
+		Attributes = Attributes->NextSiblingElement();
+		//Set Vertex Shader Name
+		m_Shader->SetVSName(Attributes->GetText());
+		Attributes = Attributes->NextSiblingElement();
+		//Set Pixel Shader Name
+		m_Shader->SetPSName(Attributes->GetText());
 		Attributes = Attributes->NextSiblingElement();
 		//Set Vertex Shader Filename
 		m_Shader->SetVSFilename(Attributes->GetText());
@@ -111,17 +116,11 @@ int CShaderManager::InitialiseShaders(ID3D11Device* device, HWND hwnd)
 
 		if (!result)
 		{
-			OutputDebugString("Error: Unexpected error when initialising Shader Object");
+			OutputDebugString("Error: Unexpected error when initialising Shader Object.\n");
 			return ShaderInitialisationError;
 		}
 
 		ShaderAttributes = ShaderAttributes->NextSiblingElement();
-	}
-
-	for (std::vector<CShader*>::iterator it = m_ShaderList.begin(); it != m_ShaderList.end(); it++)
-	{
-		m_Shader = *it;
-		m_Shader->Initialise(device, hwnd);
 	}
 
 	if (result)
@@ -133,7 +132,8 @@ int CShaderManager::InitialiseShaders(ID3D11Device* device, HWND hwnd)
 }
 
 //Render Shaders
-int CShaderManager::RenderShaders()
+bool CShaderManager::RenderShader(ID3D11DeviceContext* deviceContext, int indexCount, D3DMATRIX worldMatrix, D3DMATRIX viewMatrix, D3DMATRIX projectionMatrix, ID3D11ShaderResourceView* textures[4], vector<CLight*> lightList, CCamera* mainCamera)
 {
-	return 1;
+	bool result = m_Shader->Render(deviceContext, indexCount, worldMatrix, viewMatrix, projectionMatrix, textures, lightList, mainCamera);
+	return result;
 }

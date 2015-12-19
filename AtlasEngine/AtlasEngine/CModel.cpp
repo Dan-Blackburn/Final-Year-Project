@@ -199,6 +199,9 @@ bool CModel::InitialiseBuffers(ID3D11Device* device, string ModelLocation, strin
 
 			Vertices[currentVertex].position = subMeshVertex->position;
 			Vertices[currentVertex].texture = subMeshVertex->texture;
+			Vertices[currentVertex].normal = subMeshVertex->normal;
+			Vertices[currentVertex].tangent = subMeshVertex->tangent;
+			Vertices[currentVertex].bitangent = subMeshVertex->bitangent;
 
 			//Iterates through SubMesh's Index List
 			for (int currentIndex = 0; currentIndex < subMesh->m_indexCount; currentIndex++) {

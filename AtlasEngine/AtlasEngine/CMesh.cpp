@@ -86,7 +86,8 @@ bool CMesh::LoadMesh(ID3D11Device* device, std::string mFileName, eModelType mod
 	//Create Instance of Importer
 	Assimp::Importer importer;
 
-	const aiScene* Scene = importer.ReadFile(mFilePath + fileName, aiProcess_CalcTangentSpace | aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_SortByPType | aiProcess_ConvertToLeftHanded);
+	const aiScene* Scene = importer.ReadFile(mFilePath + fileName, 
+		aiProcess_CalcTangentSpace | aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_SortByPType | aiProcess_CalcTangentSpace | aiProcess_ConvertToLeftHanded);
 
 	//Error Handler if Failed
 	if (!Scene) 
@@ -137,8 +138,20 @@ bool CMesh::LoadMesh(ID3D11Device* device, std::string mFileName, eModelType mod
 				Vertices->normal.z = Scene->mMeshes[i]->mNormals[j].z;
 			}
 
-			//Store Normal Coordinates
-			
+			if (Scene->mMeshes[i]->HasTangentsAndBitangents())
+			{
+				Vertices->tangent.x = Scene->mMeshes[i]->mTangents[j].x;
+				Vertices->tangent.y = Scene->mMeshes[i]->mTangents[j].y;
+				Vertices->tangent.z = Scene->mMeshes[i]->mTangents[j].z;
+
+				Vertices->bitangent.x = Scene->mMeshes[i]->mBitangents[j].x;
+				Vertices->bitangent.y = Scene->mMeshes[i]->mBitangents[j].y;
+				Vertices->bitangent.z = Scene->mMeshes[i]->mBitangents[j].z;
+			}
+
+
+
+			//Store Vertices
 			subMesh->VerticesList.push_back(Vertices);
 		}
 

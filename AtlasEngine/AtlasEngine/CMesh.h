@@ -49,6 +49,8 @@ public:
 		D3DXVECTOR3 position;
 		D3DXVECTOR2 texture;
 		D3DXVECTOR3 normal;
+		D3DXVECTOR3 tangent;
+		D3DXVECTOR3 bitangent;
 	};
 
 	//Sub-Mesh Structure

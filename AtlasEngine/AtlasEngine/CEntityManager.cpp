@@ -147,23 +147,20 @@ int CEntityManager::InitialiseEntities(ID3D11Device* device) {
 		m_LightEntity->SetType(Attributes->GetText());
 		Attributes = Attributes->NextSiblingElement();
 		//Set Light Colour
-		float R, G, B;
-		Attributes->QueryFloatAttribute("X", &R);
-		Attributes->QueryFloatAttribute("Y", &G);
-		Attributes->QueryFloatAttribute("Z", &B);
-		m_LightEntity->SetColour(R, G, B);
+		float R, G, B, A;
+		Attributes->QueryFloatAttribute("R", &R);
+		Attributes->QueryFloatAttribute("G", &G);
+		Attributes->QueryFloatAttribute("B", &B);
+		Attributes->QueryFloatAttribute("A", &A);
+		m_LightEntity->SetColour(R, G, B, A);
 		Attributes = Attributes->NextSiblingElement();
-		//Set Light Position
+		//Set Light Direction
 		float X, Y, Z;
 		Attributes->QueryFloatAttribute("X", &X);
 		Attributes->QueryFloatAttribute("Y", &Y);
 		Attributes->QueryFloatAttribute("Z", &Z);
-		m_LightEntity->SetPosition(X, Y, Z);
+		m_LightEntity->SetDirection(X, Y, Z);
 		Attributes = Attributes->NextSiblingElement();
-		//Set Specular Power
-		float power;
-		Attributes->QueryFloatAttribute("Value", &power);
-		m_LightEntity->SetPower(power);
 		//------------------------------------------//
 
 		m_LightList.push_back(m_LightEntity);
@@ -221,6 +218,9 @@ bool CEntityManager::RenderEntities(ID3D11DeviceContext* deviceContext, CShaderM
 		CMesh* Mesh = m_ModelEntity->GetModel()->Mesh;
 		vector<CMesh::SubMesh*> subMeshList = Mesh->GetSubMeshList();
 
+		string modelShaderName = m_ModelEntity->GetShaderName();
+		ShaderManager->SetCurrentShader(ShaderManager->GetShader(modelShaderName));
+
 		for (int i = 0; i < Mesh->GetSubMeshNum(); i++) 
 		{
 			//Prepare Buffers for Rendering
@@ -229,15 +229,10 @@ bool CEntityManager::RenderEntities(ID3D11DeviceContext* deviceContext, CShaderM
 			//Check if Buffer Preparation Fails
 			if (!result){ OutputDebugString("Unable to Prepare Buffers\n"); return false; }
 
-			//Update Model's World Matrix
-			m_ModelEntity->Update();
-
-			//Get Light Information
-			vector<CLight*>::iterator it = m_LightList.begin();
-			m_LightEntity = *it;
+			m_ModelEntity->UpdateWorldMatrix();
 
 			//Render Diffuse Textures
-			result = ShaderManager->GetShader(m_ModelEntity->GetShaderName())->Render(deviceContext, Mesh->GetIndexCount(), m_ModelEntity->GetModel()->WorldMatrix, viewMatrix, projectionMatrix, Mesh->GetTextures(subMeshList[i]), m_LightEntity->GetDirection(), m_LightEntity->GetColour());
+			result = ShaderManager->RenderShader(deviceContext, Mesh->GetIndexCount(), m_ModelEntity->GetModel()->WorldMatrix, viewMatrix, projectionMatrix, Mesh->GetTextures(subMeshList[i]), m_LightList, m_CameraEntity);
 
 			//Check if Entity fails to Render
 			if (!result) { OutputDebugString("Unable to Render Entity\n"); return false; }
@@ -261,8 +256,19 @@ bool CEntityManager::Frame() {
 	{
 		m_ModelEntity = *it;
 
-		//m_ModelEntity->SetPosition(0.0f, 0.0f, 200.0f);
-		//m_ModelEntity->SetRotation(0.0f, m_ModelEntity->GetRotation().y + 0.1f, 0.0f);
+		//m_ModelEntity->SetRotation(m_ModelEntity->GetRotation().x + 0.2f, 0.0f , 0.0f);
+	}
+
+	m_LightEntity = *m_LightList.begin();
+
+	if (m_LightEntity->GetDirection().y > -50.0f)
+	{
+		m_LightEntity->SetDirection(m_LightEntity->GetDirection().x, m_LightEntity->GetDirection().y - 1.0f, m_LightEntity->GetDirection().z);
+	}
+
+	if (m_LightEntity->GetDirection().y < -50.0f)
+	{
+		m_LightEntity->SetDirection(m_LightEntity->GetDirection().x, 50.0f, m_LightEntity->GetDirection().z);
 	}
 
 	return true;

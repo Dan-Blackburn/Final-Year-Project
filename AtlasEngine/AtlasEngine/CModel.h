@@ -21,7 +21,7 @@ public:
 
 	//Functions
 	bool Initialise(ID3D11Device*, std::string, std::string);
-	inline void Update() { UpdateWorldMatrix(); };
+	void UpdateWorldMatrix();
 	void Shutdown();
 	
 	//Setter
@@ -58,7 +58,6 @@ private:
 	};
 
 	//Functions
-	void UpdateWorldMatrix();
 	bool InitialiseBuffers(ID3D11Device*, std::string, std::string);
 	void ShutdownBuffers();
 

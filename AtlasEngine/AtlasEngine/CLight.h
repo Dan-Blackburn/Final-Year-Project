@@ -15,8 +15,8 @@ public:
 	~CLight() { };
 
 	//Setters & Getters
-	inline void SetPosition(float x, float y, float z) { Direction.x = x; Direction.y = y; Direction.z = z; }
-	inline void SetColour(float r, float g, float b) { LightColour.x = r; LightColour.y = g; LightColour.z = b; }
+	inline void SetDirection(float x, float y, float z) { Direction.x = x; Direction.y = y; Direction.z = z; }
+	inline void SetColour(float r, float g, float b, float a) { LightColour.x = r; LightColour.y = g; LightColour.z = b; LightColour.w = a; }
 	inline void SetType(std::string Type) { if (Type == "Ambient") LightType = Ambient; else if (Type == "Specular") LightType = Specular; else if (Type == "Diffuse") LightType = Diffuse; else { OutputDebugString("Error: Light type not found"); } }
 	inline void SetPower(float power) { SpecularPower = power; }
 

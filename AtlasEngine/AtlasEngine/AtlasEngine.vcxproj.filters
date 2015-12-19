@@ -213,9 +213,6 @@
     <ClCompile Include="CLightShader.cpp">
       <Filter>Source Files\Shaders</Filter>
     </ClCompile>
-    <ClCompile Include="CBasicShader.cpp">
-      <Filter>Source Files\Shaders</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGraphics.h">
@@ -268,15 +265,6 @@
     <None Include="assimpd.pdb">
       <Filter>Libraries\Assimp</Filter>
     </None>
-    <None Include="BasicTexturePS.hlsl">
-      <Filter>Source Files\Shaders</Filter>
-    </None>
-    <None Include="BasicTextureVS.hlsl">
-      <Filter>Source Files\Shaders</Filter>
-    </None>
-    <None Include="BasicAlphaTexturePS.hlsl">
-      <Filter>Source Files\Shaders</Filter>
-    </None>
     <None Include="Resources\Models\Buildings\3 Story Flat\3 Story Flat.fbx">
       <Filter>Resource Files\Models\Buildings\3 Story Flat</Filter>
     </None>
@@ -328,10 +316,16 @@
     <None Include="Resources\Models\Terrains\Roads\T Junction.fbx">
       <Filter>Resource Files\Models\Terrains\Roads</Filter>
     </None>
-    <None Include="BasicDiffuseLightVS.hlsl">
+    <None Include="HLSL Shaders\RoadLightingPS.hlsl">
       <Filter>Source Files\Shaders</Filter>
     </None>
-    <None Include="BasicDiffuseLightPS.hlsl">
+    <None Include="HLSL Shaders\RoadLightingVS.hlsl">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="HLSL Shaders\BuildingLightingPS.hlsl">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="HLSL Shaders\BuildingLightingVS.hlsl">
       <Filter>Source Files\Shaders</Filter>
     </None>
   </ItemGroup>
@@ -381,33 +375,6 @@
     </Image>
     <Image Include="Resources\Models\Buildings\Derelict Brick House\derelictBrickHouse.fbm\derelictBrickHouse.png">
       <Filter>Resource Files\Models\Buildings\Derelict Brick House\derelictBrickHouse.fbm</Filter>
-    </Image>
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_01.jpg">
-      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
-    </Image>
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_02.jpg">
-      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
-    </Image>
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_05.jpg">
-      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
-    </Image>
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_07.jpg">
-      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
-    </Image>
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_08.jpg">
-      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
-    </Image>
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_09.jpg">
-      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
-    </Image>
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_10.jpg">
-      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
-    </Image>
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_11.jpg">
-      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
-    </Image>
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_12.jpg">
-      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
     </Image>
     <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_08.jpg">
       <Filter>Resource Files\Models\Buildings\Office Buildings\Building B.fbm</Filter>
@@ -828,6 +795,84 @@
     </Image>
     <Image Include="Resources\Models\Terrains\Roads\Right Turn.fbm\Vereda_SPECULAR.png">
       <Filter>Resource Files\Models\Terrains\Roads\Right Turn.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_01_COLOR.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_01_NRM.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_01_SPEC.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_02_COLOR.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_02_NRM.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_02_SPEC.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_05_COLOR.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_05_NRM.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_05_SPEC.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_07_COLOR.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_07_NRM.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_07_SPEC.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_08_COLOR.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_08_NRM.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_09_COLOR.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_09_NRM.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_09_SPEC.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_10_COLOR.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_10_NRM.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_10_SPEC.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_11_COLOR.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_11_NRM.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_11_SPEC.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_12_COLOR.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_12_NRM.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_12_SPEC.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building A.fbm</Filter>
     </Image>
   </ItemGroup>
 </Project>
