@@ -38,7 +38,7 @@ public:
 	void UpdateViewMatrix(D3DXMATRIX&);
 
 	const float toRadians = 0.0174532925f;
-	const float m_CameraSpeed = 10.0f;
+	const float m_CameraSpeed = 5.0f;
 
 private:
 	float m_positionX, m_positionY, m_positionZ;

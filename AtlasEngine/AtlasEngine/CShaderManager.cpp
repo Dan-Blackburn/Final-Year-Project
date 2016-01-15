@@ -46,7 +46,8 @@ CShader* CShaderManager::GetShader(std::string shaderName)
 bool CShaderManager::SetShaderType(string ShaderType)
 {
 	//Sets Shader Type based on Input
-	if (ShaderType == "Light") { m_Shader = new CLightShader; return true; }
+	if (ShaderType == "Light") { m_Shader = new CLightShader; m_Shader->SetShaderType(CShader::Light);  return true; }
+	else if (ShaderType == "Particle") { m_Shader = new CParticleShader; m_Shader->SetShaderType(CShader::Particle); return true; }
 	else
 	{ 
 		OutputDebugString("Error: Shader Type not recognised: ");
@@ -99,12 +100,24 @@ int CShaderManager::InitialiseShaders(ID3D11Device* device, HWND hwnd)
 		//Set Pixel Shader Name
 		m_Shader->SetPSName(Attributes->GetText());
 		Attributes = Attributes->NextSiblingElement();
+		if (m_Shader->GetShaderType() == CShader::Particle)
+		{
+			//Set Geometry Shader Name
+			m_Shader->SetGSName(Attributes->GetText());
+			Attributes = Attributes->NextSiblingElement();
+		}
 		//Set Vertex Shader Filename
 		m_Shader->SetVSFilename(Attributes->GetText());
 		Attributes = Attributes->NextSiblingElement();
 		//Set Pixel Shader Filename
 		m_Shader->SetPSFilename(Attributes->GetText());
 		Attributes = Attributes->NextSiblingElement();
+		if (m_Shader->GetShaderType() == CShader::Particle)
+		{
+			//Set Geometry Shader Name
+			m_Shader->SetGSFilename(Attributes->GetText());
+			Attributes = Attributes->NextSiblingElement();
+		}
 		//------------------------------------------//
 
 		//Push Model Pointer to List

@@ -36,6 +36,9 @@ public:
 	void UpdateWorldMatrix(D3DXMATRIX&);
 	void UpdateOrthoMatrix(D3DXMATRIX&);
 
+	void EnableAlphaBlending();
+	void DisableAlphaBlending();
+
 	void GetVideoCardInfo(char*, int&);
 
 private:
@@ -50,6 +53,8 @@ private:
 	ID3D11DepthStencilState* m_depthStencilState;
 	ID3D11DepthStencilView* m_depthStencilView;
 	ID3D11RasterizerState* m_rasterState;
+	ID3D11BlendState* m_alphaEnableBlendingState;
+	ID3D11BlendState* m_alphaDisableBlendingState;
 	D3DXMATRIX m_projectionMatrix;
 	D3DXMATRIX m_worldMatrix;
 	D3DXMATRIX m_orthoMatrix;

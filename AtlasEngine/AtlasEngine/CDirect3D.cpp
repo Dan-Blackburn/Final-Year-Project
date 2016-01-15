@@ -47,7 +47,7 @@ bool CDirect3D::Initialise(int viewportWidth, int viewportHeight, bool vsync, HW
 	D3D11_RASTERIZER_DESC rasterDesc;
 	D3D11_VIEWPORT viewport;
 	float fieldOfView, screenAspect;
-
+	D3D11_BLEND_DESC blendStateDescription;
 
 	// Store the VSYNC setting
 	m_vsync_enabled = vsync;
@@ -175,8 +175,8 @@ bool CDirect3D::Initialise(int viewportWidth, int viewportHeight, bool vsync, HW
 	swapChainDesc.OutputWindow = hwnd;
 
 	// Turn multisampling off.
-	swapChainDesc.SampleDesc.Count = 1;
-	swapChainDesc.SampleDesc.Quality = 0;
+	swapChainDesc.SampleDesc.Count = 4;
+	swapChainDesc.SampleDesc.Quality = 1;
 
 	// Set to full screen or windowed mode
 	if (fullscreen)
@@ -238,8 +238,8 @@ bool CDirect3D::Initialise(int viewportWidth, int viewportHeight, bool vsync, HW
 	depthBufferDesc.MipLevels = 1;
 	depthBufferDesc.ArraySize = 1;
 	depthBufferDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
-	depthBufferDesc.SampleDesc.Count = 1;
-	depthBufferDesc.SampleDesc.Quality = 0;
+	depthBufferDesc.SampleDesc.Count = 4;
+	depthBufferDesc.SampleDesc.Quality = 1;
 	depthBufferDesc.Usage = D3D11_USAGE_DEFAULT;
 	depthBufferDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
 	depthBufferDesc.CPUAccessFlags = 0;
@@ -291,7 +291,7 @@ bool CDirect3D::Initialise(int viewportWidth, int viewportHeight, bool vsync, HW
 
 	// Set up the depth stencil view description
 	depthStencilViewDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
-	depthStencilViewDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+	depthStencilViewDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2DMS;
 	depthStencilViewDesc.Texture2D.MipSlice = 0;
 
 	// Create the depth stencil view
@@ -305,14 +305,14 @@ bool CDirect3D::Initialise(int viewportWidth, int viewportHeight, bool vsync, HW
 	m_deviceContext->OMSetRenderTargets(1, &m_renderTargetView, m_depthStencilView);
 
 	// Setup the raster description which will determine how and what polygons will be drawn
-	rasterDesc.AntialiasedLineEnable = false;
-	rasterDesc.CullMode = D3D11_CULL_BACK;
+	rasterDesc.AntialiasedLineEnable = true;
+	rasterDesc.CullMode = D3D11_CULL_NONE;
 	rasterDesc.DepthBias = 0;
 	rasterDesc.DepthBiasClamp = 0.0f;
 	rasterDesc.DepthClipEnable = true;
 	rasterDesc.FillMode = D3D11_FILL_SOLID;
 	rasterDesc.FrontCounterClockwise = false;
-	rasterDesc.MultisampleEnable = false;
+	rasterDesc.MultisampleEnable = true;
 	rasterDesc.ScissorEnable = false;
 	rasterDesc.SlopeScaledDepthBias = 0.0f;
 
@@ -350,8 +350,37 @@ bool CDirect3D::Initialise(int viewportWidth, int viewportHeight, bool vsync, HW
 	// Create an orthographic projection matrix for 2D rendering
 	D3DXMatrixOrthoLH(&m_orthoMatrix, (float)viewportWidth, (float)viewportHeight, screenNear, screenDepth);
 
-	return true;
+	// Clear the blend state description.
+	ZeroMemory(&blendStateDescription, sizeof(D3D11_BLEND_DESC));
 
+	// Create an alpha enabled blend state description.
+	blendStateDescription.RenderTarget[0].BlendEnable = TRUE;
+	blendStateDescription.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
+	blendStateDescription.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
+	blendStateDescription.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	blendStateDescription.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	blendStateDescription.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+	blendStateDescription.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	blendStateDescription.RenderTarget[0].RenderTargetWriteMask = 0x0f;
+
+	// Create the blend state using the description.
+	result = m_device->CreateBlendState(&blendStateDescription, &m_alphaEnableBlendingState);
+	if (FAILED(result))
+	{
+		return false;
+	}
+
+	// Modify the description to create an alpha disabled blend state description.
+	blendStateDescription.RenderTarget[0].BlendEnable = FALSE;
+
+	// Create the blend state using the description.
+	result = m_device->CreateBlendState(&blendStateDescription, &m_alphaDisableBlendingState);
+	if (FAILED(result))
+	{
+		return false;
+	}
+
+	return true;
 }
 
 void CDirect3D::Shutdown() {
@@ -503,4 +532,20 @@ void CDirect3D::GetVideoCardInfo(char* cardName, int& memory) {
 
 	strcpy_s(cardName, 128, m_videoCardDescription);
 	memory = m_videoCardMemory;
+}
+
+void CDirect3D::EnableAlphaBlending()
+{
+	float blendFactor[4]{ 0.0f, 0.0f, 0.0f, 0.0f };
+
+	//Enable Alpha Blending
+	m_deviceContext->OMSetBlendState(m_alphaEnableBlendingState, blendFactor, 0xffffffff);
+}
+
+void CDirect3D::DisableAlphaBlending()
+{
+	float blendFactor[4]{ 0.0f, 0.0f, 0.0f, 0.0f };
+
+	//Enable Alpha Blending
+	m_deviceContext->OMSetBlendState(m_alphaDisableBlendingState, blendFactor, 0xffffffff);
 }

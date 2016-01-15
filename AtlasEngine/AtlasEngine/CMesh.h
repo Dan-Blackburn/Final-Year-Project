@@ -25,7 +25,7 @@ public:
 	~CMesh();
 
 	//Temp Variables?
-	static enum eModelType { Building, Terrain, Water, Vehicle, Object };
+	static enum eModelType { Building, Terrain, Water, Vehicle, Object, Particle };
 	static enum eTextureType {Diffuse, Specular, Normal, Alpha};
 
 	//Functions

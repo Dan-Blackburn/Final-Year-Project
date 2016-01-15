@@ -10,6 +10,7 @@
 #include <Windows.h>
 #include "CInput.h"
 #include "CGraphics.h"
+#include "CTimer.h"
 
 
 //System Class
@@ -38,6 +39,7 @@ private:
 
 	CInput* m_Input;
 	CGraphics* m_Graphics;
+	CTimer* m_Timer;
 };
 
 //Prototypes

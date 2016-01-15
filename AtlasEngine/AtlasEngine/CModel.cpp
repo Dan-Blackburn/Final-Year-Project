@@ -194,7 +194,8 @@ bool CModel::InitialiseBuffers(ID3D11Device* device, string ModelLocation, strin
 		vector<CMesh::VertexType*> verticesList = subMesh->VerticesList;
 
 		//Iterates through SubMesh's Vertex List
-		for (int currentVertex = 0; currentVertex < subMesh->m_vertexCount; currentVertex++) {
+		for (int currentVertex = 0; currentVertex < subMesh->m_vertexCount; currentVertex++) 
+		{
 			CMesh::VertexType* subMeshVertex = verticesList[currentVertex];
 
 			Vertices[currentVertex].position = subMeshVertex->position;
@@ -204,7 +205,8 @@ bool CModel::InitialiseBuffers(ID3D11Device* device, string ModelLocation, strin
 			Vertices[currentVertex].bitangent = subMeshVertex->bitangent;
 
 			//Iterates through SubMesh's Index List
-			for (int currentIndex = 0; currentIndex < subMesh->m_indexCount; currentIndex++) {
+			for (int currentIndex = 0; currentIndex < subMesh->m_indexCount; currentIndex++) 
+			{
 				unsigned int* subMeshIndex = &subMesh->Indices[currentIndex];
 				Indices[currentIndex] = *subMeshIndex;
 			}

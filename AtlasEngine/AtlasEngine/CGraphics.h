@@ -12,12 +12,13 @@
 
 //Global Variables
 const bool FULL_SCREEN = false;
-const bool VSYNC_ENABLED = true;
-const float SCREEN_DEPTH = 10000.0f;
+const bool VSYNC_ENABLED = false;
+const float SCREEN_DEPTH = 100000.0f;
 const float SCREEN_NEAR = 0.1f;
 
 //Graphics Class
-class CGraphics {
+class CGraphics 
+{
 public:
 	CGraphics();
 	CGraphics(const CGraphics&);
@@ -25,7 +26,7 @@ public:
 
 	bool Initialise(int, int, HWND);
 	void Shutdown();
-	bool Frame(CInput* m_Input);
+	bool Frame(CInput* m_Input, float frameTime, float clock);
 
 private:
 	bool Render();

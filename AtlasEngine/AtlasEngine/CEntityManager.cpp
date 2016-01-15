@@ -34,26 +34,23 @@ int CEntityManager::GetLightEntityCount() {
 }
 
 //Functions
-int CEntityManager::InitialiseEntities(ID3D11Device* device) {
-
-	/////////////////////////////////////////////////////////////
-	//Model Initialisation
-	/////////////////////////////////////////////////////////////
-
-	//Error Code Variables
-	int ModelPointerError = 149;
-	int ModelInitialisationError = 150;
-	int LightPointerError = 151;
-	int LightInitialisationError = 152;
+bool CEntityManager::InitialiseEntities(ID3D11Device* device) 
+{
 	bool result;
 
 	//XML Variables
 	tinyxml2::XMLDocument xmlDoc;
 	xmlDoc.LoadFile("Resources/XML/Default.xml");
 
+	/////////////////////////////////////////////////////////////
+	//Model Initialisation
+	/////////////////////////////////////////////////////////////
+
 	//Get Number of Entities
 	XMLElement* ModelEntityCount = xmlDoc.FirstChildElement("Level")->FirstChildElement("ModelEntities");
 	ModelEntityCount->QueryIntAttribute("Number", &m_ModelEntityCount);
+	XMLElement* ParticleSystemCount = xmlDoc.FirstChildElement("Level")->FirstChildElement("ParticleSystems");
+	ParticleSystemCount->QueryIntAttribute("Number", &m_ParticleSystemCount);
 	XMLElement* LightEntityCount = xmlDoc.FirstChildElement("Level")->FirstChildElement("LightEntities");
 	LightEntityCount->QueryIntAttribute("Number", &m_LightEntityCount);
 
@@ -70,7 +67,7 @@ int CEntityManager::InitialiseEntities(ID3D11Device* device) {
 		//Check Pointer is Valid
 		if (!m_ModelEntity) {
 			OutputDebugString("Error: Unexpected error when defining Model Object");
-			return ModelPointerError;
+			return false;
 		}
 
 		//---------- XML Entity Attribute ----------//
@@ -116,7 +113,7 @@ int CEntityManager::InitialiseEntities(ID3D11Device* device) {
 		if (!result) 
 		{
 			OutputDebugString("Error: Unexpected error when initialising Model Object");
-			return ModelInitialisationError;
+			return false;
 		}
 		EntityAttributes = EntityAttributes->NextSiblingElement();
 	}
@@ -125,6 +122,107 @@ int CEntityManager::InitialiseEntities(ID3D11Device* device) {
 		OutputDebugString("Success!\n");
 	}
 
+	/////////////////////////////////////////////////////////////
+	//Particle Initialisation
+	/////////////////////////////////////////////////////////////
+
+	//Get Light Entity Attributes
+	EntityAttributes = xmlDoc.FirstChildElement("Level")->FirstChildElement("ParticleSystems")->FirstChildElement("System");
+
+	//Assign Light Attributes
+	OutputDebugString("Adding Particle Systems...\n");
+	for (int i = 0; i < m_ParticleSystemCount; i++)
+	{
+		//Create Particle System
+		m_ParticleSystem = new CParticleSystem();
+		string meshLocation;
+		string meshFiletype;
+		float floatValue;
+		int intValue;
+
+		//Check Pointer is Valid
+		if (!m_ParticleSystem)
+		{
+			return false;
+		}
+
+		//---------- XML Entity Attribute ----------//
+		XMLElement* Attributes = EntityAttributes->FirstChildElement("Name");
+		//Set System Name
+		m_ParticleSystem->SetName(Attributes->GetText());
+		Attributes = Attributes->NextSiblingElement();
+		//Set System Shader Name
+		m_ParticleSystem->SetShaderName(Attributes->GetText());
+		Attributes = Attributes->NextSiblingElement();
+		//Set Particle Emitter Position
+		D3DXVECTOR3 emitterPosition;
+		Attributes->QueryFloatAttribute("X", &emitterPosition.x);
+		Attributes->QueryFloatAttribute("Y", &emitterPosition.y);
+		Attributes->QueryFloatAttribute("Z", &emitterPosition.z);
+		m_ParticleSystem->SetEmitterPosition(emitterPosition);
+		Attributes = Attributes->NextSiblingElement();
+		//Set Size of Particle
+		D3DXVECTOR3 particleSize;
+		Attributes->QueryFloatAttribute("X", &particleSize.x);
+		Attributes->QueryFloatAttribute("Y", &particleSize.y);
+		Attributes->QueryFloatAttribute("Z", &particleSize.z);
+		m_ParticleSystem->SetParticleSize(particleSize);
+		Attributes = Attributes->NextSiblingElement();
+		//Set Amount of Particles Per Second
+		Attributes->QueryIntAttribute("Number", &intValue);
+		m_ParticleSystem->SetParticlesPerSecond(intValue);
+		Attributes = Attributes->NextSiblingElement();
+		//Set Deviation of Particles when Emitted
+		D3DXVECTOR3 particleDeviation;
+		Attributes->QueryFloatAttribute("X", &particleDeviation.x);
+		Attributes->QueryFloatAttribute("Y", &particleDeviation.y);
+		Attributes->QueryFloatAttribute("Z", &particleDeviation.z);
+		m_ParticleSystem->SetParticleDeviation(particleDeviation);
+		Attributes = Attributes->NextSiblingElement();
+		//Set Max Number of Particles
+		Attributes->QueryIntAttribute("Number", &intValue);
+		m_ParticleSystem->SetMaxParticles(intValue);
+		Attributes = Attributes->NextSiblingElement();
+		//Set Particle Velocity
+		Attributes->QueryFloatAttribute("Number", &floatValue);
+		m_ParticleSystem->SetVelocity(floatValue);
+		Attributes = Attributes->NextSiblingElement();
+		//Set Particle Velocity Variation
+		Attributes->QueryFloatAttribute("Number", &floatValue);
+		m_ParticleSystem->SetVelocityVariation(floatValue);
+		Attributes = Attributes->NextSiblingElement();
+
+		//Set Mesh Location
+		meshLocation = Attributes->GetText();
+		Attributes = Attributes->NextSiblingElement();
+		//Set Mesh Filetype
+		meshFiletype = Attributes->GetText();
+		Attributes = Attributes->NextSiblingElement();
+		//------------------------------------------//
+
+		//Add Particle System to List
+		m_ParticleSystemList.push_back(m_ParticleSystem);
+
+		//Initialise Particle System
+		result = m_ParticleSystem->Initialise(device, m_ParticleSystem->GetName(), meshFiletype, meshLocation);
+
+		if (!result)
+		{
+			OutputDebugString("Error: Unexpected error when initialising Particle System");
+			return false;
+		}
+
+		EntityAttributes = EntityAttributes->NextSiblingElement();
+	}
+
+	if (result)
+	{
+		OutputDebugString("Success!\n");
+	}
+
+	/////////////////////////////////////////////////////////////
+	//Light Initialisation
+	/////////////////////////////////////////////////////////////
 
 	//Get Light Entity Attributes
 	EntityAttributes = xmlDoc.FirstChildElement("Level")->FirstChildElement("LightEntities")->FirstChildElement("Entity");
@@ -138,11 +236,14 @@ int CEntityManager::InitialiseEntities(ID3D11Device* device) {
 
 		//Check Pointer is Valid
 		if (!m_LightEntity) {
-			return LightPointerError;
+			return false;
 		}
 
 		//---------- XML Entity Attribute ----------//
-		XMLElement* Attributes = EntityAttributes->FirstChildElement("Light");
+		XMLElement* Attributes = EntityAttributes->FirstChildElement("Name");
+		//Set Light Name
+		m_LightEntity->SetLightName(Attributes->GetText());
+		Attributes = Attributes->NextSiblingElement();
 		//Set Light Type
 		m_LightEntity->SetType(Attributes->GetText());
 		Attributes = Attributes->NextSiblingElement();
@@ -161,9 +262,15 @@ int CEntityManager::InitialiseEntities(ID3D11Device* device) {
 		Attributes->QueryFloatAttribute("Z", &Z);
 		m_LightEntity->SetDirection(X, Y, Z);
 		Attributes = Attributes->NextSiblingElement();
+		//Set Starting Angle
+		float angle;
+		Attributes->QueryFloatAttribute("Angle", &angle);
+		m_LightEntity->SetAngle(angle);
 		//------------------------------------------//
 
 		m_LightList.push_back(m_LightEntity);
+
+		EntityAttributes = EntityAttributes->NextSiblingElement();
 	}
 	if (result)
 	{
@@ -176,9 +283,6 @@ int CEntityManager::InitialiseEntities(ID3D11Device* device) {
 	//Camera Initialisation
 	/////////////////////////////////////////////////////////////
 
-	//Error Code Variables
-	int CameraPointerError = 249;
-
 	//Create Camera Entity
 	m_CameraEntity = new CCamera();
 
@@ -186,7 +290,7 @@ int CEntityManager::InitialiseEntities(ID3D11Device* device) {
 	if (!m_CameraEntity) 
 	{
 		OutputDebugString("Error: Unexpected error when defining Camera Object");
-		return CameraPointerError;
+		return false;
 	}
 
 	//Push Camera Pointer to List
@@ -198,9 +302,9 @@ int CEntityManager::InitialiseEntities(ID3D11Device* device) {
 }
 
 //Render Entities
-bool CEntityManager::RenderEntities(ID3D11DeviceContext* deviceContext, CShaderManager* ShaderManager, D3DXMATRIX worldMatrix, D3DXMATRIX viewMatrix, D3DXMATRIX projectionMatrix) {
+bool CEntityManager::RenderEntities(CDirect3D* direct3D, CShaderManager* ShaderManager, D3DXMATRIX worldMatrix, D3DXMATRIX viewMatrix, D3DXMATRIX projectionMatrix) {
 	bool result;
-
+	ID3D11DeviceContext* deviceContext = direct3D->GetDeviceContext();
 	/////////////////////////////////////////////////////////////
 	//Render ALL Entities within Model List
 	/////////////////////////////////////////////////////////////
@@ -242,33 +346,53 @@ bool CEntityManager::RenderEntities(ID3D11DeviceContext* deviceContext, CShaderM
 
 	/////////////////////////////////////////////////////////////
 
+	/////////////////////////////////////////////////////////////
+	//Render ALL Entities within Particle List
+	/////////////////////////////////////////////////////////////
+	
+	//Enable Alpha Blending
+	direct3D->EnableAlphaBlending();
+
+
+	for (std::vector<CParticleSystem*>::iterator it = m_ParticleSystemList.begin(); it != m_ParticleSystemList.end(); it++)
+	{
+		m_ParticleSystem = *it;
+
+		string particleShaderName = m_ParticleSystem->GetShaderName();
+		ShaderManager->SetCurrentShader(ShaderManager->GetShader(particleShaderName));
+
+		m_ParticleSystem->Render(deviceContext);
+		result = ShaderManager->RenderShader(deviceContext, m_ParticleSystem->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix, m_ParticleSystem->GetTexture(), m_LightList, m_CameraEntity);
+		if (!result) { OutputDebugString("Unable to Prepare Buffers\n"); return false; }
+	}
+
+	//DisableAlpha Blending
+	direct3D->DisableAlphaBlending();
+
 	return true;
 }
 
-bool CEntityManager::Frame() {
+bool CEntityManager::Frame(ID3D11DeviceContext* deviceContext, float frameTime, float clock, D3DXMATRIX worldMatrix) {
 	
 	/////////////////////////////////////////////////////////////
 	//Frame Function - Entity Manipulation
 	/////////////////////////////////////////////////////////////
 
-	//Iterate through "UNORDERED" Model List - (Testing Only)
-	for (std::vector<CModel*>::iterator it = m_ModelList.begin(); it != m_ModelList.end(); it++) 
+	for (int i = 0; i < m_ParticleSystemCount; i++)
 	{
-		m_ModelEntity = *it;
+		m_ParticleSystem = m_ParticleSystemList[i];
 
-		//m_ModelEntity->SetRotation(m_ModelEntity->GetRotation().x + 0.2f, 0.0f , 0.0f);
+		m_ParticleSystem->Frame(deviceContext, frameTime, m_CameraEntity);
 	}
 
-	m_LightEntity = *m_LightList.begin();
-
-	if (m_LightEntity->GetDirection().y > -50.0f)
+	for (int i = 0; i < m_LightEntityCount; i++)
 	{
-		m_LightEntity->SetDirection(m_LightEntity->GetDirection().x, m_LightEntity->GetDirection().y - 1.0f, m_LightEntity->GetDirection().z);
-	}
-
-	if (m_LightEntity->GetDirection().y < -50.0f)
-	{
-		m_LightEntity->SetDirection(m_LightEntity->GetDirection().x, 50.0f, m_LightEntity->GetDirection().z);
+		m_LightEntity = m_LightList[i];
+		
+		if (m_LightEntity->GetType() == CLight::Ambient)
+		{
+			m_LightEntity->Frame(frameTime, clock);
+		}
 	}
 
 	return true;

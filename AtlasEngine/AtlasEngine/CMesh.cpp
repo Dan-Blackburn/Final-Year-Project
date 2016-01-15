@@ -71,7 +71,7 @@ ID3D11ShaderResourceView** CMesh::GetTextures(SubMesh* subMesh) {
 
 /////////////////////////////////////////////////////////////
 
-//Load Mesh from File
+//Lsssssoad Mesh from File
 bool CMesh::LoadMesh(ID3D11Device* device, std::string mFileName, eModelType modelType, std::string mFileType, std::string modelLocation) 
 {
 
@@ -298,7 +298,7 @@ bool CMesh::LoadMesh(ID3D11Device* device, std::string mFileName, eModelType mod
 		//Add Submesh to the List of Submeshes 
 		SubMeshList.push_back(subMesh);
 	}
-
+	
 	return true;
 }
 
@@ -342,6 +342,9 @@ std::string CMesh::MeshFinder(eModelType modelType, std::string modelLocation)
 		break;
 	case Vehicle:
 		directory = directory + "Vehicles/";
+		break;
+	case Particle:
+		directory = directory + "Particles/";
 		break;
 	}
 

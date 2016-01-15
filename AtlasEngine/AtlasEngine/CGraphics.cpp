@@ -24,7 +24,6 @@ CGraphics::~CGraphics() {
 bool CGraphics::Initialise(int viewportWidth, int viewportHeight, HWND hwnd) {
 
 	bool result;
-	int errorCode;
 
 	/////////////////////////////////////////////////////////////
 	//Direct3D Partition
@@ -60,20 +59,17 @@ bool CGraphics::Initialise(int viewportWidth, int viewportHeight, HWND hwnd) {
 	}
 
 	//Initialise Model Objects
-	errorCode = m_EntityManager->InitialiseEntities(m_Direct3D->GetDevice());
+	result = m_EntityManager->InitialiseEntities(m_Direct3D->GetDevice());
 
-	if (errorCode != 1) {
-		LPCSTR errorMessage = (LPCSTR)"Error Code: " + errorCode;
-		MessageBox(hwnd, "Could not Initialise the Model Entity.", errorMessage, MB_OK);
+	if (!result) {
 		return false;
 	}
 
 	//Get Pointer to Main Camera
 	m_Camera = m_EntityManager->GetCameraEntity();
 
-	if (errorCode != 1) {
-		LPCSTR errorMessage = (LPCSTR)"Error Code: " + errorCode;
-		MessageBox(hwnd, "Could not Initialise the Camera Entity.", errorMessage, MB_OK);
+	if (!m_Camera)
+	{
 		return false;
 	}
 
@@ -103,13 +99,18 @@ bool CGraphics::Initialise(int viewportWidth, int viewportHeight, HWND hwnd) {
 }
 
 //Calculate Frame
-bool CGraphics::Frame(CInput* m_Input) {
+bool CGraphics::Frame(CInput* m_Input, float frameTime, float clock) {
+
+	D3DXMATRIX worldMatrix;
 
 	//Camera Frame Function
 	m_Camera->Frame(m_Input);
 
+	//Update World Matrix
+	m_Direct3D->UpdateWorldMatrix(worldMatrix);
+
 	//Entity Frame Function, Setting Position of the Entitys within the World
-	m_EntityManager->Frame();
+	m_EntityManager->Frame(m_Direct3D->GetDeviceContext(), frameTime, clock, worldMatrix);
 
 	//Render the Graphics Scene
 	bool result = Render();
@@ -136,8 +137,8 @@ bool CGraphics::Render() {
 	m_Direct3D->UpdateWorldMatrix(worldMatrix);
 	m_Direct3D->UpdateProjectionMatrix(projectionMatrix);
 
-	// Render the model using the color shader.
-	result = m_EntityManager->RenderEntities(m_Direct3D->GetDeviceContext(), m_ShaderManager, worldMatrix, viewMatrix, projectionMatrix);
+	// Render the model using the color shader
+	result = m_EntityManager->RenderEntities(m_Direct3D, m_ShaderManager, worldMatrix, viewMatrix, projectionMatrix);
 
 	if (!result)
 	{

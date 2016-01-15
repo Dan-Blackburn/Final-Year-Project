@@ -4,6 +4,7 @@
 CSystem::CSystem() {
 	m_Input = 0;
 	m_Graphics = 0;
+	m_Timer = 0;
 }
 
 //Copy Constructor
@@ -59,6 +60,21 @@ bool CSystem::Initialise() {
 		return false;
 	}
 
+	//Define Graphics Object
+	m_Timer = new CTimer;
+	if (!m_Timer)
+	{
+		return false;
+	}
+
+	//Initialise the Timer Object
+	result = m_Timer->Initialise();
+	if (!result)
+	{
+		MessageBox(m_hwnd, "Could not initialise the Timer Object.", "Error", MB_OK);
+		return false;
+	}
+
 	return true;
 }
 
@@ -77,6 +93,12 @@ void CSystem::Shutdown() {
 		m_Input->Shutdown();
 		delete m_Input;
 		m_Input = 0;
+	}
+
+	if (!m_Timer)
+	{
+		delete m_Timer;
+		m_Timer = 0;
 	}
 
 	//Shutdown the Viewport
@@ -131,6 +153,8 @@ bool CSystem::Frame() {
 	bool result;
 	int mouseX, mouseY;
 
+	m_Timer->Frame();
+
 	//Input Frame processing
 	result = m_Input->Frame();
 
@@ -141,8 +165,9 @@ bool CSystem::Frame() {
 	}
 
 	//Process Frame for Graphics Object
-	result = m_Graphics->Frame(m_Input);
-	if (!result) {
+	result = m_Graphics->Frame(m_Input, m_Timer->GetTime(), m_Timer->GetClock());
+	if (!result) 
+	{
 		return false;
 	}
 	

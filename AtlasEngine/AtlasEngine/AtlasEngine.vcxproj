@@ -158,12 +158,16 @@
     <ClCompile Include="CDirect3D.cpp" />
     <ClCompile Include="CEntityManager.cpp" />
     <ClCompile Include="CInput.cpp" />
+    <ClCompile Include="CLight.cpp" />
     <ClCompile Include="CMesh.cpp" />
     <ClCompile Include="CModel.cpp" />
     <ClCompile Include="CLightShader.cpp" />
+    <ClCompile Include="CParticleShader.cpp" />
+    <ClCompile Include="CParticleSystem.cpp" />
     <ClCompile Include="CShaderManager.cpp" />
     <ClCompile Include="CSystem.cpp" />
     <ClCompile Include="CGraphics.cpp" />
+    <ClCompile Include="CTimer.cpp" />
     <ClCompile Include="MainProgram.cpp" />
     <ClCompile Include="tinyxml2.cpp" />
   </ItemGroup>
@@ -176,9 +180,11 @@
     <ClInclude Include="CLight.h" />
     <ClInclude Include="CMesh.h" />
     <ClInclude Include="CModel.h" />
+    <ClInclude Include="CParticleSystem.h" />
     <ClInclude Include="CShader.h" />
     <ClInclude Include="CShaderManager.h" />
     <ClInclude Include="CSystem.h" />
+    <ClInclude Include="CTimer.h" />
     <ClInclude Include="tinyxml2.h" />
   </ItemGroup>
   <ItemGroup>
@@ -186,6 +192,7 @@
     <None Include="assimpd.exp" />
     <None Include="assimpd.ilk" />
     <None Include="assimpd.pdb" />
+    <None Include="Geometry Shaders\ParticleGS.gs" />
     <None Include="Resources\Models\Buildings\3 Story Flat\3 Story Flat.fbx" />
     <None Include="Resources\Models\Buildings\Carpet Barn\Carpet Barn.fbx" />
     <None Include="Resources\Models\Buildings\Derelict Brick House\derelictBrickHouse.fbx" />
@@ -251,36 +258,98 @@
     <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_12_COLOR.png" />
     <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_12_NRM.png" />
     <Image Include="Resources\Models\Buildings\Office Buildings\Building A.fbm\K_BuildingsA_12_SPEC.png" />
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_08.jpg" />
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_15.jpg" />
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_16.jpg" />
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_17.jpg" />
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_18.jpg" />
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_21.jpg" />
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_22.jpg" />
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_08.jpg" />
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_27.jpg" />
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_28.jpg" />
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_29.jpg" />
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_30.jpg" />
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_31.jpg" />
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_32.jpg" />
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_33.jpg" />
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_08.jpg" />
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_10.jpg" />
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_25.jpg" />
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_26.jpg" />
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_28.jpg" />
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_29.jpg" />
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_32.jpg" />
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_33.jpg" />
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_34.jpg" />
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building F.fbm\K_BuildingsA_01.jpg" />
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building F.fbm\K_BuildingsA_02.jpg" />
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building F.fbm\K_BuildingsA_05.jpg" />
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building F.fbm\K_BuildingsA_07.jpg" />
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building F.fbm\K_BuildingsA_11.jpg" />
-    <Image Include="Resources\Models\Buildings\Office Buildings\Building F.fbm\K_BuildingsA_13.jpg" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_08_COLOR.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_08_NRM.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_08_SPEC.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_15_COLOR.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_15_NRM.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_15_SPEC.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_16_COLOR.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_16_NRM.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_16_SPEC.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_17_COLOR.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_17_NRM.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_17_SPEC.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_18_COLOR.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_18_NRM.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_18_SPEC.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_21_COLOR.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_21_NRM.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_21_SPEC.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_22_COLOR.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_22_NRM.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building B.fbm\K_BuildingsA_22_SPEC.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_08_COLOR.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_08_NRM.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_08_SPEC.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_27_COLOR.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_27_NRM.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_27_SPEC.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_28_COLOR.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_28_NRM.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_28_SPEC.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_29_COLOR.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_29_NRM.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_29_SPEC.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_30_COLOR.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_30_NRM.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_30_SPEC.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_31_COLOR.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_31_NRM.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_31_SPEC.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_32_COLOR.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_32_NRM.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_32_SPEC.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_33_COLOR.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_33_NRM.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building C.fbm\K_BuildingsA_33_SPEC.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_08_COLOR.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_08_NRM_1.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_08_SPEC_1.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_10_COLOR.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_10_NRM.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_10_SPEC.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_25_COLOR.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_25_NRM.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_25_SPEC.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_26_COLOR.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_26_NRM.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_26_SPEC.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_28_COLOR.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_28_NRM.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_28_SPEC.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_29_COLOR.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_29_NRM.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_29_SPEC.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_32_COLOR.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_32_NRM.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_32_SPEC.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_33_COLOR.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_33_NRM.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_33_SPEC.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_34_COLOR.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_34_NRM.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building E.fbm\K_BuildingsA_34_SPEC.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building F.fbm\K_BuildingsA_01_COLOR.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building F.fbm\K_BuildingsA_01_NRM.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building F.fbm\K_BuildingsA_01_SPEC.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building F.fbm\K_BuildingsA_02_COLOR.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building F.fbm\K_BuildingsA_02_NRM.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building F.fbm\K_BuildingsA_02_SPEC.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building F.fbm\K_BuildingsA_05_COLOR.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building F.fbm\K_BuildingsA_05_NRM.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building F.fbm\K_BuildingsA_05_SPEC.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building F.fbm\K_BuildingsA_07_COLOR.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building F.fbm\K_BuildingsA_07_NRM.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building F.fbm\K_BuildingsA_07_SPEC.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building F.fbm\K_BuildingsA_11_COLOR.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building F.fbm\K_BuildingsA_11_NRM.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building F.fbm\K_BuildingsA_11_SPEC.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building F.fbm\K_BuildingsA_13_COLOR.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building F.fbm\K_BuildingsA_13_DISP.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building F.fbm\K_BuildingsA_13_NRM.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building F.fbm\K_BuildingsA_13_OCC.png" />
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building F.fbm\K_BuildingsA_13_SPEC.png" />
     <Image Include="Resources\Models\Objects\Fences\Wire Fence.fbm\fence_alpha.png" />
     <Image Include="Resources\Models\Objects\Fences\Wire Fence.fbm\fence_composite01.png" />
     <Image Include="Resources\Models\Objects\Fences\Wire Fence.fbm\fence_sheet02_n.png" />
@@ -293,6 +362,7 @@
     <Image Include="Resources\Models\Objects\Trash\Dumpster.fbm\Polished-Metal_COLOR.png" />
     <Image Include="Resources\Models\Objects\Trash\Dumpster.fbm\Polished-Metal_NRM.png" />
     <Image Include="Resources\Models\Objects\Trash\Dumpster.fbm\Polished-Metal_SPEC.png" />
+    <Image Include="Resources\Models\Particles\Rain\Raindrop.png" />
     <Image Include="Resources\Models\Terrains\Flooring\Pub Floor.fbm\Concrete.jpg" />
     <Image Include="Resources\Models\Terrains\Roads\Junction Grid.fbm\BocaTormenta.jpg" />
     <Image Include="Resources\Models\Terrains\Roads\Junction Grid.fbm\BocaTormenta_NORMAL.png" />
@@ -393,18 +463,26 @@
     <Image Include="Resources\Models\Terrains\Soil Pile\Soil Pile.fbm\Soil_Specular.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="HLSL Shaders\RoadLightingPS.hlsl">
+    <None Include="HLSL Shaders\SkyboxPS.hlsl">
       <FileType>Document</FileType>
     </None>
-    <None Include="HLSL Shaders\RoadLightingVS.hlsl">
+    <None Include="HLSL Shaders\SkyboxVS.hlsl">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="HLSL Shaders\BuildingLightingPS.hlsl">
+    <None Include="HLSL Shaders\ParticlePS.hlsl">
       <FileType>Document</FileType>
     </None>
-    <None Include="HLSL Shaders\BuildingLightingVS.hlsl">
+    <None Include="HLSL Shaders\ParticleVS.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="HLSL Shaders\PerPixelLightingPS.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="HLSL Shaders\PerPixelLightingVS.hlsl">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>
