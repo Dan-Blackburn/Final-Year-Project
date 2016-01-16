@@ -17,7 +17,7 @@ public:
 	//Setters & Getters
 	inline void SetLightName(std::string lightName) { m_LightName = lightName; }
 	inline void SetDirection(float x, float y, float z) { Direction.x = x; Direction.y = y; Direction.z = z; }
-	inline void SetColour(float r, float g, float b, float a) { LightColour.x = r; LightColour.y = g; LightColour.z = b; LightColour.w = a; }
+	inline void SetConstantColour(float r, float g, float b, float a) { ConstantColour.x = r; ConstantColour.y = g; ConstantColour.z = b; ConstantColour.w = a; }
 	inline void SetAngle(float angle) { m_Angle = angle; }
 	inline void SetType(std::string Type) { if (Type == "Ambient") LightType = Ambient; else if (Type == "Point") LightType = Point; else if (Type == "Spotlight") LightType = Spotlight; else { OutputDebugString("Error: Light type not found"); } }
 	inline void SetPower(float power) { SpecularPower = power; }
@@ -39,6 +39,7 @@ private:
 	D3DXVECTOR3 Direction;
 	std::string m_LightName;
 	D3DXVECTOR4 LightColour;
+	D3DXVECTOR4 ConstantColour;
 	float SpecularPower;
 	eLightType LightType;
 	float m_Angle;

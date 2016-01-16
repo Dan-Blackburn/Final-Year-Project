@@ -316,14 +316,14 @@
       <Entity>
         <Name>Sun</Name>
         <Light>Ambient</Light>
-        <Colour R="0.5f" G="0.4f" B="0.3f" A="1.0f"></Colour>
+        <Colour R="1.0f" G="0.8f" B="0.8f" A="1.0f"></Colour>
         <Direction X="0.0f" Y="-1.0f" Z="0.0f"></Direction>
         <StartAngle Angle="90.0f"></StartAngle>
       </Entity>
       <Entity>
         <Name>Moon</Name>
         <Light>Ambient</Light>
-        <Colour R="0.6f" G="0.6f" B="0.6f" A="1.0f"></Colour>
+        <Colour R="0.1f" G="0.1f" B="0.15f" A="1.0f"></Colour>
         <Direction X="0.0f" Y="1.0f" Z="0.0f"></Direction>
         <StartAngle Angle="270.0f"></StartAngle>
       </Entity>

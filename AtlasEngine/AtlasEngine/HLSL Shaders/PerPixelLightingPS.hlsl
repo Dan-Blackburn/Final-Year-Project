@@ -17,9 +17,9 @@ cbuffer LightBuffer : register(cb1)
 	float4 diffuseColour;
 	float4 specularColour;
 	float3 sunlightDirection;
+	float sunlightAngle;
 	float3 moonlightDirection;
 	float specularPower;
-	float sunlightAngle;
 };
 
 //Typedefs
@@ -45,13 +45,15 @@ float4 PerPixelLightingPS(PixelInputType input) : SV_TARGET
 	float sunlightIntensity;
 	float moonlightIntensity;
 	float3 reflection;
-	float4 specular;
+	float4 sunSpecular;
+	float4 moonSpecular;
 	float4 specularIntensity;
 
 	float4 sunColour = ambientSunColour;
 	float4 moonColour = ambientMoonColour;
 
-	specular = float4(0.0f, 0.0f, 0.0f, 0.0f);
+	sunSpecular = float4(0.0f, 0.0f, 0.0f, 0.0f);
+	moonSpecular = float4(0.0f, 0.0f, 0.0f, 0.0f);
 
 	// Sample the texture pixel at this location.
 	textureColour = Texture[0].Sample(SampleType, input.tex);
@@ -84,7 +86,7 @@ float4 PerPixelLightingPS(PixelInputType input) : SV_TARGET
 	// Calculate the amount of light on this pixel based on the bump map normal value.
 	float sunBumpIntensity = saturate(dot(textureNormal, sunlightDir));
 	float moonBumpIntensity = saturate(dot(textureNormal, moonlightDir));
-
+	
 	if (sunBumpIntensity > 0.0f)
 	{
 		sunColour += saturate(sunColour * sunBumpIntensity) / 2;
@@ -93,7 +95,7 @@ float4 PerPixelLightingPS(PixelInputType input) : SV_TARGET
 
 		reflection = normalize(2.0f * sunlightIntensity * textureNormal - sunlightDir);
 
-		specular = pow(saturate(dot(reflection, input.viewDirection)), specularPower);
+		sunSpecular = pow(saturate(dot(reflection, input.viewDirection)), specularPower);
 	}
 
 	if (moonBumpIntensity > 0.0f)
@@ -104,20 +106,33 @@ float4 PerPixelLightingPS(PixelInputType input) : SV_TARGET
 
 		reflection = normalize(2.0f * moonlightIntensity * textureNormal - moonlightDir);
 
-		specular = pow(saturate(dot(reflection, input.viewDirection)), specularPower);
+		moonSpecular = pow(saturate(dot(reflection, input.viewDirection)), specularPower);
 	}
 
+
 	//Combine the final bump light with the texture colour
-	float4 colour = saturate(sunColour * moonColour);
-
+	float4 colour = sunColour * moonColour;
 	colour = colour * textureColour;
+	colour = saturate(colour);
 
-	//Use specular map pixel to calculate the specular amount on pixel
-	specular = specular * specularIntensity;
+	if (sunlightAngle < 180.0f)
+	{
+		//Use specular map pixel to calculate the specular amount on pixel
+		sunSpecular = sunSpecular * specularIntensity;
 
-	//Add the specular value last
-	specular = specularColour * specular;
-	colour = colour + specular;
+		//Add the specular value last
+		sunSpecular = specularColour * sunSpecular;
+		colour = colour + sunSpecular;
+	}
 
+	if (sunlightAngle > 180.0f) 
+	{
+		//Use specular map pixel to calculate the specular amount on pixel
+		moonSpecular = moonSpecular * specularIntensity;
+
+		//Add the specular value last
+		moonSpecular = specularColour * moonSpecular;
+		colour = colour + moonSpecular;
+	}
 	return colour;
 }

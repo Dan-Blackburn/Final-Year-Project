@@ -436,10 +436,10 @@ bool CLightShader::SetShaderParameters(ID3D11DeviceContext* deviceContext, D3DXM
 	dataPtr2->ambientSunColour = sunLight->GetColour();
 	dataPtr2->ambientMoonColour = moonLight->GetColour();
 	dataPtr2->diffuseColour = D3DXVECTOR4{1.0f, 1.0f, 1.0f, 1.0f};
-	dataPtr2->sunlightDirection = sunLight->GetDirection();
-	dataPtr2->moonlightDirection = moonLight->GetDirection();
-	dataPtr2->sunlightAngle = sunLight->GetAngle();
 	dataPtr2->specularColour = D3DXVECTOR4{ 1.0f, 1.0f, 0.8f, 1.0f };
+	dataPtr2->sunlightDirection = sunLight->GetDirection();
+	dataPtr2->sunlightAngle = sunLight->GetAngle();
+	dataPtr2->moonlightDirection = moonLight->GetDirection();
 	dataPtr2->specularPower = 72.0f;
 
 	//Unlock Constant Buffer

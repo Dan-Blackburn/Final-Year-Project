@@ -253,7 +253,7 @@ bool CEntityManager::InitialiseEntities(ID3D11Device* device)
 		Attributes->QueryFloatAttribute("G", &G);
 		Attributes->QueryFloatAttribute("B", &B);
 		Attributes->QueryFloatAttribute("A", &A);
-		m_LightEntity->SetColour(R, G, B, A);
+		m_LightEntity->SetConstantColour(R, G, B, A);
 		Attributes = Attributes->NextSiblingElement();
 		//Set Light Direction
 		float X, Y, Z;

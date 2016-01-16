@@ -5,38 +5,42 @@
 //Frame
 void CLight::Frame(float frameTime, float clock)
 {
-	float rotationRate = 0.0002f * frameTime;
-	m_Angle+= rotationRate * 100;
-
-	float colourRate = rotationRate * 0.75f;
+	float rotationRate = 0.02f * frameTime;
+	m_Angle += rotationRate;
 
 	float radian = m_Angle * (D3DX_PI / 180);
 
 	Direction.x = -cos(radian);
 	Direction.y = -sin(radian);
 	
-	if (m_LightName == "Sun")
+	if (-sin(radian) > ConstantColour.x)
 	{
-		LightColour.x = sin(radian);
-		LightColour.y = sin(radian);
-		LightColour.z = sin(radian);
+		LightColour.x = -sin(radian);
 	}
 
-	if (m_LightName == "Moon")
+	else
 	{
-		if (-sin(radian) > 0.4)
-		{
-			LightColour.x = -sin(radian);
-			LightColour.y = -sin(radian);
-			LightColour.z = -sin(radian);
-		}
+		LightColour.x = ConstantColour.x;
+	}
 
-		else
-		{
-			LightColour.x = 0.4f;
-			LightColour.y = 0.4f;
-			LightColour.z = 0.4f;
-		}
+	if (-sin(radian) > ConstantColour.y)
+	{
+		LightColour.y = -sin(radian);
+	}
+
+	else
+	{
+		LightColour.y = ConstantColour.y;
+	}
+
+	if (-sin(radian) > ConstantColour.z)
+	{
+		LightColour.z = -sin(radian);
+	}
+
+	else
+	{
+		LightColour.z = ConstantColour.z;
 	}
 
 	if (m_Angle > 360.0f)
