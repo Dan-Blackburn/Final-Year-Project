@@ -181,6 +181,15 @@
     <Filter Include="Resource Files\Models\Particles\Rain">
       <UniqueIdentifier>{6982c782-f49a-4fae-a5ce-1cb6badf6a7c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Models\Buildings\Office Buildings\Building G.fbm">
+      <UniqueIdentifier>{dd6ffddb-5b64-42c1-b0ed-6f7abda5bee0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Models\Buildings\Office Buildings\Building G.fbm\Building H.fbm">
+      <UniqueIdentifier>{1b507732-e5b9-47b1-b00c-55c16e13b9d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Models\Buildings\Office Buildings\Building H.fbm">
+      <UniqueIdentifier>{947b5a2e-e0b4-4512-a4e3-09b5d1ee15ee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CModel.cpp">
@@ -360,6 +369,12 @@
     </None>
     <None Include="HLSL Shaders\PerPixelLightingVS.hlsl">
       <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="Resources\Models\Buildings\Office Buildings\Building G.fbx">
+      <Filter>Resource Files\Models\Buildings\Office Buildings</Filter>
+    </None>
+    <None Include="Resources\Models\Buildings\Office Buildings\Building H.fbx">
+      <Filter>Resource Files\Models\Buildings\Office Buildings</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -1095,6 +1110,210 @@
     </Image>
     <Image Include="Resources\Models\Particles\Rain\Raindrop.png">
       <Filter>Resource Files\Models\Particles\Rain</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building G.fbm\K_BuildingsA_08_COLOR.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building G.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building G.fbm\K_BuildingsA_08_NRM.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building G.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building G.fbm\K_BuildingsA_08_SPEC.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building G.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building G.fbm\K_BuildingsA_37_COLOR.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building G.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building G.fbm\K_BuildingsA_37_NRM.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building G.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building G.fbm\K_BuildingsA_37_SPEC.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building G.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building G.fbm\K_BuildingsA_39_COLOR.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building G.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building G.fbm\K_BuildingsA_39_NRM.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building G.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building G.fbm\K_BuildingsA_39_SPEC.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building G.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building G.fbm\K_BuildingsA_40_COLOR.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building G.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building G.fbm\K_BuildingsA_40_NRM.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building G.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building G.fbm\K_BuildingsA_40_SPEC.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building G.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building G.fbm\K_BuildingsA_41_COLOR.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building G.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building G.fbm\K_BuildingsA_41_NRM_1.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building G.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building G.fbm\K_BuildingsA_41_SPEC.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building G.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building G.fbm\K_BuildingsA_42_COLOR.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building G.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building G.fbm\K_BuildingsA_42_NRM.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building G.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building G.fbm\K_BuildingsA_42_SPEC.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building G.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building G.fbm\K_BuildingsA_43_COLOR.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building G.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building G.fbm\K_BuildingsA_43_NRM.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building G.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building G.fbm\K_BuildingsA_43_SPEC.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building G.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building G.fbm\K_BuildingsA_45_COLOR.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building G.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building G.fbm\K_BuildingsA_45_NRM.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building G.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building G.fbm\K_BuildingsA_45_SPEC.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building G.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_08_COLOR.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_08_NRM.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_08_SPEC.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_35_COLOR.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_35_DISP.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_35_NRM.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_35_OCC.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_35_SPEC.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_36_COLOR.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_36_DISP.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_36_NRM.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_36_OCC.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_36_SPEC.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_39_COLOR.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_39_DISP.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_39_NRM.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_39_OCC.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_39_SPEC.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_41_COLOR.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_41_DISP.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_41_NRM.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_41_OCC.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_41_SPEC.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_42_COLOR.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_42_DISP.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_42_NRM.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_42_OCC.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_42_SPEC.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_43.jpg">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_43_COLOR.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_43_DISP.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_43_NRM.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_43_OCC.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_43_SPEC.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_44_COLOR.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_44_DISP.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_44_NRM.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_44_OCC.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_44_SPEC.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_46_COLOR.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_46_DISP.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_46_NRM.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_46_OCC.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
+    </Image>
+    <Image Include="Resources\Models\Buildings\Office Buildings\Building H.fbm\K_BuildingsA_46_SPEC.png">
+      <Filter>Resource Files\Models\Buildings\Office Buildings\Building H.fbm</Filter>
     </Image>
   </ItemGroup>
 </Project>

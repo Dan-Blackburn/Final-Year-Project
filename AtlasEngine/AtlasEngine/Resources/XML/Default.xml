@@ -1,363 +1,374 @@
 <?xml version="1.0"?>
 <Level>
-    <ModelEntities Number="23">
-      <!-- Terrain Entities -->
-      <Entity>
-        <Name>T Junction</Name>
-        <Type>Terrain</Type>
-        <Position X="-23.657f" Y="0.0f" Z="-1202.697f"></Position>
-        <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
-        <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
-        <Shader>Per Pixel Lighting</Shader>
-      
-        <Location>Roads/</Location>
-        <Filetype>.fbx</Filetype>
-      </Entity>
-      
-      <Entity>
-        <Name>Straight Grid</Name>
-        <Type>Terrain</Type>
-        <Position X="-26.084f" Y="0.0f" Z="1040.877f"></Position>
-        <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
-        <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
-        <Shader>Per Pixel Lighting</Shader>
+  <ModelEntities Number="24">
+    <!-- Terrain Entities -->
+    <Entity>
+      <Name>T Junction</Name>
+      <Type>Terrain</Type>
+      <Position X="-23.657f" Y="0.0f" Z="-1202.697f"></Position>
+      <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
+      <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+      <Shader>Per Pixel Lighting</Shader>
 
-        <Location>Roads/</Location>
-        <Filetype>.fbx</Filetype>
-      </Entity>
-      
-      <Entity>
-        <Name>Straight Grid</Name>
-        <Type>Terrain</Type>
-        <Position X="1492.818" Y="0.0f" Z="-1863.191f"></Position>
-        <Rotation X="0.0f" Y="-90.0f" Z="0.0f"></Rotation>
-        <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
-        <Shader>Per Pixel Lighting</Shader>
+      <Location>Roads/</Location>
+      <Filetype>.fbx</Filetype>
+    </Entity>
 
-        <Location>Roads/</Location>
-        <Filetype>.fbx</Filetype>
-      </Entity>
-      
-      <Entity>
-        <Name>Straight Grid</Name>
-        <Type>Terrain</Type>
-        <Position X="-1451.912f" Y="0.0f" Z="-1863.191f"></Position>
-        <Rotation X="0.0f" Y="-90.0f" Z="0.0f"></Rotation>
-        <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
-        <Shader>Per Pixel Lighting</Shader>
+    <Entity>
+      <Name>Straight Grid</Name>
+      <Type>Terrain</Type>
+      <Position X="-26.084f" Y="0.0f" Z="1040.877f"></Position>
+      <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
+      <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+      <Shader>Per Pixel Lighting</Shader>
 
-        <Location>Roads/</Location>
-        <Filetype>.fbx</Filetype>
-      </Entity>
-      
-      <Entity>
-        <Name>Junction</Name>
-        <Type>Terrain</Type>
-        <Position X="-24.804f" Y="0.0f" Z="2556.129f"></Position>
-        <Rotation X="0.0f" Y="0.0" Z="0.0f"></Rotation>
-        <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
-        <Shader>Per Pixel Lighting</Shader>
+      <Location>Roads/</Location>
+      <Filetype>.fbx</Filetype>
+    </Entity>
 
-        <Location>Roads/</Location>
-        <Filetype>.fbx</Filetype>
-      </Entity>
-      
-      <Entity>
-        <Name>Straight Grid</Name>
-        <Type>Terrain</Type>
-        <Position X="1492.982f" Y="0.0f" Z="2554.082f"></Position>
-        <Rotation X="0.0f" Y="-90.0f" Z="0.0f"></Rotation>
-        <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
-        <Shader>Per Pixel Lighting</Shader>
+    <Entity>
+      <Name>Straight Grid</Name>
+      <Type>Terrain</Type>
+      <Position X="1492.818" Y="0.0f" Z="-1863.191f"></Position>
+      <Rotation X="0.0f" Y="-90.0f" Z="0.0f"></Rotation>
+      <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+      <Shader>Per Pixel Lighting</Shader>
 
-        <Location>Roads/</Location>
-        <Filetype>.fbx</Filetype>
-      </Entity>
-      
-      <Entity>
-        <Name>Straight Grid</Name>
-        <Type>Terrain</Type>
-        <Position X="-1451.912f" Y="0.0f" Z="2554.978f"></Position>
-        <Rotation X="0.0f" Y="-90.0f" Z="0.0f"></Rotation>
-        <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
-        <Shader>Per Pixel Lighting</Shader>
+      <Location>Roads/</Location>
+      <Filetype>.fbx</Filetype>
+    </Entity>
 
-        <Location>Roads/</Location>
-        <Filetype>.fbx</Filetype>
-      </Entity>
+    <Entity>
+      <Name>Straight Grid</Name>
+      <Type>Terrain</Type>
+      <Position X="-1451.912f" Y="0.0f" Z="-1863.191f"></Position>
+      <Rotation X="0.0f" Y="-90.0f" Z="0.0f"></Rotation>
+      <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+      <Shader>Per Pixel Lighting</Shader>
 
-      <Entity>
-        <Name>Soil Pile</Name>
-        <Type>Terrain</Type>
-        <Position X="1087.099f" Y="37.1f" Z="1561.175f"></Position>
-        <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
-        <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
-        <Shader>Per Pixel Lighting</Shader>
+      <Location>Roads/</Location>
+      <Filetype>.fbx</Filetype>
+    </Entity>
 
-        <Location>Soil Pile/</Location>
-        <Filetype>.fbx</Filetype>
-      </Entity>
+    <Entity>
+      <Name>Junction</Name>
+      <Type>Terrain</Type>
+      <Position X="-24.804f" Y="0.0f" Z="2556.129f"></Position>
+      <Rotation X="0.0f" Y="0.0" Z="0.0f"></Rotation>
+      <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+      <Shader>Per Pixel Lighting</Shader>
 
-      <Entity>
-        <Name>Pub Floor</Name>
-        <Type>Terrain</Type>
-        <Position X="-1491.596f" Y="21.621f" Z="-735.439f"></Position>
-        <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
-        <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
-        <Shader>Per Pixel Lighting</Shader>
+      <Location>Roads/</Location>
+      <Filetype>.fbx</Filetype>
+    </Entity>
 
-        <Location>Flooring/</Location>
-        <Filetype>.fbx</Filetype>
-      </Entity>
-      <!--Plain Skybox-->
-      <!--<Entity>
+    <Entity>
+      <Name>Straight Grid</Name>
+      <Type>Terrain</Type>
+      <Position X="1492.982f" Y="0.0f" Z="2554.082f"></Position>
+      <Rotation X="0.0f" Y="-90.0f" Z="0.0f"></Rotation>
+      <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+      <Shader>Per Pixel Lighting</Shader>
+
+      <Location>Roads/</Location>
+      <Filetype>.fbx</Filetype>
+    </Entity>
+
+    <Entity>
+      <Name>Straight Grid</Name>
+      <Type>Terrain</Type>
+      <Position X="-1451.912f" Y="0.0f" Z="2554.978f"></Position>
+      <Rotation X="0.0f" Y="-90.0f" Z="0.0f"></Rotation>
+      <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+      <Shader>Per Pixel Lighting</Shader>
+
+      <Location>Roads/</Location>
+      <Filetype>.fbx</Filetype>
+    </Entity>
+
+    <Entity>
+      <Name>Soil Pile</Name>
+      <Type>Terrain</Type>
+      <Position X="1087.099f" Y="37.1f" Z="1561.175f"></Position>
+      <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
+      <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+      <Shader>Per Pixel Lighting</Shader>
+
+      <Location>Soil Pile/</Location>
+      <Filetype>.fbx</Filetype>
+    </Entity>
+
+    <Entity>
+      <Name>Pub Floor</Name>
+      <Type>Terrain</Type>
+      <Position X="-1491.596f" Y="21.621f" Z="-735.439f"></Position>
+      <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
+      <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+      <Shader>Per Pixel Lighting</Shader>
+
+      <Location>Flooring/</Location>
+      <Filetype>.fbx</Filetype>
+    </Entity>
+    <!--Plain Skybox-->
+    <!--<Entity>
         <Name>Plain Skybox</Name>
         <Type>Terrain</Type>
         <Position X="0.0f" Y="0.0f" Z="0.0f"></Position>
         <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
         <Scale X="50.0f" Y="50.0f" Z="50.0f"></Scale>
         <Shader>Skybox</Shader>
-
         <Location>Skyboxes/</Location>
         <Filetype>.fbx</Filetype>
       </Entity>-->
-      
-      <!-- Terrain Entities -->
-      <!-- Building Entities -->
-      <Entity>
-        <Name>Carpet Barn</Name>
-        <Type>Building</Type>
-        <Position X="-1056.179f" Y="20.034f" Z="-920.65f"></Position>
-        <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
-        <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
-        <Shader>Per Pixel Lighting</Shader>
 
-        <Location>Carpet Barn/</Location>
-        <Filetype>.fbx</Filetype>
-      </Entity>
-      <Entity>
-        <Name>Building A</Name>
-        <Type>Building</Type>
-        <Position X="-25.345f" Y="21.645f" Z="3997.233"></Position>
-        <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
-        <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
-        <Shader>Per Pixel Lighting</Shader>
+    <!-- Terrain Entities -->
+    <!-- Building Entities -->
+    <Entity>
+      <Name>Carpet Barn</Name>
+      <Type>Building</Type>
+      <Position X="-1056.179f" Y="20.034f" Z="-920.65f"></Position>
+      <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
+      <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+      <Shader>Per Pixel Lighting</Shader>
 
-        <Location>Office Buildings/</Location>
-        <Filetype>.fbx</Filetype>
-      </Entity>
-      <Entity>
-        <Name>Building C</Name>
-        <Type>Building</Type>
-        <Position X="1053.991f" Y="12.761f" Z="41.412f"></Position>
-        <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
-        <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
-        <Shader>Per Pixel Lighting</Shader>
+      <Location>Carpet Barn/</Location>
+      <Filetype>.fbx</Filetype>
+    </Entity>
+    <Entity>
+      <Name>Building A</Name>
+      <Type>Building</Type>
+      <Position X="-25.345f" Y="21.645f" Z="3997.233"></Position>
+      <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
+      <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+      <Shader>Per Pixel Lighting</Shader>
 
-        <Location>Office Buildings/</Location>
-        <Filetype>.fbx</Filetype>
-      </Entity>
-      
-      <Entity>
-        <Name>Building E</Name>
-        <Type>Building</Type>
-        <Position X="-1493.539f" Y="21.066 f" Z="1090.574f"></Position>
-        <Rotation X="0.0f" Y="-90.0f" Z="0.0f"></Rotation>
-        <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
-        <Shader>Per Pixel Lighting</Shader>
+      <Location>Office Buildings/</Location>
+      <Filetype>.fbx</Filetype>
+    </Entity>
+    <Entity>
+      <Name>Building C</Name>
+      <Type>Building</Type>
+      <Position X="1053.991f" Y="12.761f" Z="41.412f"></Position>
+      <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
+      <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+      <Shader>Per Pixel Lighting</Shader>
 
-        <Location>Office Buildings/</Location>
-        <Filetype>.fbx</Filetype>
-      </Entity>
-      
-      <Entity>
-        <Name>Building F</Name>
-        <Type>Building</Type>
-        <Position X="-1531.632f" Y="20.375f" Z="-16.963f"></Position>
-        <Rotation X="0.0f" Y="-90.0f" Z="0.0f"></Rotation>
-        <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
-        <Shader>Per Pixel Lighting</Shader>
+      <Location>Office Buildings/</Location>
+      <Filetype>.fbx</Filetype>
+    </Entity>
 
-        <Location>Office Buildings/</Location>
-        <Filetype>.fbx</Filetype>
-      </Entity>
-      <!-- Building Entities -->
-      <!-- Object Entities -->
-      <Entity>
-        <Name>Wire Fence</Name>
-        <Type>Object</Type>
-        <Position X="689.769f" Y="18.788f" Z="1573.763f"></Position>
-        <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
-        <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
-        <Shader>Per Pixel Lighting</Shader>
+    <Entity>
+      <Name>Building E</Name>
+      <Type>Building</Type>
+      <Position X="-1493.539f" Y="21.066 f" Z="1090.574f"></Position>
+      <Rotation X="0.0f" Y="-90.0f" Z="0.0f"></Rotation>
+      <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+      <Shader>Per Pixel Lighting</Shader>
 
-        <Location>Fences/</Location>
-        <Filetype>.fbx</Filetype>
-      </Entity>
+      <Location>Office Buildings/</Location>
+      <Filetype>.fbx</Filetype>
+    </Entity>
 
-      <Entity>
-        <Name>Wire Fence</Name>
-        <Type>Object</Type>
-        <Position X="936.891f" Y="18.788f" Z="1835.481f"></Position>
-        <Rotation X="0.0f" Y="-90.0f" Z="0.0f"></Rotation>
-        <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
-        <Shader>Per Pixel Lighting</Shader>
+    <Entity>
+      <Name>Building F</Name>
+      <Type>Building</Type>
+      <Position X="-1531.632f" Y="20.375f" Z="-16.963f"></Position>
+      <Rotation X="0.0f" Y="-90.0f" Z="0.0f"></Rotation>
+      <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+      <Shader>Per Pixel Lighting</Shader>
 
-        <Location>Fences/</Location>
-        <Filetype>.fbx</Filetype>
-      </Entity>
+      <Location>Office Buildings/</Location>
+      <Filetype>.fbx</Filetype>
+    </Entity>
 
-      <Entity>
-        <Name>Wire Fence</Name>
-        <Type>Object</Type>
-        <Position X="1455.41f" Y="18.788f" Z="1835.481f"></Position>
-        <Rotation X="0.0f" Y="-90.0f" Z="0.0f"></Rotation>
-        <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
-        <Shader>Per Pixel Lighting</Shader>
+    <Entity>
+      <Name>Building G</Name>
+      <Type>Building</Type>
+      <Position X="-50.0f" Y="20.375f" Z="-3538.207f"></Position>
+      <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
+      <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+      <Shader>Per Pixel Lighting</Shader>
 
-        <Location>Fences/</Location>
-        <Filetype>.fbx</Filetype>
-      </Entity>
+      <Location>Office Buildings/</Location>
+      <Filetype>.fbx</Filetype>
+    </Entity>
+    <!-- Building Entities -->
+    <!-- Object Entities -->
+    <Entity>
+      <Name>Wire Fence</Name>
+      <Type>Object</Type>
+      <Position X="689.769f" Y="18.788f" Z="1573.763f"></Position>
+      <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
+      <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+      <Shader>Per Pixel Lighting</Shader>
 
-      <Entity>
-        <Name>Lampost</Name>
-        <Type>Object</Type>
-        <Position X="420.58f" Y="17.852f" Z="-642.938f"></Position>
-        <Rotation X="0.0f" Y="-180.0f" Z="0.0f"></Rotation>
-        <Scale X="2.863f" Y="2.863f" Z="2.863f"></Scale>
-        <Shader>Per Pixel Lighting</Shader>
+      <Location>Fences/</Location>
+      <Filetype>.fbx</Filetype>
+    </Entity>
 
-        <Location>Lamp Posts/</Location>
-        <Filetype>.fbx</Filetype>
-      </Entity>
+    <Entity>
+      <Name>Wire Fence</Name>
+      <Type>Object</Type>
+      <Position X="936.891f" Y="18.788f" Z="1835.481f"></Position>
+      <Rotation X="0.0f" Y="-90.0f" Z="0.0f"></Rotation>
+      <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+      <Shader>Per Pixel Lighting</Shader>
 
-      <Entity>
-        <Name>Lampost</Name>
-        <Type>Object</Type>
-        <Position X="420.58f" Y="17.852f" Z="369.504f"></Position>
-        <Rotation X="0.0f" Y="-180.0f" Z="0.0f"></Rotation>
-        <Scale X="2.863f" Y="2.863f" Z="2.863f"></Scale>
-        <Shader>Per Pixel Lighting</Shader>
+      <Location>Fences/</Location>
+      <Filetype>.fbx</Filetype>
+    </Entity>
 
-        <Location>Lamp Posts/</Location>
-        <Filetype>.fbx</Filetype>
-      </Entity>
+    <Entity>
+      <Name>Wire Fence</Name>
+      <Type>Object</Type>
+      <Position X="1455.41f" Y="18.788f" Z="1835.481f"></Position>
+      <Rotation X="0.0f" Y="-90.0f" Z="0.0f"></Rotation>
+      <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+      <Shader>Per Pixel Lighting</Shader>
 
-      <Entity>
-        <Name>Lampost</Name>
-        <Type>Object</Type>
-        <Position X="420.58f" Y="17.852f" Z="1381.945f"></Position>
-        <Rotation X="0.0f" Y="-180.0f" Z="0.0f"></Rotation>
-        <Scale X="2.863f" Y="2.863f" Z="2.863f"></Scale>
-        <Shader>Per Pixel Lighting</Shader>
+      <Location>Fences/</Location>
+      <Filetype>.fbx</Filetype>
+    </Entity>
 
-        <Location>Lamp Posts/</Location>
-        <Filetype>.fbx</Filetype>
-      </Entity>
+    <Entity>
+      <Name>Lampost</Name>
+      <Type>Object</Type>
+      <Position X="420.58f" Y="17.852f" Z="-642.938f"></Position>
+      <Rotation X="0.0f" Y="-180.0f" Z="0.0f"></Rotation>
+      <Scale X="2.863f" Y="2.863f" Z="2.863f"></Scale>
+      <Shader>Per Pixel Lighting</Shader>
 
-      <Entity>
-        <Name>Lampost</Name>
-        <Type>Object</Type>
-        <Position X="-464.399f" Y="17.852f" Z="1369.424f"></Position>
-        <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
-        <Scale X="2.863f" Y="2.863f" Z="2.863f"></Scale>
-        <Shader>Per Pixel Lighting</Shader>
+      <Location>Lamp Posts/</Location>
+      <Filetype>.fbx</Filetype>
+    </Entity>
 
-        <Location>Lamp Posts/</Location>
-        <Filetype>.fbx</Filetype>
-      </Entity>
+    <Entity>
+      <Name>Lampost</Name>
+      <Type>Object</Type>
+      <Position X="420.58f" Y="17.852f" Z="369.504f"></Position>
+      <Rotation X="0.0f" Y="-180.0f" Z="0.0f"></Rotation>
+      <Scale X="2.863f" Y="2.863f" Z="2.863f"></Scale>
+      <Shader>Per Pixel Lighting</Shader>
 
-      <Entity>
-        <Name>Lampost</Name>
-        <Type>Object</Type>
-        <Position X="-464.399f" Y="17.852f" Z="356.982f"></Position>
-        <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
-        <Scale X="2.863f" Y="2.863f" Z="2.863f"></Scale>
-        <Shader>Per Pixel Lighting</Shader>
+      <Location>Lamp Posts/</Location>
+      <Filetype>.fbx</Filetype>
+    </Entity>
 
-        <Location>Lamp Posts/</Location>
-        <Filetype>.fbx</Filetype>
-      </Entity>
+    <Entity>
+      <Name>Lampost</Name>
+      <Type>Object</Type>
+      <Position X="420.58f" Y="17.852f" Z="1381.945f"></Position>
+      <Rotation X="0.0f" Y="-180.0f" Z="0.0f"></Rotation>
+      <Scale X="2.863f" Y="2.863f" Z="2.863f"></Scale>
+      <Shader>Per Pixel Lighting</Shader>
 
-      <Entity>
-        <Name>Lampost</Name>
-        <Type>Object</Type>
-        <Position X="-464.399f" Y="17.852f" Z="-655.459f"></Position>
-        <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
-        <Scale X="2.863f" Y="2.863f" Z="2.863f"></Scale>
-        <Shader>Per Pixel Lighting</Shader>
+      <Location>Lamp Posts/</Location>
+      <Filetype>.fbx</Filetype>
+    </Entity>
 
-        <Location>Lamp Posts/</Location>
-        <Filetype>.fbx</Filetype>
-      </Entity>
-      
-      <!-- Object Entities -->
-    </ModelEntities>
+    <Entity>
+      <Name>Lampost</Name>
+      <Type>Object</Type>
+      <Position X="-464.399f" Y="17.852f" Z="1369.424f"></Position>
+      <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
+      <Scale X="2.863f" Y="2.863f" Z="2.863f"></Scale>
+      <Shader>Per Pixel Lighting</Shader>
 
-    <ParticleSystems Number="1">
-      <System>
-        <Name>Raindrop</Name>
-        <ShaderName>Particle</ShaderName>
-        <EmitterPosition X="0.0f" Y="3000.0f" Z="0.0f"></EmitterPosition>
-        <ParticleSize X="2.0f" Y="12.0f" Z="1.0f"></ParticleSize>
-        <ParticlesPerSecond Number="2000"></ParticlesPerSecond>
-        <ParticleDeviation X="2500.0f" Y="0.2f" Z="2500.0f"></ParticleDeviation>
-        <MaxParticles Number="10000"></MaxParticles>
-        <Velocity Number="5.0f"></Velocity>
-        <VelocityVariation Number="0.5f"></VelocityVariation>
-        
-        <Location>Rain/</Location>
-        <Filetype>.png</Filetype>
-      </System>
-    </ParticleSystems>
-  
-    <LightEntities Number="2">
-      <!-- Ambient Light Entities-->
-      <Entity>
-        <Name>Sun</Name>
-        <Light>Ambient</Light>
-        <Colour R="1.0f" G="0.8f" B="0.8f" A="1.0f"></Colour>
-        <Direction X="0.0f" Y="-1.0f" Z="0.0f"></Direction>
-        <StartAngle Angle="90.0f"></StartAngle>
-      </Entity>
-      <Entity>
-        <Name>Moon</Name>
-        <Light>Ambient</Light>
-        <Colour R="0.1f" G="0.1f" B="0.15f" A="1.0f"></Colour>
-        <Direction X="0.0f" Y="1.0f" Z="0.0f"></Direction>
-        <StartAngle Angle="270.0f"></StartAngle>
-      </Entity>
-      <!-- Ambient Light Entities-->
-    </LightEntities>
+      <Location>Lamp Posts/</Location>
+      <Filetype>.fbx</Filetype>
+    </Entity>
 
-    <Shaders Number="3">
-      <Shader>
-        <Type>Light</Type>
-        <Name>Per Pixel Lighting</Name>
-        <VSName>PerPixelLightingVS</VSName>
-        <PSName>PerPixelLightingPS</PSName>
-        <VertexShader>HLSL Shaders/PerPixelLightingVS.hlsl</VertexShader>
-        <PixelShader>HLSL Shaders/PerPixelLightingPS.hlsl</PixelShader>
-      </Shader>
-      
-      <Shader>
-        <Type>Light</Type>
-        <Name>Skybox</Name>
-        <VSName>SkyboxVS</VSName>
-        <PSName>SkyboxPS</PSName>
-        <VertexShader>HLSL Shaders/SkyboxVS.hlsl</VertexShader>
-        <PixelShader>HLSL Shaders/SkyboxPS.hlsl</PixelShader>
-      </Shader>
-      
-      <Shader>
-        <Type>Particle</Type>
-        <Name>Particle</Name>
-        <VSName>ParticleVS</VSName>
-        <PSName>ParticlePS</PSName>
-        <GSName>ParticleGS</GSName>
-        <VertexShader>HLSL Shaders/ParticleVS.hlsl</VertexShader>
-        <PixelShader>HLSL Shaders/ParticlePS.hlsl</PixelShader>
-        <GeometryShader>Geometry Shaders/ParticleGS.gs</GeometryShader>
-      </Shader>
-    </Shaders>
+    <Entity>
+      <Name>Lampost</Name>
+      <Type>Object</Type>
+      <Position X="-464.399f" Y="17.852f" Z="356.982f"></Position>
+      <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
+      <Scale X="2.863f" Y="2.863f" Z="2.863f"></Scale>
+      <Shader>Per Pixel Lighting</Shader>
+
+      <Location>Lamp Posts/</Location>
+      <Filetype>.fbx</Filetype>
+    </Entity>
+
+    <Entity>
+      <Name>Lampost</Name>
+      <Type>Object</Type>
+      <Position X="-464.399f" Y="17.852f" Z="-655.459f"></Position>
+      <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
+      <Scale X="2.863f" Y="2.863f" Z="2.863f"></Scale>
+      <Shader>Per Pixel Lighting</Shader>
+
+      <Location>Lamp Posts/</Location>
+      <Filetype>.fbx</Filetype>
+    </Entity>
+
+    <!-- Object Entities -->
+  </ModelEntities>
+
+  <ParticleSystems Number="1">
+    <System>
+      <Name>Raindrop</Name>
+      <ShaderName>Particle</ShaderName>
+      <EmitterPosition X="0.0f" Y="3000.0f" Z="0.0f"></EmitterPosition>
+      <ParticleSize X="2.0f" Y="12.0f" Z="1.0f"></ParticleSize>
+      <ParticlesPerSecond Number="2000"></ParticlesPerSecond>
+      <ParticleDeviation X="2500.0f" Y="0.2f" Z="2500.0f"></ParticleDeviation>
+      <MaxParticles Number="10000"></MaxParticles>
+      <Velocity Number="5.0f"></Velocity>
+      <VelocityVariation Number="0.5f"></VelocityVariation>
+
+      <Location>Rain/</Location>
+      <Filetype>.png</Filetype>
+    </System>
+  </ParticleSystems>
+
+  <LightEntities Number="2">
+    <!-- Ambient Light Entities-->
+    <Entity>
+      <Name>Sun</Name>
+      <Light>Ambient</Light>
+      <Colour R="1.0f" G="0.8f" B="0.8f" A="1.0f"></Colour>
+      <Direction X="0.0f" Y="-1.0f" Z="0.0f"></Direction>
+      <StartAngle Angle="90.0f"></StartAngle>
+    </Entity>
+    <Entity>
+      <Name>Moon</Name>
+      <Light>Ambient</Light>
+      <Colour R="0.1f" G="0.1f" B="0.15f" A="1.0f"></Colour>
+      <Direction X="0.0f" Y="1.0f" Z="0.0f"></Direction>
+      <StartAngle Angle="270.0f"></StartAngle>
+    </Entity>
+    <!-- Ambient Light Entities-->
+  </LightEntities>
+
+  <Shaders Number="3">
+    <Shader>
+      <Type>Light</Type>
+      <Name>Per Pixel Lighting</Name>
+      <VSName>PerPixelLightingVS</VSName>
+      <PSName>PerPixelLightingPS</PSName>
+      <VertexShader>HLSL Shaders/PerPixelLightingVS.hlsl</VertexShader>
+      <PixelShader>HLSL Shaders/PerPixelLightingPS.hlsl</PixelShader>
+    </Shader>
+
+    <Shader>
+      <Type>Light</Type>
+      <Name>Skybox</Name>
+      <VSName>SkyboxVS</VSName>
+      <PSName>SkyboxPS</PSName>
+      <VertexShader>HLSL Shaders/SkyboxVS.hlsl</VertexShader>
+      <PixelShader>HLSL Shaders/SkyboxPS.hlsl</PixelShader>
+    </Shader>
+
+    <Shader>
+      <Type>Particle</Type>
+      <Name>Particle</Name>
+      <VSName>ParticleVS</VSName>
+      <PSName>ParticlePS</PSName>
+      <GSName>ParticleGS</GSName>
+      <VertexShader>HLSL Shaders/ParticleVS.hlsl</VertexShader>
+      <PixelShader>HLSL Shaders/ParticlePS.hlsl</PixelShader>
+      <GeometryShader>Geometry Shaders/ParticleGS.gs</GeometryShader>
+    </Shader>
+  </Shaders>
 </Level>
