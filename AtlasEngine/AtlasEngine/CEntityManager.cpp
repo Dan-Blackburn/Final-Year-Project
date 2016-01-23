@@ -255,17 +255,41 @@ bool CEntityManager::InitialiseEntities(ID3D11Device* device)
 		Attributes->QueryFloatAttribute("A", &A);
 		m_LightEntity->SetConstantColour(R, G, B, A);
 		Attributes = Attributes->NextSiblingElement();
-		//Set Light Direction
-		float X, Y, Z;
-		Attributes->QueryFloatAttribute("X", &X);
-		Attributes->QueryFloatAttribute("Y", &Y);
-		Attributes->QueryFloatAttribute("Z", &Z);
-		m_LightEntity->SetDirection(X, Y, Z);
-		Attributes = Attributes->NextSiblingElement();
-		//Set Starting Angle
-		float angle;
-		Attributes->QueryFloatAttribute("Angle", &angle);
-		m_LightEntity->SetAngle(angle);
+		if (m_LightEntity->GetType() == CLight::Ambient)
+		{
+			//Set Light Direction
+			float X, Y, Z;
+			Attributes->QueryFloatAttribute("X", &X);
+			Attributes->QueryFloatAttribute("Y", &Y);
+			Attributes->QueryFloatAttribute("Z", &Z);
+			m_LightEntity->SetDirection(X, Y, Z);
+			Attributes = Attributes->NextSiblingElement();
+			//Set Starting Angle
+			float angle;
+			Attributes->QueryFloatAttribute("Angle", &angle);
+			m_LightEntity->SetAngle(angle);
+		}
+		else if (m_LightEntity->GetType() == CLight::Point)
+		{
+			//Set Light Position
+			float X, Y, Z;
+			Attributes->QueryFloatAttribute("X", &X);
+			Attributes->QueryFloatAttribute("Y", &Y);
+			Attributes->QueryFloatAttribute("Z", &Z);
+			m_LightEntity->SetPosition(X, Y, Z);
+			Attributes = Attributes->NextSiblingElement();
+			//Set Brightness
+			float brightness;
+			Attributes->QueryFloatAttribute("Value", &brightness);
+			D3DXVECTOR4 Brightness = D3DXVECTOR4(brightness, 0.0f, 0.0f, 1.0f);
+			m_LightEntity->SetBrightness(Brightness);
+			Attributes = Attributes->NextSiblingElement();
+		}
+		//Set Specular Power
+		float specularPower;
+		Attributes->QueryFloatAttribute("Value", &specularPower);
+		D3DXVECTOR4 SpecularPower = D3DXVECTOR4(specularPower, 0.0f, 0.0f, 1.0f);
+		m_LightEntity->SetSpecularPower(SpecularPower);
 		//------------------------------------------//
 
 		m_LightList.push_back(m_LightEntity);
@@ -340,7 +364,6 @@ bool CEntityManager::RenderEntities(CDirect3D* direct3D, CShaderManager* ShaderM
 
 			//Check if Entity fails to Render
 			if (!result) { OutputDebugString("Unable to Render Entity\n"); return false; }
-
 		}
 	}
 

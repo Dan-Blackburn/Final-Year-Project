@@ -1,3 +1,5 @@
+#define NUM_LIGHTS 6
+
 //Globals
 Texture2D Texture[4];
 SamplerState SampleType;
@@ -10,7 +12,15 @@ cbuffer MatrixBuffer : register(cb0)
 	matrix projectionMatrix;
 };
 
-cbuffer LightBuffer : register(cb1)
+cbuffer LightPositionBuffer : register(b1)
+{
+	float4 lightPosition[NUM_LIGHTS];
+	float4 lightColour[NUM_LIGHTS];
+	float4 specularPower[NUM_LIGHTS];
+	float4 Brightness[NUM_LIGHTS];
+};
+
+cbuffer LightBuffer : register(b2)
 {
 	float4 ambientSunColour;
 	float4 ambientMoonColour;
@@ -19,7 +29,7 @@ cbuffer LightBuffer : register(cb1)
 	float3 sunlightDirection;
 	float sunlightAngle;
 	float3 moonlightDirection;
-	float specularPower;
+	float padding;
 };
 
 //Typedefs
@@ -30,6 +40,7 @@ struct PixelInputType{
 	float3 tangent : TANGENT;
 	float3 bitangent : BITANGENT;
 	float3 viewDirection : TEXCOORD1;
+	float4 worldPosition : TEXCOORD2;
 };
 
 /////////////////////////////////////
@@ -37,102 +48,63 @@ struct PixelInputType{
 /////////////////////////////////////
 float4 PerPixelLightingPS(PixelInputType input) : SV_TARGET
 {
-	float4 textureColour;
-	float4 normalMap;
-	float3 textureNormal;
-	float3 sunlightDir;
-	float3 moonlightDir;
-	float sunlightIntensity;
-	float moonlightIntensity;
-	float3 reflection;
-	float4 sunSpecular;
-	float4 moonSpecular;
-	float4 specularIntensity;
-
 	float4 sunColour = ambientSunColour;
 	float4 moonColour = ambientMoonColour;
 
-	sunSpecular = float4(0.0f, 0.0f, 0.0f, 0.0f);
-	moonSpecular = float4(0.0f, 0.0f, 0.0f, 0.0f);
+	float4 sunSpecular = float4(0.0f, 0.0f, 0.0f, 1.0f);
+	float4 moonSpecular = float4(0.0f, 0.0f, 0.0f, 1.0f);
 
 	// Sample the texture pixel at this location.
-	textureColour = Texture[0].Sample(SampleType, input.tex);
+	float4 DiffuseMaterial = Texture[0].Sample(SampleType, input.tex);
 
-	specularIntensity = Texture[1].Sample(SampleType, input.tex);
+	if (DiffuseMaterial.a < 0.1f) { discard; }
+
+	float4 SpecularMaterial = Texture[1].Sample(SampleType, input.tex);
 
 	// Sample the pixel in the bump map.
-	normalMap = Texture[2].Sample(SampleType, input.tex);
-
-	// Expand the range of the normal value from (0, +1) to (-1, +1).
-	normalMap = (normalMap * 2.0f) - 1.0f;
+	float4 normalMap = (Texture[2].Sample(SampleType, input.tex) * 2.0f) - 1.0f;
 
 	// Calculate the normal from the data in the bump map.
-	textureNormal = (normalMap.x * input.tangent) + (normalMap.y * input.bitangent) + (normalMap.z * input.normal);
-
-	// Normalize the resulting bump normal.
-	textureNormal = normalize(textureNormal);
-
-	// Invert the light direction for calculations.
-	sunlightDir = -sunlightDirection;
-	moonlightDir = -moonlightDirection;
+	float3 textureNormal = normalize((normalMap.x * input.tangent) + (normalMap.y * input.bitangent) + (normalMap.z * input.normal));
 
 	////////////////////////////////////////////////////////////////////////////////////
 	//Texture Normals (No Mesh)
-
-	// Calculate the amount of light on this pixel based on the bump map normal value.
-	sunlightIntensity = saturate(dot(input.normal, sunlightDir));
-	moonlightIntensity = saturate(dot(input.normal, moonlightDir));
-
-	// Calculate the amount of light on this pixel based on the bump map normal value.
-	float sunBumpIntensity = saturate(dot(textureNormal, sunlightDir));
-	float moonBumpIntensity = saturate(dot(textureNormal, moonlightDir));
+	float3 halfway;
 	
-	if (sunBumpIntensity > 0.0f)
+	//Sunlight
+	halfway = normalize((float3)sunlightDirection + input.viewDirection);
+	sunSpecular = ambientSunColour * pow(saturate(dot(textureNormal, halfway)), 50);
+
+	//Moonlight 
+	halfway = normalize((float3)moonlightDirection + input.viewDirection);
+	moonSpecular = ambientMoonColour * pow(saturate(dot(textureNormal, halfway)), 20);
+
+	float3 StreetlightLight = float3(0.0f, 0.0f, 0.0f);
+	float3 StreetlightSpecular = float3(0.0f, 0.0f, 0.0f);
+
+	for (int i = 0; i < NUM_LIGHTS; i++)
 	{
-		sunColour += saturate(sunColour * sunBumpIntensity) / 2;
-
-		sunColour = saturate(sunColour);
-
-		reflection = normalize(2.0f * sunlightIntensity * textureNormal - sunlightDir);
-
-		sunSpecular = pow(saturate(dot(reflection, input.viewDirection)), specularPower);
+		//Streetlights
+		float3 lightDir = normalize((float3)lightPosition[i] - (float3)input.worldPosition);
+		float3 lightDist = length((float3)lightPosition[i] - (float3)input.worldPosition);
+		float3 DiffuseLight = (float3)lightColour[i] * max(dot(textureNormal, lightDir), 0) / lightDist * Brightness[i].x;
+		halfway = normalize((float3)lightDir + input.viewDirection);
+		float3 specularLight = DiffuseLight * pow(saturate(dot(textureNormal, halfway)), specularPower[i].x);
+		StreetlightLight += DiffuseLight;
+		StreetlightSpecular += specularLight;
 	}
 
-	if (moonBumpIntensity > 0.0f)
-	{
-		moonColour += saturate(moonColour * moonBumpIntensity) / 2;
+	////////////////////////////////////////////////////////////////////////////////////
 
-		moonColour = saturate(moonColour);
+	float3 AmbientLight = saturate((float3)ambientSunColour * (float3)ambientMoonColour);
+	float3 DiffuseLight = saturate((float3)AmbientLight + StreetlightLight);
 
-		reflection = normalize(2.0f * moonlightIntensity * textureNormal - moonlightDir);
+	//Use specular map pixel to calculate the specular amount on pixel
+	float3 SpecularLight = StreetlightSpecular + (float3)sunSpecular + (float3)moonSpecular;
 
-		moonSpecular = pow(saturate(dot(reflection, input.viewDirection)), specularPower);
-	}
+	//Add the specular value last
+	float4 colour = float4(0.0f, 0.0f, 0.0f, 1.0f);
+	colour.rgb = (float3)DiffuseMaterial * DiffuseLight + (float3)SpecularMaterial * SpecularLight;
 
-
-	//Combine the final bump light with the texture colour
-	float4 colour = sunColour * moonColour;
-	colour = colour * textureColour;
-	colour = saturate(colour);
-
-	if (sunlightAngle < 180.0f)
-	{
-		//Use specular map pixel to calculate the specular amount on pixel
-		sunSpecular = sunSpecular * specularIntensity;
-
-		//Add the specular value last
-		sunSpecular = specularColour * sunSpecular;
-		colour = colour + sunSpecular;
-	}
-
-	if (sunlightAngle > 180.0f) 
-	{
-		//Use specular map pixel to calculate the specular amount on pixel
-		moonSpecular = moonSpecular * specularIntensity;
-
-		//Add the specular value last
-		moonSpecular = specularColour * moonSpecular;
-		colour = colour + moonSpecular;
-	}
 	return colour;
 }

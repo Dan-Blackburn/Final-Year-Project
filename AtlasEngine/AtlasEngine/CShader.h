@@ -1,5 +1,7 @@
 #pragma once
 
+#define NUM_LIGHTS 6
+
 #ifndef _CSHADER_H_
 #define _CSHADER_H_
 //Includes
@@ -102,6 +104,15 @@ private:
 		float padding;
 	};
 
+	//Light Position Buffer
+	struct LightPositionBuffer
+	{
+		D3DXVECTOR4 lightPosition[NUM_LIGHTS];
+		D3DXVECTOR4 lightColour[NUM_LIGHTS];
+		D3DXVECTOR4 specularPower[NUM_LIGHTS];
+		D3DXVECTOR4 Brightness[NUM_LIGHTS];
+	};
+
 	//Light Buffer Structure
 	struct LightBufferType 
 	{
@@ -112,7 +123,7 @@ private:
 		D3DXVECTOR3 sunlightDirection = { 0.0f, 0.0f, 0.0f };
 		float sunlightAngle;
 		D3DXVECTOR3 moonlightDirection = { 0.0f, 0.0f, 0.0f };
-		float specularPower;
+		float padding;
 	};
 
 	//Functions
@@ -129,6 +140,7 @@ private:
 	ID3D11PixelShader* m_pixelShader;
 	ID3D11InputLayout* m_layout;
 	ID3D11Buffer* m_matrixBuffer;
+	ID3D11Buffer* m_lightPositionBuffer;
 	ID3D11Buffer* m_cameraBuffer;
 	ID3D11Buffer* m_lightBuffer;
 

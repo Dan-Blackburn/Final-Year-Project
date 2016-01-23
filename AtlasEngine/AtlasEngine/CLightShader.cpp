@@ -73,6 +73,7 @@ bool CLightShader::InitialiseShader(ID3D11Device* device, HWND hwnd, LPCSTR vsFi
 	D3D11_BUFFER_DESC matrixBufferDesc;
 	D3D11_BUFFER_DESC cameraBufferDesc;
 	D3D11_BUFFER_DESC lightBufferDesc;
+	D3D11_BUFFER_DESC lightPositionBufferDesc;
 	D3D11_SAMPLER_DESC samplerDesc;
 
 	//Initialise Variables
@@ -219,6 +220,21 @@ bool CLightShader::InitialiseShader(ID3D11Device* device, HWND hwnd, LPCSTR vsFi
 		return false;
 	}
 
+	//Setup Description of Light Position Buffer (Pixel Shader)
+	lightPositionBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
+	lightPositionBufferDesc.ByteWidth = sizeof(LightPositionBuffer);
+	lightPositionBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	lightPositionBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	lightPositionBufferDesc.MiscFlags = 0;
+	lightPositionBufferDesc.StructureByteStride = 0;
+
+	//Create Constant Light Position Buffer
+	result = device->CreateBuffer(&lightPositionBufferDesc, NULL, &m_lightPositionBuffer);
+	if (FAILED(result))
+	{
+		return false;
+	}
+
 	//Setup the description of the light dynamic constant buffer that is in the pixel shader.
 	//Note that ByteWidth always needs to be a multiple of 16 if using D3D11_BIND_CONSTANT_BUFFER or CreateBuffer will fail.
 	lightBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
@@ -276,6 +292,13 @@ void CLightShader::ShutdownShader() {
 	{
 		m_matrixBuffer->Release();
 		m_matrixBuffer = 0;
+	}
+
+	//Release Light Position Constant Buffer
+	if (m_lightPositionBuffer)
+	{
+		m_lightPositionBuffer->Release();
+		m_lightPositionBuffer = 0;
 	}
 
 	//Release Camera Constant Buffer
@@ -359,6 +382,7 @@ bool CLightShader::SetShaderParameters(ID3D11DeviceContext* deviceContext, D3DXM
 	MatrixBufferType* dataPtr;
 	CameraBufferType* dataPtr1;
 	LightBufferType* dataPtr2;
+	LightPositionBuffer* dataPtr3;
 	unsigned int bufferNumber;
 
 	//Transpose Matrices for Shader
@@ -419,6 +443,33 @@ bool CLightShader::SetShaderParameters(ID3D11DeviceContext* deviceContext, D3DXM
 	// Set shader texture resource in the pixel shader.
 	deviceContext->PSSetShaderResources(0, 4, textures);
 
+	//Lock Light Constant Buffer
+	result = deviceContext->Map(m_lightPositionBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+	if (FAILED(result))
+	{
+		return false;
+	}
+
+	//Get Pointer to data in Constant Buffer
+	dataPtr3 = (LightPositionBuffer*)mappedResource.pData;
+
+	int index = 0;
+	for (std::vector<CLight*>::iterator it = lightList.begin(); it != lightList.end(); it++)
+	{
+		if ((*it)->GetType() == CLight::Point)
+		{
+			dataPtr3->lightPosition[index] = (*it)->GetPosition();
+			dataPtr3->lightColour[index] = (*it)->GetConstantColour();
+			dataPtr3->specularPower[index] = (*it)->GetSpecularPower();
+			dataPtr3->Brightness[index] = (*it)->GetBrightness();
+			index++;
+		}
+	}
+
+	//Unlock Constant Buffer
+	deviceContext->Unmap(m_lightPositionBuffer, 0);
+
+
 	//Lock Light Contant Buffer
 	result = deviceContext->Map(m_lightBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
 	if (FAILED(result))
@@ -440,7 +491,7 @@ bool CLightShader::SetShaderParameters(ID3D11DeviceContext* deviceContext, D3DXM
 	dataPtr2->sunlightDirection = sunLight->GetDirection();
 	dataPtr2->sunlightAngle = sunLight->GetAngle();
 	dataPtr2->moonlightDirection = moonLight->GetDirection();
-	dataPtr2->specularPower = 72.0f;
+	dataPtr2->padding = 0.0f;
 
 	//Unlock Constant Buffer
 	deviceContext->Unmap(m_lightBuffer, 0);
@@ -449,8 +500,11 @@ bool CLightShader::SetShaderParameters(ID3D11DeviceContext* deviceContext, D3DXM
 	bufferNumber = 0;
 
 	//Set the Light Constant Buffer in the Pixel Shader with the updated Values
-	deviceContext->PSSetConstantBuffers(bufferNumber, 0, &m_matrixBuffer);
-	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &m_lightBuffer);
+	deviceContext->PSSetConstantBuffers(bufferNumber, 2, &m_matrixBuffer);
+	bufferNumber++;
+	deviceContext->PSSetConstantBuffers(bufferNumber, 2, &m_lightPositionBuffer);
+	bufferNumber++;
+	deviceContext->PSSetConstantBuffers(bufferNumber, 2, &m_lightBuffer);
 
 	return true;
 }

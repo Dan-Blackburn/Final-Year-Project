@@ -1,12 +1,24 @@
 <?xml version="1.0"?>
 <Level>
-  <ModelEntities Number="24">
+  <ModelEntities Number="26">
     <!-- Terrain Entities -->
     <Entity>
       <Name>T Junction</Name>
       <Type>Terrain</Type>
       <Position X="-23.657f" Y="0.0f" Z="-1202.697f"></Position>
       <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
+      <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+      <Shader>Per Pixel Lighting</Shader>
+
+      <Location>Roads/</Location>
+      <Filetype>.fbx</Filetype>
+    </Entity>
+
+    <Entity>
+      <Name>Straight Grid</Name>
+      <Type>Terrain</Type>
+      <Position X="-2923.759f" Y="0.0f" Z="-1863.191f"></Position>
+      <Rotation X="0.0f" Y="-90.0f" Z="0.0f"></Rotation>
       <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
       <Shader>Per Pixel Lighting</Shader>
 
@@ -192,6 +204,19 @@
       <Location>Office Buildings/</Location>
       <Filetype>.fbx</Filetype>
     </Entity>
+
+    <Entity>
+      <Name>Building H</Name>
+      <Type>Building</Type>
+      <Position X="-3282.447f" Y="20.375f" Z="-183.397f"></Position>
+      <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
+      <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+      <Shader>Per Pixel Lighting</Shader>
+
+      <Location>Office Buildings/</Location>
+      <Filetype>.fbx</Filetype>
+    </Entity>
+    
     <!-- Building Entities -->
     <!-- Object Entities -->
     <Entity>
@@ -322,7 +347,7 @@
     </System>
   </ParticleSystems>
 
-  <LightEntities Number="2">
+  <LightEntities Number="8">
     <!-- Ambient Light Entities-->
     <Entity>
       <Name>Sun</Name>
@@ -330,6 +355,7 @@
       <Colour R="1.0f" G="0.8f" B="0.8f" A="1.0f"></Colour>
       <Direction X="0.0f" Y="-1.0f" Z="0.0f"></Direction>
       <StartAngle Angle="90.0f"></StartAngle>
+      <SpecularPower Value="72"></SpecularPower>
     </Entity>
     <Entity>
       <Name>Moon</Name>
@@ -337,8 +363,65 @@
       <Colour R="0.1f" G="0.1f" B="0.15f" A="1.0f"></Colour>
       <Direction X="0.0f" Y="1.0f" Z="0.0f"></Direction>
       <StartAngle Angle="270.0f"></StartAngle>
+      <SpecularPower Value="72"></SpecularPower>
     </Entity>
     <!-- Ambient Light Entities-->
+
+    <!-- Point Light Entities-->
+    <Entity>
+      <Name>Streetlight</Name>
+      <Light>Point</Light>
+      <Colour R="0.854902f" G="0.647059f" B="0.12549f" A="1.0f"></Colour>
+      <Position X="-286.25f" Y="475.894f" Z="-649.208f"></Position>
+      <Brightness Value="500"></Brightness>
+      <SpecularPower Value="72"></SpecularPower>
+    </Entity>
+
+    <Entity>
+      <Name>Streetlight</Name>
+      <Light>Point</Light>
+      <Colour R="0.854902f" G="0.647059f" B="0.12549f" A="1.0f"></Colour>
+      <Position X="241.171f" Y="475.894f" Z="-649.208f"></Position>
+      <Brightness Value="500"></Brightness>
+      <SpecularPower Value="72"></SpecularPower>
+    </Entity>
+
+    <Entity>
+      <Name>Streetlight</Name>
+      <Light>Point</Light>
+      <Colour R="0.854902f" G="0.647059f" B="0.12549f" A="1.0f"></Colour>
+      <Position X="-286.25f" Y="475.894f" Z="360.625f"></Position>
+      <Brightness Value="500"></Brightness>
+      <SpecularPower Value="72"></SpecularPower>
+    </Entity>
+
+    <Entity>
+      <Name>Streetlight</Name>
+      <Light>Point</Light>
+      <Colour R="0.854902f" G="0.647059f" B="0.12549f" A="1.0f"></Colour>
+      <Position X="241.171f" Y="475.894f" Z="360.625f"></Position>
+      <Brightness Value="500"></Brightness>
+      <SpecularPower Value="72"></SpecularPower>
+    </Entity>
+
+    <Entity>
+      <Name>Streetlight</Name>
+      <Light>Point</Light>
+      <Colour R="0.854902f" G="0.647059f" B="0.12549f" A="1.0f"></Colour>
+      <Position X="-286.25f" Y="475.894f" Z="1375.386f"></Position>
+      <Brightness Value="500"></Brightness>
+      <SpecularPower Value="72"></SpecularPower>
+    </Entity>
+
+    <Entity>
+      <Name>Streetlight</Name>
+      <Light>Point</Light>
+      <Colour R="0.854902f" G="0.647059f" B="0.12549f" A="1.0f"></Colour>
+      <Position X="241.171f" Y="475.894f" Z="1375.386f"></Position>
+      <Brightness Value="500"></Brightness>
+      <SpecularPower Value="72"></SpecularPower>
+    </Entity>
+    <!-- Point Light Entities-->
   </LightEntities>
 
   <Shaders Number="3">

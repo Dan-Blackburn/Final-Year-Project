@@ -30,6 +30,7 @@ struct PixelInputType
 	float3 tangent : TANGENT;
 	float3 bitangent : BITANGENT;
 	float3 viewDirection : TEXCOORD1;
+	float4 worldPosition : TEXCOORD2;
 };
 
 ///////////////////////////////////////
@@ -59,12 +60,10 @@ PixelInputType PerPixelLightingVS(VertexInputType input)
 
 	//Calculate position of Vertex in World
 	worldPosition = mul(input.position, worldMatrix);
+	output.worldPosition = worldPosition;
 
 	//Determine View Direction
-	output.viewDirection = cameraPosition.xyz - worldPosition.xyz;
-
-	//Normalise Viewing Direction Vector
-	output.viewDirection = normalize(output.viewDirection);
+	output.viewDirection = normalize(cameraPosition.xyz - worldPosition.xyz);
 
 	//Calculate the tangent vector against the world matrix only and then normalize the final value.
 	output.tangent = mul(input.tangent, (float3x3)worldMatrix);
