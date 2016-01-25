@@ -390,6 +390,7 @@ bool CLightShader::SetShaderParameters(ID3D11DeviceContext* deviceContext, D3DXM
 	D3DXMatrixTranspose(&viewMatrix, &viewMatrix);
 	D3DXMatrixTranspose(&projectionMatrix, &projectionMatrix);
 	
+	//////////////////////////////////////////////////////////////////////////////////////////////
 	//Vertex Shader Code Below
 
 	//Lock Constant Buffer
@@ -437,7 +438,9 @@ bool CLightShader::SetShaderParameters(ID3D11DeviceContext* deviceContext, D3DXM
 
 	//Set Camera Constant Buffer in Vertex Shader
 	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &m_cameraBuffer);
+	//////////////////////////////////////////////////////////////////////////////////////////////
 
+	//////////////////////////////////////////////////////////////////////////////////////////////
 	//Pixel Shader Code Below:
 
 	// Set shader texture resource in the pixel shader.
@@ -505,6 +508,8 @@ bool CLightShader::SetShaderParameters(ID3D11DeviceContext* deviceContext, D3DXM
 	deviceContext->PSSetConstantBuffers(bufferNumber, 2, &m_lightPositionBuffer);
 	bufferNumber++;
 	deviceContext->PSSetConstantBuffers(bufferNumber, 2, &m_lightBuffer);
+
+	//////////////////////////////////////////////////////////////////////////////////////////////
 
 	return true;
 }

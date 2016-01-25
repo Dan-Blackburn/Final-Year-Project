@@ -21,12 +21,14 @@ public:
 
 	//Functions
 	bool Initialise(ID3D11Device*, std::string, std::string);
+	void Frame(ID3D11DeviceContext* deviceContext, float frameTime);
 	void UpdateWorldMatrix();
 	void Shutdown();
 	
 	//Setter
 	inline void SetModelName(std::string modelName) { m_Model->ModelName = modelName; }
 	inline void SetShaderName(std::string shaderName) { m_Model->ShaderName = shaderName; }
+	inline void SetModel(ModelProperties* newModel) { m_Model = newModel; }
 	void SetModelType(std::string);
 	void SetPosition(float, float, float);
 	void SetRotation(float, float, float);
@@ -34,9 +36,10 @@ public:
 	void SetSkin(ID3D11ShaderResourceView*);
 
 	//Getters
-	ModelProperties* GetModel();
-	D3DXVECTOR3 GetPosition();
-	D3DXVECTOR3 GetRotation();
+	inline std::string GetName() { return m_Model->ModelName; }
+	inline ModelProperties* GetModel() { return m_Model; }
+	inline D3DXVECTOR3 GetPosition() { return m_Model->Position; };
+	inline D3DXVECTOR3 GetRotation() { return m_Model->Rotation; };
 
 	inline std::string GetShaderName() { return m_Model->ShaderName; }
 

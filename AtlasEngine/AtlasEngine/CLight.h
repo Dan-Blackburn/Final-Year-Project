@@ -10,7 +10,7 @@ enum eLightType;
 class CLight
 {
 public:
-	CLight() { Position .x = 1.0f; Position.y = 1.0f; Position.z = 1.0f; Position.w = 1.0f; Direction.x = 1.0f; Direction.y = 1.0f; Direction.z = 1.0f; LightColour.x = 1.0f; LightColour.y = 1.0f; LightColour.z = 1.0f; m_Angle = 90.0f; }
+	CLight() { Position.x = 1.0f; Position.y = 1.0f; Position.z = 1.0f; Position.w = 1.0f; Direction.x = 1.0f; Direction.y = 1.0f; Direction.z = 1.0f; LightColour.x = 1.0f; LightColour.y = 1.0f; LightColour.z = 1.0f; m_Angle = 90.0f; }
 	CLight(const CLight& other) {};
 	~CLight() { };
 
@@ -31,10 +31,10 @@ public:
 	inline D3DXVECTOR4 GetConstantColour() { return ConstantColour; }
 	inline float GetAngle() { return m_Angle; }
 	inline int GetType() { return LightType; }
-	inline D3DXVECTOR4 GetBrightness() { return Brightness; }
+	inline D3DXVECTOR4 GetBrightness() { return m_CurrentBrightness; }
 	inline D3DXVECTOR4 GetSpecularPower() { return SpecularPower; }
 
-	void Frame(float frameTime, float clock);
+	void Frame(float frameTime, float clock, float sunAngle);
 
 	//Public Variables
 	static enum eLightType { Ambient, Point, Spotlight };
@@ -47,8 +47,8 @@ private:
 	D3DXVECTOR4 LightColour;
 	D3DXVECTOR4 ConstantColour;
 	D3DXVECTOR4 Brightness;
+	D3DXVECTOR4 m_CurrentBrightness;
 	D3DXVECTOR4 SpecularPower;
 	eLightType LightType;
 	float m_Angle;
-	bool m_NightMode;
 };

@@ -5,7 +5,7 @@ Texture2D Texture[4];
 SamplerState SampleType;
 
 //Buffers
-cbuffer MatrixBuffer : register(cb0)
+cbuffer MatrixBuffer : register(b0)
 {
 	matrix worldMatrix;
 	matrix viewMatrix;
@@ -43,54 +43,33 @@ struct PixelInputType {
 	float4 worldPosition : TEXCOORD2;
 };
 
-/////////////////////////////////////
-//Pixel Shader
-/////////////////////////////////////
-float4 SkyboxPS(PixelInputType input) : SV_TARGET
+float4 StarsPS(PixelInputType input) : SV_TARGET
 {
 	float transferRate = 45.0f;
-	// Sample the texture pixel at this location.
-	float4 skyTexture = Texture[0].Sample(SampleType, input.tex);
-	float4 sunsetTexture = Texture[1].Sample(SampleType, input.tex);
-	float4 nightTexture = float4(0.0f, 0.0f, 0.0f, 1.0f);
 
-	if (sunlightAngle >= 45.0f && sunlightAngle <= 135.0f)
-	{
-		return skyTexture;
-	}
+	float4 starTexture = Texture[0].Sample(SampleType, input.tex);
+	float4 blackTexture = float4(0.0f, 0.0f, 0.0f, 0.0f);
 
-	if (sunlightAngle >= 135.0f && sunlightAngle <= 180.0f)
-	{
-		float amount = (sunlightAngle - 135.0f) / transferRate;
-		float4 textureColour = lerp(skyTexture, sunsetTexture, amount);
-		return textureColour;
-	}
+	if (sunlightAngle < 180.0f) { discard; }
 
 	if (sunlightAngle >= 180.0f && sunlightAngle <= 225.0f)
 	{
 		float amount = (sunlightAngle - 180.0f) / transferRate;
-		float4 textureColour = lerp(sunsetTexture, nightTexture, amount);
+		float4 textureColour = lerp(blackTexture, starTexture, amount);
 		return textureColour;
 	}
 
 	if (sunlightAngle >= 225.0f && sunlightAngle <= 315.0f)
 	{
-		return nightTexture;
+		return starTexture;
 	}
 
 	if (sunlightAngle >= 315.0f && sunlightAngle <= 360.0f)
 	{
 		float amount = (sunlightAngle - 315.0f) / transferRate;
-		float4 textureColour = lerp(nightTexture, sunsetTexture, amount);
+		float4 textureColour = lerp(starTexture, blackTexture, amount);
 		return textureColour;
 	}
 
-	if (sunlightAngle >= 0.0f && sunlightAngle <= 45.0f)
-	{
-		float amount = (sunlightAngle - 0.0f) / transferRate;
-		float4 textureColour = lerp(sunsetTexture, skyTexture, amount);
-		return textureColour;
-	}
-
-	return skyTexture;
+	return blackTexture;
 }

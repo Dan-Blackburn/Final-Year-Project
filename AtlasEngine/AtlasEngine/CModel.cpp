@@ -80,27 +80,6 @@ void CModel::SetModelType(string newType)
 }
 /////////////////////////////////////////////////////////////
 
-/////////////////////////////////////////////////////////////
-//Getters
-/////////////////////////////////////////////////////////////
-
-//Returns Model
-CModel::ModelProperties* CModel::GetModel() {
-	return m_Model;
-}
-
-//Returns Position of Model
-D3DXVECTOR3 CModel::GetPosition() {
-	return m_Model->Position;
-}
-
-//Returns Rotation of Model
-D3DXVECTOR3 CModel::GetRotation() {
-	return m_Model->Rotation;
-}
-
-/////////////////////////////////////////////////////////////
-
 void CModel::UpdateWorldMatrix() {
 	
 	float Pitch = m_Model->Rotation.x * toRadians;
@@ -134,6 +113,16 @@ bool CModel::Initialise(ID3D11Device* device, string ModelLocation, string Model
 
 	return true;
 }
+
+//Frame Function (Manipulates Models)
+void CModel::Frame(ID3D11DeviceContext* deviceContext, float frameTime)
+{
+	D3DXVECTOR3 modelRotation = m_Model->Rotation;
+	m_Model->Rotation.x = modelRotation.x + (0.01f * frameTime);
+	m_Model->Rotation.y = modelRotation.y;
+	m_Model->Rotation.z = modelRotation.z;
+}
+
 
 //Shutdown Function for Buffers
 void CModel::Shutdown() {

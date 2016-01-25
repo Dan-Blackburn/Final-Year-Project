@@ -376,6 +376,9 @@
     <None Include="Resources\Models\Buildings\Office Buildings\Building H.fbx">
       <Filter>Resource Files\Models\Buildings\Office Buildings</Filter>
     </None>
+    <None Include="HLSL Shaders\StarsPS.hlsl">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Library Include="assimpd.lib">

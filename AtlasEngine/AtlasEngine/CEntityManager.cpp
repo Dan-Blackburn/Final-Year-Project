@@ -78,6 +78,10 @@ bool CEntityManager::InitialiseEntities(ID3D11Device* device)
 		//Set Model Type
 		m_ModelEntity->SetModelType(Attributes->GetText());
 		Attributes = Attributes->NextSiblingElement();
+
+		//Check Entity List
+		result = CheckEntityList();
+
 		//Set Position
 		Attributes->QueryFloatAttribute("X", &m_ModelEntity->GetModel()->Position.x);
 		Attributes->QueryFloatAttribute("Y", &m_ModelEntity->GetModel()->Position.y);
@@ -108,7 +112,10 @@ bool CEntityManager::InitialiseEntities(ID3D11Device* device)
 		m_ModelList.push_back(m_ModelEntity);
 
 		//Intialise Model Entity
-		result = m_ModelEntity->Initialise(device, ModelLocation, ModelFiletype);
+		if (!result)
+		{
+			result = m_ModelEntity->Initialise(device, ModelLocation, ModelFiletype);
+		}
 
 		if (!result) 
 		{
@@ -349,6 +356,8 @@ bool CEntityManager::RenderEntities(CDirect3D* direct3D, CShaderManager* ShaderM
 		string modelShaderName = m_ModelEntity->GetShaderName();
 		ShaderManager->SetCurrentShader(ShaderManager->GetShader(modelShaderName));
 
+		if (m_ModelEntity->GetName() == "Stars Sphere") { direct3D->EnableAlphaBlending(); }
+
 		for (int i = 0; i < Mesh->GetSubMeshNum(); i++) 
 		{
 			//Prepare Buffers for Rendering
@@ -365,6 +374,7 @@ bool CEntityManager::RenderEntities(CDirect3D* direct3D, CShaderManager* ShaderM
 			//Check if Entity fails to Render
 			if (!result) { OutputDebugString("Unable to Render Entity\n"); return false; }
 		}
+		if (m_ModelEntity->GetName() == "Stars Sphere") { direct3D->DisableAlphaBlending(); }
 	}
 
 	/////////////////////////////////////////////////////////////
@@ -399,24 +409,25 @@ bool CEntityManager::Frame(ID3D11DeviceContext* deviceContext, float frameTime, 
 	
 	/////////////////////////////////////////////////////////////
 	//Frame Function - Entity Manipulation
-	/////////////////////////////////////////////////////////////
+	for (int i = 0; i < m_ModelEntityCount; i++)
+	{
+		if (m_ModelList[i]->GetName() == "Stars Sphere")
+		{
+			m_ModelList[i]->Frame(deviceContext, frameTime);
+		}
+	}
 
 	for (int i = 0; i < m_ParticleSystemCount; i++)
 	{
-		m_ParticleSystem = m_ParticleSystemList[i];
-
-		m_ParticleSystem->Frame(deviceContext, frameTime, m_CameraEntity);
+		m_ParticleSystemList[i]->Frame(deviceContext, frameTime, m_CameraEntity);
 	}
 
 	for (int i = 0; i < m_LightEntityCount; i++)
 	{
-		m_LightEntity = m_LightList[i];
-		
-		if (m_LightEntity->GetType() == CLight::Ambient)
-		{
-			m_LightEntity->Frame(frameTime, clock);
-		}
+		m_LightList[i]->Frame(frameTime, clock, m_LightList[0]->GetAngle());
 	}
+
+	/////////////////////////////////////////////////////////////
 
 	return true;
 }
@@ -439,4 +450,19 @@ void CEntityManager::Shutdown() {
 		delete temp;
 		m_LightList.pop_back();
 	}
+}
+
+//Check Entire Entity list, Comparing Names
+bool CEntityManager::CheckEntityList()
+{
+	for (std::vector<CModel*>::iterator it = m_ModelList.begin(); it != m_ModelList.end(); it++)
+	{
+		if ((m_ModelEntity->GetName() == (*it)->GetName()) && (m_ModelEntity->GetModel()->ModelType == (*it)->GetModel()->ModelType))
+		{
+			m_ModelEntity->GetModel()->Mesh = (*it)->GetModel()->Mesh;
+			return true;
+		}
+	}
+
+	return false;
 }

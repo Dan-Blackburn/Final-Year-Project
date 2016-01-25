@@ -27,6 +27,9 @@ public:
 	void Shutdown();
 
 private:
+	//Functions
+	bool CheckEntityList();
+
 	//Entity Variables
 	int m_ModelEntityCount;
 	int m_ParticleSystemCount;

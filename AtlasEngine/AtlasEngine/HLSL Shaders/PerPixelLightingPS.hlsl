@@ -5,7 +5,7 @@ Texture2D Texture[4];
 SamplerState SampleType;
 
 //Buffers
-cbuffer MatrixBuffer : register(cb0)
+cbuffer MatrixBuffer : register(b0)
 {
 	matrix worldMatrix;
 	matrix viewMatrix;
@@ -53,6 +53,7 @@ float4 PerPixelLightingPS(PixelInputType input) : SV_TARGET
 
 	float4 sunSpecular = float4(0.0f, 0.0f, 0.0f, 1.0f);
 	float4 moonSpecular = float4(0.0f, 0.0f, 0.0f, 1.0f);
+	float4 blackTexture = float4(0.0f, 0.0f, 0.0f, 1.0f);
 
 	// Sample the texture pixel at this location.
 	float4 DiffuseMaterial = Texture[0].Sample(SampleType, input.tex);
@@ -73,11 +74,11 @@ float4 PerPixelLightingPS(PixelInputType input) : SV_TARGET
 	
 	//Sunlight
 	halfway = normalize((float3)sunlightDirection + input.viewDirection);
-	sunSpecular = ambientSunColour * pow(saturate(dot(textureNormal, halfway)), 50);
+	sunSpecular = ambientSunColour * pow(saturate(dot(textureNormal, halfway)), 72);
 
 	//Moonlight 
 	halfway = normalize((float3)moonlightDirection + input.viewDirection);
-	moonSpecular = ambientMoonColour * pow(saturate(dot(textureNormal, halfway)), 20);
+	moonSpecular = ambientMoonColour * pow(saturate(dot(textureNormal, halfway)), 36);
 
 	float3 StreetlightLight = float3(0.0f, 0.0f, 0.0f);
 	float3 StreetlightSpecular = float3(0.0f, 0.0f, 0.0f);
@@ -97,10 +98,20 @@ float4 PerPixelLightingPS(PixelInputType input) : SV_TARGET
 	////////////////////////////////////////////////////////////////////////////////////
 
 	float3 AmbientLight = saturate((float3)ambientSunColour * (float3)ambientMoonColour);
-	float3 DiffuseLight = saturate((float3)AmbientLight + StreetlightLight);
+	float3 DiffuseLight = float3(0.0f, 0.0f, 0.0f);
+	float3 SpecularLight = float3(0.0f, 0.0f, 0.0f);
 
-	//Use specular map pixel to calculate the specular amount on pixel
-	float3 SpecularLight = StreetlightSpecular + (float3)sunSpecular + (float3)moonSpecular;
+	DiffuseLight = saturate((float3)AmbientLight + StreetlightLight);
+
+	if (sunlightAngle > 0.0f && sunlightAngle < 180.0f)
+	{
+		SpecularLight = StreetlightSpecular + (float3)sunSpecular;
+	}
+
+	if (sunlightAngle > 180.0f && sunlightAngle < 360.0f)
+	{
+		SpecularLight = StreetlightSpecular + (float3)moonSpecular;
+	}
 
 	//Add the specular value last
 	float4 colour = float4(0.0f, 0.0f, 0.0f, 1.0f);
