@@ -110,13 +110,13 @@ void CCamera::RotateZ(float z)
 	m_rotationY += z;
 }
 
-void CCamera::Frame(CInput* m_Input) 
+void CCamera::Frame(CInput* m_Input, float frameTime) 
 {	
 	//----- Key Movement -----//
-	if (m_Input->KeyPressed(m_Input->Key_W)) { this->MoveZ(m_CameraSpeed); }	//Move Forward
-	if (m_Input->KeyPressed(m_Input->Key_A)) { this->MoveX(-m_CameraSpeed); }	//Move Left
-	if (m_Input->KeyPressed(m_Input->Key_S)) { this->MoveZ(-m_CameraSpeed); }	//Move Down
-	if (m_Input->KeyPressed(m_Input->Key_D)) { this->MoveX(m_CameraSpeed); }	//Move Right
+	if (m_Input->KeyPressed(m_Input->Key_W)) { this->MoveZ(m_CameraSpeed * frameTime); }	//Move Forward
+	if (m_Input->KeyPressed(m_Input->Key_A)) { this->MoveX(-m_CameraSpeed * frameTime); }	//Move Left
+	if (m_Input->KeyPressed(m_Input->Key_S)) { this->MoveZ(-m_CameraSpeed * frameTime); }	//Move Down
+	if (m_Input->KeyPressed(m_Input->Key_D)) { this->MoveX(m_CameraSpeed * frameTime); }	//Move Right
 	if (m_Input->KeyPressed(m_Input->Key_Up)) { this->RotateX(-1.0f		* m_Sensitivity); }	//Turn Upward
 	if (m_Input->KeyPressed(m_Input->Key_Down)) { this->RotateX(1.0f	* m_Sensitivity); }	//Turn Downward
 	if (m_Input->KeyPressed(m_Input->Key_Left)) { this->RotateY(-1.0f	* m_Sensitivity); }	//Turn Left

@@ -18,7 +18,6 @@ public:
 	void SetPosition(float, float, float);
 	void SetRotation(float, float, float);
 
-	void Move();
 	void MoveX(float);
 	void MoveY(float);
 	void MoveZ(float);
@@ -34,11 +33,11 @@ public:
 	inline D3DXMATRIX& getProjectionMatrix() { return m_projectionMatrix; }
 	inline D3DXMATRIX& getRotationMatrix() { return m_rotationMatrix; }
 
-	void Frame(CInput* m_Input);
+	void Frame(CInput* m_Input, float frameTime);
 	void UpdateViewMatrix(D3DXMATRIX&);
 
 	const float toRadians = 0.0174532925f;
-	const float m_CameraSpeed = 5.0f;
+	const float m_CameraSpeed = 2.5f;
 
 private:
 	float m_positionX, m_positionY, m_positionZ;

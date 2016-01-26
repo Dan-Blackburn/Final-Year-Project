@@ -87,7 +87,7 @@ bool CMesh::LoadMesh(ID3D11Device* device, std::string mFileName, eModelType mod
 	Assimp::Importer importer;
 
 	const aiScene* Scene = importer.ReadFile(mFilePath + fileName, 
-		aiProcess_CalcTangentSpace | aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_SortByPType | aiProcess_CalcTangentSpace | aiProcess_ConvertToLeftHanded);
+		aiProcess_CalcTangentSpace | aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_SortByPType | aiProcess_ConvertToLeftHanded);
 
 	//Error Handler if Failed
 	if (!Scene) 

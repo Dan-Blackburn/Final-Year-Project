@@ -75,7 +75,6 @@ bool CParticleShader::InitialiseShader(ID3D11Device* device, HWND hwnd, LPCSTR v
 	unsigned int numElements;
 	D3D11_BUFFER_DESC matrixBufferDesc;
 	D3D11_BUFFER_DESC cameraBufferDesc;
-	D3D11_BUFFER_DESC lightBufferDesc;
 	D3D11_SAMPLER_DESC samplerDesc;
 
 	//Initialise Variables
@@ -243,22 +242,6 @@ bool CParticleShader::InitialiseShader(ID3D11Device* device, HWND hwnd, LPCSTR v
 		return false;
 	}
 
-	//Setup the description of the light dynamic constant buffer that is in the pixel shader.
-	//Note that ByteWidth always needs to be a multiple of 16 if using D3D11_BIND_CONSTANT_BUFFER or CreateBuffer will fail.
-	lightBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
-	lightBufferDesc.ByteWidth = sizeof(LightBufferType);
-	lightBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-	lightBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-	lightBufferDesc.MiscFlags = 0;
-	lightBufferDesc.StructureByteStride = 0;
-
-	// Create the constant buffer pointer so we can access the vertex shader constant buffer from within this class.
-	result = device->CreateBuffer(&lightBufferDesc, NULL, &m_lightBuffer);
-	if (FAILED(result))
-	{
-		return false;
-	}
-
 
 	// Create a texture sampler state description.
 	samplerDesc.Filter = D3D11_FILTER_ANISOTROPIC;
@@ -382,7 +365,6 @@ bool CParticleShader::SetShaderParameters(ID3D11DeviceContext* deviceContext, D3
 	D3D11_MAPPED_SUBRESOURCE mappedResource;
 	MatrixBufferType* dataPtr;
 	CameraBufferType* dataPtr1;
-	LightBufferType* dataPtr2;
 	unsigned int bufferNumber;
 
 	//Transpose Matrices for Shader
@@ -452,34 +434,11 @@ bool CParticleShader::SetShaderParameters(ID3D11DeviceContext* deviceContext, D3
 	// Set shader texture resource in the pixel shader.
 	deviceContext->PSSetShaderResources(0, 4, textures);
 
-	//Lock Light Contant Buffer
-	result = deviceContext->Map(m_lightBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
-	if (FAILED(result))
-	{
-		return false;
-	}
-
-	//Get Pointer to data in Constant Buffer
-	dataPtr2 = (LightBufferType*)mappedResource.pData;
-
-	CLight* firstLight = *lightList.begin();
-
-	//Copy Lighting Variables into Constant Buffer
-	dataPtr2->ambientColour = firstLight->GetColour();
-	dataPtr2->diffuseColour = D3DXVECTOR4{ 1.0f, 1.0f, 1.0f, 1.0f };
-	dataPtr2->lightDirection = firstLight->GetDirection();
-	dataPtr2->specularColour = D3DXVECTOR4{ 1.0f, 1.0f, 0.8f, 1.0f };
-	dataPtr2->specularPower = 72.0f;
-
-	//Unlock Constant Buffer
-	deviceContext->Unmap(m_lightBuffer, 0);
-
 	//Set position of Constant Buffers in Pixel Shader
 	bufferNumber = 0;
 
 	//Set the Light Constant Buffer in the Pixel Shader with the updated Values
 	deviceContext->PSSetConstantBuffers(bufferNumber, 0, &m_matrixBuffer);
-	deviceContext->PSSetConstantBuffers(bufferNumber, 1, &m_lightBuffer);
 
 	//////////////////////////////////////////////////
 

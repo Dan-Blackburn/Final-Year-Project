@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Level>
-  <ModelEntities Number="28">
+  <ModelEntities Number="33">
     <!-- Terrain Entities -->
     <Entity>
       <Name>T Junction</Name>
@@ -99,16 +99,30 @@
     </Entity>
 
     <Entity>
-      <Name>Soil Pile</Name>
+      <Name>T Junction</Name>
       <Type>Terrain</Type>
-      <Position X="1087.099f" Y="37.1f" Z="1561.175f"></Position>
-      <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
+      <Position X="2914.044f" Y="0.0f" Z="-1202.385f"></Position>
+      <Rotation X="0.0f" Y="0.0" Z="0.0f"></Rotation>
       <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
       <Shader>Per Pixel Lighting</Shader>
 
-      <Location>Soil Pile/</Location>
+      <Location>Roads/</Location>
       <Filetype>.fbx</Filetype>
     </Entity>
+
+    <Entity>
+      <Name>T Junction</Name>
+      <Type>Terrain</Type>
+      <Position X="2922.339f" Y="0.0f" Z="1901.68f"></Position>
+      <Rotation X="0.0f" Y="180.0" Z="0.0f"></Rotation>
+      <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+      <Shader>Per Pixel Lighting</Shader>
+
+      <Location>Roads/</Location>
+      <Filetype>.fbx</Filetype>
+    </Entity>
+
+
 
     <Entity>
       <Name>Pub Floor</Name>
@@ -168,17 +182,72 @@
       <Filetype>.fbx</Filetype>
     </Entity>
     <Entity>
-      <Name>Building C</Name>
+      <Name>3 Story Flat</Name>
       <Type>Building</Type>
-      <Position X="1053.991f" Y="12.761f" Z="41.412f"></Position>
-      <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
+      <Position X="945.527f" Y="24.296f" Z="-649.588"></Position>
+      <Rotation X="0.0f" Y="90.0f" Z="0.0f"></Rotation>
       <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
       <Shader>Per Pixel Lighting</Shader>
 
-      <Location>Office Buildings/</Location>
+      <Location>3 Story Flat/</Location>
       <Filetype>.fbx</Filetype>
     </Entity>
+    <Entity>
+      <Name>3 Story Flat</Name>
+      <Type>Building</Type>
+      <Position X="945.527f" Y="24.296f" Z="352.308"></Position>
+      <Rotation X="0.0f" Y="90.0f" Z="0.0f"></Rotation>
+      <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+      <Shader>Per Pixel Lighting</Shader>
 
+      <Location>3 Story Flat/</Location>
+      <Filetype>.fbx</Filetype>
+    </Entity>
+    <Entity>
+      <Name>3 Story Flat</Name>
+      <Type>Building</Type>
+      <Position X="945.527f" Y="24.296f" Z="1353.459"></Position>
+      <Rotation X="0.0f" Y="90.0f" Z="0.0f"></Rotation>
+      <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+      <Shader>Per Pixel Lighting</Shader>
+
+      <Location>3 Story Flat/</Location>
+      <Filetype>.fbx</Filetype>
+    </Entity>
+    <Entity>
+      <Name>3 Story Flat</Name>
+      <Type>Building</Type>
+      <Position X="1948.238f" Y="24.296f" Z="-649.588"></Position>
+      <Rotation X="0.0f" Y="-90.0f" Z="0.0f"></Rotation>
+      <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+      <Shader>Per Pixel Lighting</Shader>
+
+      <Location>3 Story Flat/</Location>
+      <Filetype>.fbx</Filetype>
+    </Entity>
+    <Entity>
+      <Name>3 Story Flat</Name>
+      <Type>Building</Type>
+      <Position X="1948.238f" Y="24.296f" Z="351.564"></Position>
+      <Rotation X="0.0f" Y="-90.0f" Z="0.0f"></Rotation>
+      <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+      <Shader>Per Pixel Lighting</Shader>
+
+      <Location>3 Story Flat/</Location>
+      <Filetype>.fbx</Filetype>
+    </Entity>
+    <Entity>
+      <Name>3 Story Flat</Name>
+      <Type>Building</Type>
+      <Position X="1948.238f" Y="24.296f" Z="1353.459"></Position>
+      <Rotation X="0.0f" Y="-90.0f" Z="0.0f"></Rotation>
+      <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
+      <Shader>Per Pixel Lighting</Shader>
+
+      <Location>3 Story Flat/</Location>
+      <Filetype>.fbx</Filetype>
+    </Entity>
+    
     <Entity>
       <Name>Building E</Name>
       <Type>Building</Type>
@@ -229,22 +298,11 @@
     
     <!-- Building Entities -->
     <!-- Object Entities -->
-    <Entity>
-      <Name>Wire Fence</Name>
-      <Type>Object</Type>
-      <Position X="689.769f" Y="18.788f" Z="1573.763f"></Position>
-      <Rotation X="0.0f" Y="0.0f" Z="0.0f"></Rotation>
-      <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
-      <Shader>Per Pixel Lighting</Shader>
-
-      <Location>Fences/</Location>
-      <Filetype>.fbx</Filetype>
-    </Entity>
 
     <Entity>
       <Name>Wire Fence</Name>
       <Type>Object</Type>
-      <Position X="936.891f" Y="18.788f" Z="1835.481f"></Position>
+      <Position X="1450.903f" Y="14.813f" Z="1832.157f"></Position>
       <Rotation X="0.0f" Y="-90.0f" Z="0.0f"></Rotation>
       <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
       <Shader>Per Pixel Lighting</Shader>
@@ -256,7 +314,7 @@
     <Entity>
       <Name>Wire Fence</Name>
       <Type>Object</Type>
-      <Position X="1455.41f" Y="18.788f" Z="1835.481f"></Position>
+      <Position X="1450.903f" Y="14.813f" Z="-1143.985f"></Position>
       <Rotation X="0.0f" Y="-90.0f" Z="0.0f"></Rotation>
       <Scale X="1.0f" Y="1.0f" Z="1.0f"></Scale>
       <Shader>Per Pixel Lighting</Shader>

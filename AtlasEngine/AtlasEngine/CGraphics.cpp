@@ -104,7 +104,7 @@ bool CGraphics::Frame(CInput* m_Input, float frameTime, float clock) {
 	D3DXMATRIX worldMatrix;
 
 	//Camera Frame Function
-	m_Camera->Frame(m_Input);
+	m_Camera->Frame(m_Input, frameTime);
 
 	//Update World Matrix
 	m_Direct3D->UpdateWorldMatrix(worldMatrix);

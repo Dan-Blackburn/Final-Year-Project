@@ -10,16 +10,6 @@ cbuffer MatrixBuffer : register(cb0)
 	matrix projectionMatrix;
 };
 
-cbuffer LightBuffer : register(cb1)
-{
-	float4 ambientColour;
-	float4 diffuseColour;
-	float4 specularColour;
-	float3 lightDirection;
-	float specularPower;
-	float padding;
-};
-
 //Typedefs
 struct PixelInputType {
 	float4 position : SV_POSITION;
