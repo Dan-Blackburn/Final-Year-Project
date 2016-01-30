@@ -25,11 +25,12 @@ cbuffer LightBuffer : register(b2)
 	float4 ambientSunColour;
 	float4 ambientMoonColour;
 	float4 diffuseColour;
-	float4 specularColour;
+	float3 specularColour;
+	float sunlightSpecular;
 	float3 sunlightDirection;
 	float sunlightAngle;
 	float3 moonlightDirection;
-	float padding;
+	float moonlightSpecular;
 };
 
 //Typedefs
@@ -74,11 +75,11 @@ float4 PerPixelLightingPS(PixelInputType input) : SV_TARGET
 	
 	//Sunlight
 	halfway = normalize((float3)sunlightDirection + input.viewDirection);
-	sunSpecular = ambientSunColour * pow(saturate(dot(textureNormal, halfway)), 72);
+	sunSpecular = ambientSunColour * pow(saturate(dot(textureNormal, halfway)), sunlightSpecular);
 
 	//Moonlight 
 	halfway = normalize((float3)moonlightDirection + input.viewDirection);
-	moonSpecular = ambientMoonColour * pow(saturate(dot(textureNormal, halfway)), 36);
+	moonSpecular = ambientMoonColour * pow(saturate(dot(textureNormal, halfway)), moonlightSpecular);
 
 	float3 StreetlightLight = float3(0.0f, 0.0f, 0.0f);
 	float3 StreetlightSpecular = float3(0.0f, 0.0f, 0.0f);

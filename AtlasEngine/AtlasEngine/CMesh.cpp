@@ -161,7 +161,7 @@ bool CMesh::LoadMesh(ID3D11Device* device, std::string mFileName, eModelType mod
 		int indexCount = 0;
 		
 		//Store 3 Point Indices
-		for (unsigned int j = 0; j < subMesh->m_facesCount; j++) 
+		for (int j = 0; j < subMesh->m_facesCount; j++) 
 		{
 			if (Scene->mMeshes[i]->mFaces[j].mNumIndices == 3) 
 			{

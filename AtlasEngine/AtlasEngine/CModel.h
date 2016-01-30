@@ -10,10 +10,9 @@
 
 //Model Class
 class CModel{
-public:
-
+private:
 	struct ModelProperties;
-
+public:
 	//Constructors & Destructors
 	CModel();
 	CModel(const CModel&);

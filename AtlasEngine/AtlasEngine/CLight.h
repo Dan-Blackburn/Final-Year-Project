@@ -37,7 +37,7 @@ public:
 	void Frame(float frameTime, float clock, float sunAngle);
 
 	//Public Variables
-	static enum eLightType { Ambient, Point, Spotlight };
+	enum eLightType { Ambient, Point, Spotlight };
 
 private:
 	//Orientation

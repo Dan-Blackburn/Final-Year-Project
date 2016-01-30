@@ -22,7 +22,7 @@ public:
 	inline void SetShaderCount(int newShaderNum) { ShaderCount = newShaderNum; }
 
 	//Functions
-	int InitialiseShaders(ID3D11Device*, HWND);
+	bool InitialiseShaders(ID3D11Device*, HWND);
 	bool RenderShader(ID3D11DeviceContext*, int, D3DMATRIX, D3DMATRIX, D3DMATRIX, ID3D11ShaderResourceView*[4], vector<CLight*>, CCamera* mainCamera);
 	bool Shutdown();
 

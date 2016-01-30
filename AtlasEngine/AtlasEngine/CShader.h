@@ -119,11 +119,12 @@ private:
 		D3DXVECTOR4 ambientSunColour = {0.0f, 0.0f, 0.0f, 0.0f};
 		D3DXVECTOR4 ambientMoonColour = { 0.0f, 0.0f, 0.0f, 0.0f };
 		D3DXVECTOR4 diffuseColour = { 0.0f, 0.0f, 0.0f, 0.0f};
-		D3DXVECTOR4 specularColour = { 0.0f, 0.0f, 0.0f, 0.0f };
+		D3DXVECTOR3 specularColour = { 0.0f, 0.0f, 0.0f };
+		float sunlightSpecular;
 		D3DXVECTOR3 sunlightDirection = { 0.0f, 0.0f, 0.0f };
 		float sunlightAngle;
 		D3DXVECTOR3 moonlightDirection = { 0.0f, 0.0f, 0.0f };
-		float padding;
+		float moonlightSpecular;
 	};
 
 	//Functions

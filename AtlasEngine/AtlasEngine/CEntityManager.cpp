@@ -275,6 +275,7 @@ bool CEntityManager::InitialiseEntities(ID3D11Device* device)
 			float angle;
 			Attributes->QueryFloatAttribute("Angle", &angle);
 			m_LightEntity->SetAngle(angle);
+			Attributes = Attributes->NextSiblingElement();
 		}
 		else if (m_LightEntity->GetType() == CLight::Point)
 		{

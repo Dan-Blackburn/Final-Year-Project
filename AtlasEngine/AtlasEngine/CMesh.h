@@ -13,20 +13,19 @@
 
 //Mesh Class
 class CMesh{
-
+public:
 	//Prototypes
 	struct VertexType;
 	struct SubMesh;
 
-public:
 	//Constructors & Destructors
 	CMesh();
 	CMesh(const CMesh&);
 	~CMesh();
 
 	//Temp Variables?
-	static enum eModelType { Building, Terrain, Water, Vehicle, Object, Particle };
-	static enum eTextureType {Diffuse, Specular, Normal, Alpha};
+	enum eModelType { Building, Terrain, Water, Vehicle, Object, Particle };
+	enum eTextureType {Diffuse, Specular, Normal, Alpha};
 
 	//Functions
 	bool LoadMesh(ID3D11Device*, std::string, eModelType, std::string, std::string);

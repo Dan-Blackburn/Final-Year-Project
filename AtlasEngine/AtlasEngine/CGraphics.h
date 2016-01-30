@@ -12,9 +12,9 @@
 
 //Global Variables
 const bool FULL_SCREEN = false;
-const bool VSYNC_ENABLED = false;
+const bool VSYNC_ENABLED = true;
 const float SCREEN_DEPTH = 100000.0f;
-const float SCREEN_NEAR = 0.1f;
+const float SCREEN_NEAR = 5.0f;
 
 //Graphics Class
 class CGraphics 

@@ -88,7 +88,8 @@ bool CGraphics::Initialise(int viewportWidth, int viewportHeight, HWND hwnd) {
 
 	//Intialise Shader Object
 	result = m_ShaderManager->InitialiseShaders(m_Direct3D->GetDevice(), hwnd);
-	if (!result) {
+	if (!result) 
+	{
 		MessageBox(hwnd, "Could not Initialise the Shader Object.", "Error", MB_OK);
 		return false;
 	}

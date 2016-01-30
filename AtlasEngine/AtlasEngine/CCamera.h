@@ -42,7 +42,7 @@ public:
 private:
 	float m_positionX, m_positionY, m_positionZ;
 	float m_rotationX, m_rotationY, m_rotationZ;
-	float m_prevMouseX, m_prevMouseY;
+	int m_prevMouseX, m_prevMouseY;
 
 	D3DXMATRIX m_viewMatrix;
 	D3DXMATRIX m_rotationMatrix;

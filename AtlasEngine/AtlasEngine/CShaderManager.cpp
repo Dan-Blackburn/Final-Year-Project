@@ -58,10 +58,8 @@ bool CShaderManager::SetShaderType(string ShaderType)
 }
 
 //Intitialise Shaders
-int CShaderManager::InitialiseShaders(ID3D11Device* device, HWND hwnd)
+bool CShaderManager::InitialiseShaders(ID3D11Device* device, HWND hwnd)
 {
-	const int ShaderPointerError = 100;
-	const int ShaderInitialisationError = 101;
 	bool result;
 
 	//XML Variables
@@ -87,7 +85,7 @@ int CShaderManager::InitialiseShaders(ID3D11Device* device, HWND hwnd)
 		if (!m_Shader)
 		{
 			OutputDebugString("Error: Unexpected error when defining Shader Object.\n");
-			return ShaderPointerError;
+			return false;
 		}
 
 		//---------- XML Entity Attribute ----------//
@@ -130,7 +128,7 @@ int CShaderManager::InitialiseShaders(ID3D11Device* device, HWND hwnd)
 		if (!result)
 		{
 			OutputDebugString("Error: Unexpected error when initialising Shader Object.\n");
-			return ShaderInitialisationError;
+			return false;
 		}
 
 		ShaderAttributes = ShaderAttributes->NextSiblingElement();
